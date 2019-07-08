@@ -36,7 +36,7 @@ const RootNavigator = createSwitchNavigator({
   Login,
   Choose
 }, {
-  initialRouteName: 'Choose',
+  initialRouteName: 'Login',
 });
 
 export default createAppContainer(RootNavigator);

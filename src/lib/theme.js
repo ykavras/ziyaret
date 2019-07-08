@@ -1,5 +1,5 @@
 export default {
-  colorBlue: '#100B71',
+  colorBlue: '#114AA1',
   colorYellow: '#FFD939',
   colorWhite: '#FFFFFF',
   fontLight: 'Poppins-Light',

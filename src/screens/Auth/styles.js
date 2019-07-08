@@ -6,14 +6,20 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colorBlue,
   },
-  keyboard:{
+  keyboard: {
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 15,
   },
+  logo: {
+    width: 'auto',
+    height: 44,
+    resizeMode: 'contain',
+    marginBottom: 44,
+  },
   loginText: {
-    fontFamily:theme.fontSemiBold,
-    fontSize: 30,
+    fontFamily: theme.fontSemiBold,
+    fontSize: 20,
     color: theme.colorWhite,
     marginBottom: 20,
   },
@@ -23,11 +29,11 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 5,
   },
-  link:{
+  link: {
     paddingVertical: 10,
   },
-  linkTitle:{
-    fontFamily:theme.fontRegular,
+  linkTitle: {
+    fontFamily: theme.fontRegular,
     fontSize: 12,
     lineHeight: 14,
     color: theme.colorWhite,
