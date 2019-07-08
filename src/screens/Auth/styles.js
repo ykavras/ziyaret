@@ -14,6 +14,21 @@ export default StyleSheet.create({
     color: theme.colorWhite,
     marginBottom: 20,
   },
+  links: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
+  link:{
+    paddingVertical: 10,
+  },
+  linkTitle:{
+    fontFamily:theme.fontRegular,
+    fontSize: 12,
+    lineHeight: 14,
+    color: theme.colorWhite,
+  },
   button: {
     marginTop: 10,
   }

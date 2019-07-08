@@ -7,12 +7,12 @@ import {
   Animated, Easing,
 } from 'react-native';
 import {
-  Welcome,
+  Login,
 } from '../../screens';
 
 
 const StackNavigator = createStackNavigator({
-  Welcome,
+  Login,
 }, {
   headerMode: 'none',
   navigationOptions: { headerVisible: false },
@@ -31,9 +31,9 @@ const StackNavigator = createStackNavigator({
 
 const RootNavigator = createSwitchNavigator({
   StackNavigator,
-  Welcome,
+  Login,
 }, {
-  initialRouteName: 'Welcome',
+  initialRouteName: 'Login',
 });
 
 export default createAppContainer(RootNavigator);
