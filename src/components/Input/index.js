@@ -7,6 +7,10 @@ export function Input(props) {
     label,
     placeholder,
     password,
+    onRef,
+    returnKeyType,
+    onSubmitEditing,
+    blurOnSubmit
   } = props;
   return (
     <View style={styles.inputWrapper}>
@@ -14,7 +18,12 @@ export function Input(props) {
         <TextInput 
           style={styles.input} placeholder={placeholder}
           placeholderTextColor="rgba(255,255,255,0.4)"
-          secureTextEntry={password} />
+          secureTextEntry={password} 
+          ref={onRef}
+          returnKeyType={returnKeyType}
+          onSubmitEditing={onSubmitEditing}
+          blurOnSubmit={blurOnSubmit}
+          />
     </View>
   );
 }

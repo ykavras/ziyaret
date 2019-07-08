@@ -5,6 +5,9 @@ export default StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: theme.colorBlue,
+  },
+  keyboard:{
+    flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 15,
   },
