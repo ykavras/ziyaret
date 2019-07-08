@@ -19,8 +19,9 @@ export default StyleSheet.create({
         backgroundColor: theme.colorBlue,
       },
       input: {
-        paddingVertical: 14,
+        paddingVertical: 16,
         paddingHorizontal: 10,
+        fontFamily: theme.fontMedium,
         color: theme.colorWhite,
         fontSize: 12,
       },

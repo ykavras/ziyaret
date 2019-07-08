@@ -6,6 +6,5 @@ export default {
   fontRegular: 'Poppins-Regular',
   fontMedium: 'Poppins-Medium',
   fontSemiBold: 'Poppins-SemiBold',
-  fontBold: 'Poppins-Bold',
   fontBlack: 'Poppins-Black',
 };
