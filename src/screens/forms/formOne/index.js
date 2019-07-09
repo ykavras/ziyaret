@@ -8,6 +8,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Input, Button, Select, Tab, DataPicker, AddFile, CameraButton } from '../../../components';
 import DocumentPicker from 'react-native-document-picker';
 import { RNCamera } from 'react-native-camera';
+import Video from 'react-native-video';
 
 class FormOne extends Component {
   constructor(props) {
@@ -285,7 +286,7 @@ class FormOne extends Component {
                       <CameraButton label="BİTİR" onPress={() => this.stopRecording(camera)} />
                       :
                       <CameraButton label="KAYIT" onPress={() => this.startRecording(camera)} />
-                  } 
+                  }
                 </View>
               );
             }}
@@ -304,7 +305,8 @@ class FormOne extends Component {
       presentation,
       interviewResult,
       interview,
-      image
+      image,
+      video
     } = this.state;
     return (
       <View style={homeStyles.wrapper}>
@@ -358,12 +360,10 @@ class FormOne extends Component {
             <AddFile title="Video/Fotoğraf Çek veya Ekle" type="gallery" onPress={() => this.openCamera()} />
             <AddFile title="Ses Kaydı Al" type="audio" onPress={() => this.documentAdd()} />
           </View>
-          {
-            image ?
-              <Image source={{ uri: image }} style={homeStyles.snapImage} />
-              : null
-
-          }
+          <View style={homeStyles.imgWrapper}>
+            {image ? <Image source={{ uri: image }} style={homeStyles.snapImage} /> : null}
+            {video ? <Video source={{ uri: video }} ref={(ref) => { this.player = ref }} onBuffer={this.onBuffer} onError={this.videoError} style={homeStyles.snapImage} /> : null}
+          </View>
           <Button title="Formu Gönder" />
         </KeyboardAwareScrollView>
         {

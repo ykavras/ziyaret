@@ -103,9 +103,15 @@ export default StyleSheet.create({
     fontFamily: theme.fontMedium,
     textAlign: 'center'
   },
+  imgWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingBottom: 20
+  },
   snapImage: {
-    width: 40,
-    height: 80,
+    width: 100,
+    height: 140,
     resizeMode: 'contain',
     borderRadius: 6,
   }
