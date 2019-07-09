@@ -73,8 +73,9 @@ export default StyleSheet.create({
     left: 0,
     top: 0,
     right: 0,
+    bottom: 0,
     width,
-    height: height - 20,
+    height,
     backgroundColor: 'black',
     zIndex: 2
   },
@@ -82,20 +83,25 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingBottom: 20,
   },
   captureWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
     width: '100%',
+    paddingBottom: 60,
   },
   waiting: {
     backgroundColor: theme.colorBlue,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
     width: '100%',
     height: '100%',
     textAlign: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   waitingTitle: {
     color: theme.colorWhite,
