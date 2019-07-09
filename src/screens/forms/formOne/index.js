@@ -5,7 +5,7 @@ import {
 import homeStyles from '../styles';
 import styles from './styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Input, Button, Select, Tab } from '../../../components';
+import { Input, Button, Select, Tab, DataPicker } from '../../../components';
 
 class FormOne extends Component {
   constructor(props) {
@@ -14,6 +14,9 @@ class FormOne extends Component {
       product: '',
       presentation: '',
       interview: '',
+      subscribers: '',
+      date: '',
+      time: '',
       productArray: [
         {
           label: 'Fiber İnternet',
@@ -67,6 +70,20 @@ class FormOne extends Component {
           label: 'Fiyat Yüksek',
           value: '5',
         }
+      ],
+      subscribersArray: [
+        {
+          label: 'Vodafone',
+          value: '0',
+        },
+        {
+          label: 'Türk Telekom',
+          value: '1',
+        },
+        {
+          label: 'Metro',
+          value: '2',
+        },
       ]
     }
   }
@@ -132,14 +149,43 @@ class FormOne extends Component {
   }
 
   renderInterview = (interview) => {
+    const { date, time } = this.state;
     switch (interview) {
       case 0:
         return <Input label="Satış Tamam Metni" placeholder="Satış tamam metnini giriniz" />
         break;
       case 1:
-        
+        return (
+          <DataPicker
+            label="Tekrar Ziyaret Edilecek"
+            date={date}
+            time={time}
+            onDateChangeDate={(item) => {
+              this.setState({ date: item });
+            }}
+            onDateChangeTime={(item) => {
+              this.setState({ time: item });
+            }}
+          />
+        )
         break;
       case 2:
+        return <Input label="Olumsuz Metni" placeholder="Neden olumsuz olduğunu giriniz" />
+        break;
+      case 3:
+        break;
+      case 4:
+        return (
+          <Select
+            label="Başka ISS Abonesi"
+            selectText="İlgili aboneyi seçiniz"
+            array={this.state.subscribersArray}
+            onValueChange={value => { this.setState({ subscribers: value }) }}
+            onRef={el => { this.state.subscribers = el; }} />
+        )
+        break;
+      case 5:
+        return <Input label="Fiyat Yüksek" placeholder="Mevcut fatura tutarını giriniz" keyboardType="numeric" />
         break;
       default:
       // code block
@@ -153,7 +199,7 @@ class FormOne extends Component {
       presentationsTypes,
       presentation,
       interviewResult,
-      interview
+      interview,
     } = this.state;
     return (
       <View style={homeStyles.wrapper}>

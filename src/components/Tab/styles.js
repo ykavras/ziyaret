@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import theme from '../../lib/theme';
 
 export default StyleSheet.create({
@@ -24,8 +24,8 @@ export default StyleSheet.create({
     backgroundColor: theme.colorWhite,
   },
   circleTitle: {
-    fontSize: 12,
-    fontFamily: theme.fontSemiBold,
+    fontSize: 10,
+    fontFamily: theme.fontMedium,
     color: theme.colorWhite,
   },
 });
