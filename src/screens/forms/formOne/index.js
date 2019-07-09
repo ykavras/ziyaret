@@ -6,6 +6,7 @@ import homeStyles from '../styles';
 import styles from './styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Input, Button, Select, Tab, DataPicker } from '../../../components';
+import DocumentPicker from 'react-native-document-picker';
 
 class FormOne extends Component {
   constructor(props) {
@@ -192,6 +193,27 @@ class FormOne extends Component {
     }
   }
 
+  documentAdd = async () => {
+    // Pick a single file
+    try {
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.images],
+      });
+      console.log(
+        res.uri,
+        res.type, // mime type
+        res.name,
+        res.size
+      );
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        // User cancelled the picker, exit any dialogs or menus and move on
+      } else {
+        throw err;
+      }
+    }
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     const {
@@ -209,10 +231,7 @@ class FormOne extends Component {
           <Text style={homeStyles.loginText}>Fiberteknoloji ve Hometechnology</Text>
           <Input label="Adı" placeholder="Adınızı giriniz" />
           <Input label="Soyadı" placeholder="Soyadınızı giriniz" />
-          <Input
-            label="Cep Telefonu"
-            placeholder="Cep telefonunuzu giriniz"
-          />
+          <Input label="Cep Telefonu" placeholder="Cep telefonunuzu giriniz" />
           <Select
             label="Hangi Ürün Sunuldu ?"
             selectText="İlgili alanı seçiniz"
@@ -251,6 +270,7 @@ class FormOne extends Component {
           {
             this.renderInterview(interview)
           }
+          <TouchableOpacity onPress={() => this.documentAdd()}><Text>ewqe</Text></TouchableOpacity>
         </KeyboardAwareScrollView>
       </View>
     );
