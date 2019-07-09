@@ -40,5 +40,27 @@ export default StyleSheet.create({
   },
   button: {
     marginTop: 10,
-  }
+  },
+  tabs: {
+    borderWidth: 1,
+    borderColor: theme.colorWhite,
+    borderRadius: 6,
+    paddingVertical: 16,
+    paddingHorizontal: 10,
+    fontFamily: theme.fontMedium,
+    color: theme.colorWhite,
+    fontSize: 12,
+    marginVertical: 15,
+    paddingBottom: 8,
+  },
+  tabTitle: {
+    position: 'absolute',
+    top: -14,
+    left: 10,
+    fontSize: 12,
+    fontFamily: theme.fontMedium,
+    color: theme.colorWhite,
+    padding: 4,
+    backgroundColor: theme.colorBlue,
+  },
 });

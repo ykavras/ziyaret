@@ -18,9 +18,7 @@ const pickerStyle = {
     fontFamily: theme.fontMedium,
     color: theme.colorWhite,
     fontSize: 12,
-  },
-  placeholderColor: '#4E4E4E',
-  underline: { borderTopWidth: 0 },
+  }
 };
 
 export function Select(props) {
@@ -40,7 +38,7 @@ export function Select(props) {
         placeholder={{
           label: `${selectText}`,
           value: null,
-          color: 'red',
+          color: theme.colorBlue,
         }}
         placeholderTextColor="rgba(255,255,255,0.4)"
         items={array}
