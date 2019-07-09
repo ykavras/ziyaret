@@ -63,4 +63,7 @@ export default StyleSheet.create({
     padding: 4,
     backgroundColor: theme.colorBlue,
   },
+  filesWrapper: {
+    marginBottom: 10,
+  }
 });

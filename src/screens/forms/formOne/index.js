@@ -5,7 +5,7 @@ import {
 import homeStyles from '../styles';
 import styles from './styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Input, Button, Select, Tab, DataPicker } from '../../../components';
+import { Input, Button, Select, Tab, DataPicker, AddFile } from '../../../components';
 import DocumentPicker from 'react-native-document-picker';
 
 class FormOne extends Component {
@@ -270,7 +270,12 @@ class FormOne extends Component {
           {
             this.renderInterview(interview)
           }
-          <TouchableOpacity onPress={() => this.documentAdd()}><Text>ewqe</Text></TouchableOpacity>
+          <View style={homeStyles.filesWrapper}>
+            <AddFile title="Dosya Ekle" type="file" onPress={() => this.documentAdd()} />
+            <AddFile title="Video/Fotoğraf Çek veya Ekle" type="gallery" onPress={() => this.documentAdd()} />
+            <AddFile title="Ses Kaydı Al" type="audio" onPress={() => this.documentAdd()} />
+          </View>
+          <Button title="Formu Gönder" />
         </KeyboardAwareScrollView>
       </View>
     );
