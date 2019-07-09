@@ -9,6 +9,18 @@ import { Input, Button, Select, Tab, DataPicker, AddFile, CameraButton } from '.
 import DocumentPicker from 'react-native-document-picker';
 import { RNCamera } from 'react-native-camera';
 import Video from 'react-native-video';
+import AudioRecord from 'react-native-audio-record';
+import { Buffer } from 'buffer';
+
+const options = {
+  sampleRate: 16000,  // default 44100
+  channels: 1,        // 1 or 2, default 1
+  bitsPerSample: 16,  // 8 or 16, default 16
+  audioSource: 6,     // android only (see below)
+  wavFile: 'test.wav' // default 'audio.wav'
+};
+
+AudioRecord.init(options);
 
 class FormOne extends Component {
   constructor(props) {
@@ -246,7 +258,6 @@ class FormOne extends Component {
   }
   cameraView = () => {
     const { camera, recording } = this.state;
-
     const PendingView = () => (
       <View style={homeStyles.waiting}>
         <Text style={homeStyles.waitingTitle}>Yükleniyor...</Text>
@@ -294,6 +305,20 @@ class FormOne extends Component {
         </View>
       )
     }
+  }
+
+  audioStart = () => {
+    AudioRecord.start();
+  }
+
+  audioStop = async () => {
+    AudioRecord.stop();
+    audioFile = await AudioRecord.stop();
+
+    AudioRecord.on('data', data => {
+      chunk = Buffer.from(data, 'base64');
+      console.log(chunk)
+    });
   }
 
 
@@ -358,7 +383,8 @@ class FormOne extends Component {
           <View style={homeStyles.filesWrapper}>
             <AddFile title="Dosya Ekle" type="file" onPress={() => this.documentAdd()} />
             <AddFile title="Video/Fotoğraf Çek veya Ekle" type="gallery" onPress={() => this.openCamera()} />
-            <AddFile title="Ses Kaydı Al" type="audio" onPress={() => this.documentAdd()} />
+            <AddFile title="Ses Kaydı Al" type="audio" onPress={() => this.audioStart()} />
+            <AddFile title="Stop" type="audio" onPress={() => this.audioStop()} />
           </View>
           <View style={homeStyles.imgWrapper}>
             {image ? <Image source={{ uri: image }} style={homeStyles.snapImage} /> : null}
