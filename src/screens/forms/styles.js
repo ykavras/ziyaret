@@ -112,7 +112,12 @@ export default StyleSheet.create({
   snapImage: {
     width: 100,
     height: 140,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
+    borderRadius: 6,
+  },
+  snapVideo: {
+    width: 100,
+    height: 140,
     borderRadius: 6,
   }
 });

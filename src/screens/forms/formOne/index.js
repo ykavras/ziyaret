@@ -362,7 +362,7 @@ class FormOne extends Component {
           </View>
           <View style={homeStyles.imgWrapper}>
             {image ? <Image source={{ uri: image }} style={homeStyles.snapImage} /> : null}
-            {video ? <Video source={{ uri: video }} ref={(ref) => { this.player = ref }} onBuffer={this.onBuffer} onError={this.videoError} style={homeStyles.snapImage} /> : null}
+            {video ? <Video source={{ uri: video }} ref={(ref) => { this.player = ref }} onBuffer={this.onBuffer} onError={this.videoError} resizeMode="cover" style={homeStyles.snapVideo} /> : null}
           </View>
           <Button title="Formu Gönder" />
         </KeyboardAwareScrollView>
