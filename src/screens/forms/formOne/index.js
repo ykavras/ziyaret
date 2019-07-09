@@ -1,23 +1,28 @@
 import React, { Component, Fragment } from 'react';
 import {
-  View, StatusBar, Text, TouchableOpacity
+  View, StatusBar, Text, Image
 } from 'react-native';
 import homeStyles from '../styles';
 import styles from './styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Input, Button, Select, Tab, DataPicker, AddFile } from '../../../components';
+import { Input, Button, Select, Tab, DataPicker, AddFile, CameraButton } from '../../../components';
 import DocumentPicker from 'react-native-document-picker';
+import { RNCamera } from 'react-native-camera';
 
 class FormOne extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      image: '',
+      video: '',
       product: '',
       presentation: '',
       interview: '',
       subscribers: '',
       date: '',
       time: '',
+      camera: false,
+      recording: false,
       productArray: [
         {
           label: 'Fiber İnternet',
@@ -214,6 +219,83 @@ class FormOne extends Component {
     }
   }
 
+  takePicture = async (camera) => {
+    if (camera) {
+      const options = { quality: 0.5, base64: true };
+      const data = await camera.takePictureAsync(options);
+      await this.closeCamera(data.uri)
+    }
+  };
+
+  openCamera = () => {
+    this.setState({ camera: true })
+  }
+
+  closeCamera = (image) => { this.setState({ image, camera: false }) }
+
+  stopRecording = async (camera) => {
+    camera.stopRecording();
+    this.setState({ camera: false, })
+  }
+
+  startRecording = async (camera) => {
+    this.setState({ recording: true });
+    const { uri, codec = "mp4" } = await camera.recordAsync();
+    this.setState({ video: uri })
+  }
+  cameraView = () => {
+    const { camera, recording } = this.state;
+
+    const PendingView = () => (
+      <View style={homeStyles.waiting}>
+        <Text style={homeStyles.waitingTitle}>Yükleniyor...</Text>
+      </View>
+    );
+
+
+    if (camera) {
+      return (
+        <View style={homeStyles.cameraWrapper}>
+          <RNCamera
+            style={homeStyles.preview}
+            type={RNCamera.Constants.Type.back}
+            flashMode={RNCamera.Constants.FlashMode.on}
+            permissionDialogTitle={"Permission to use camera"}
+            permissionDialogMessage={"We need your permission to use your camera phone"}
+            androidCameraPermissionOptions={{
+              title: 'Permission to use camera',
+              message: 'We need your permission to use your camera',
+              buttonPositive: 'Ok',
+              buttonNegative: 'Cancel',
+            }}
+            androidRecordAudioPermissionOptions={{
+              title: 'Permission to use audio recording',
+              message: 'We need your permission to use your audio',
+              buttonPositive: 'Ok',
+              buttonNegative: 'Cancel',
+            }}
+          >
+            {({ camera, status, recordAudioPermissionStatus }) => {
+              if (status !== 'READY') return <PendingView />;
+              return (
+                <View style={homeStyles.captureWrapper}>
+                  <CameraButton label="ÇEK" onPress={() => this.takePicture(camera)} />
+                  {
+                    recording ?
+                      <CameraButton label="BİTİR" onPress={() => this.stopRecording(camera)} />
+                      :
+                      <CameraButton label="KAYIT" onPress={() => this.startRecording(camera)} />
+                  } 
+                </View>
+              );
+            }}
+          </RNCamera>
+        </View>
+      )
+    }
+  }
+
+
   render() {
     const { navigate } = this.props.navigation;
     const {
@@ -222,6 +304,7 @@ class FormOne extends Component {
       presentation,
       interviewResult,
       interview,
+      image
     } = this.state;
     return (
       <View style={homeStyles.wrapper}>
@@ -244,9 +327,9 @@ class FormOne extends Component {
               presentationsTypes.map((item, index) => {
                 return (
                   presentation === index ?
-                    <Tab title={item.label} active />
+                    <Tab key={index} title={item.label} active />
                     :
-                    <Tab title={item.label} onPress={() => this.setState({ presentation: index })} />
+                    <Tab key={index} title={item.label} onPress={() => this.setState({ presentation: index })} />
                 )
               })
             }
@@ -260,9 +343,9 @@ class FormOne extends Component {
               interviewResult.map((item, index) => {
                 return (
                   interview === index ?
-                    <Tab title={item.label} active />
+                    <Tab key={index} title={item.label} active />
                     :
-                    <Tab title={item.label} onPress={() => this.setState({ interview: index })} />
+                    <Tab key={index} title={item.label} onPress={() => this.setState({ interview: index })} />
                 )
               })
             }
@@ -272,11 +355,20 @@ class FormOne extends Component {
           }
           <View style={homeStyles.filesWrapper}>
             <AddFile title="Dosya Ekle" type="file" onPress={() => this.documentAdd()} />
-            <AddFile title="Video/Fotoğraf Çek veya Ekle" type="gallery" onPress={() => this.documentAdd()} />
+            <AddFile title="Video/Fotoğraf Çek veya Ekle" type="gallery" onPress={() => this.openCamera()} />
             <AddFile title="Ses Kaydı Al" type="audio" onPress={() => this.documentAdd()} />
           </View>
+          {
+            image ?
+              <Image source={{ uri: image }} style={homeStyles.snapImage} />
+              : null
+
+          }
           <Button title="Formu Gönder" />
         </KeyboardAwareScrollView>
+        {
+          this.cameraView()
+        }
       </View>
     );
   }

@@ -1,6 +1,8 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import theme from '../../lib/theme';
 
+const { width, height } = Dimensions.get('window');
+
 export default StyleSheet.create({
   wrapper: {
     flex: 1,
@@ -65,5 +67,46 @@ export default StyleSheet.create({
   },
   filesWrapper: {
     marginBottom: 10,
+  },
+  cameraWrapper: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    right: 0,
+    width,
+    height: height - 20,
+    backgroundColor: 'black',
+    zIndex: 2
+  },
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingBottom: 20,
+  },
+  captureWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '100%',
+  },
+  waiting: {
+    backgroundColor: theme.colorBlue,
+    width: '100%',
+    height: '100%',
+    textAlign: 'center',
+    justifyContent: 'center'
+  },
+  waitingTitle: {
+    color: theme.colorWhite,
+    fontSize: 16,
+    fontFamily: theme.fontMedium,
+    textAlign: 'center'
+  },
+  snapImage: {
+    width: 40,
+    height: 80,
+    resizeMode: 'contain',
+    borderRadius: 6,
   }
 });
