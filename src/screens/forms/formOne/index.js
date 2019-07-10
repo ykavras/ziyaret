@@ -11,16 +11,7 @@ import { RNCamera } from 'react-native-camera';
 import Video from 'react-native-video';
 import AudioRecord from 'react-native-audio-record';
 import { Buffer } from 'buffer';
-
-const options = {
-  sampleRate: 16000,  // default 44100
-  channels: 1,        // 1 or 2, default 1
-  bitsPerSample: 16,  // 8 or 16, default 16
-  audioSource: 6,     // android only (see below)
-  wavFile: 'test.wav' // default 'audio.wav'
-};
-
-AudioRecord.init(options);
+import AudioIcon from '../../../assets/icons/Microphone';
 
 class FormOne extends Component {
   constructor(props) {
@@ -36,6 +27,8 @@ class FormOne extends Component {
       time: '',
       camera: false,
       recording: false,
+      audio: false,
+      audioData: '',
       productArray: [
         {
           label: 'Fiber İnternet',
@@ -105,6 +98,18 @@ class FormOne extends Component {
         },
       ]
     }
+  }
+
+  componentDidMount() {
+    const options = {
+      sampleRate: 44100,  // default 44100
+      channels: 1,        // 1 or 2, default 1
+      bitsPerSample: 16,  // 8 or 16, default 16
+      audioSource: 6,     // android only (see below)
+      wavFile: 'test.wav' // default 'audio.wav'
+    };
+
+    AudioRecord.init(options);
   }
 
   renderPresentation = (presentation) => {
@@ -291,6 +296,7 @@ class FormOne extends Component {
               if (status !== 'READY') return <PendingView />;
               return (
                 <View style={homeStyles.captureWrapper}>
+                  <CameraButton label="KAPAT" onPress={() => this.closeCamera()} />
                   <CameraButton label="ÇEK" onPress={() => this.takePicture(camera)} />
                   {
                     recording ?
@@ -309,15 +315,14 @@ class FormOne extends Component {
 
   audioStart = () => {
     AudioRecord.start();
+    this.setState({ audio: true })
   }
 
   audioStop = async () => {
-    AudioRecord.stop();
     audioFile = await AudioRecord.stop();
-
     AudioRecord.on('data', data => {
       chunk = Buffer.from(data, 'base64');
-      console.log(chunk)
+      this.setState({ audio: false, audioData: chunk })
     });
   }
 
@@ -331,7 +336,9 @@ class FormOne extends Component {
       interviewResult,
       interview,
       image,
-      video
+      video,
+      audio,
+      audioData
     } = this.state;
     return (
       <View style={homeStyles.wrapper}>
@@ -383,12 +390,14 @@ class FormOne extends Component {
           <View style={homeStyles.filesWrapper}>
             <AddFile title="Dosya Ekle" type="file" onPress={() => this.documentAdd()} />
             <AddFile title="Video/Fotoğraf Çek veya Ekle" type="gallery" onPress={() => this.openCamera()} />
-            <AddFile title="Ses Kaydı Al" type="audio" onPress={() => this.audioStart()} />
-            <AddFile title="Stop" type="audio" onPress={() => this.audioStop()} />
+            {
+              audio ? <AddFile title="Stop" type="audio" onPress={() => this.audioStop()} /> : <AddFile title="Ses Kaydı Al" type="audio" onPress={() => this.audioStart()} />
+            }
           </View>
           <View style={homeStyles.imgWrapper}>
             {image ? <Image source={{ uri: image }} style={homeStyles.snapImage} /> : null}
-            {video ? <Video source={{ uri: video }} ref={(ref) => { this.player = ref }} onBuffer={this.onBuffer} onError={this.videoError} resizeMode="cover" style={homeStyles.snapVideo} /> : null}
+            {video ? <Video paused source={{ uri: video }} ref={(ref) => { this.player = ref }} onBuffer={this.onBuffer} onError={this.videoError} resizeMode="cover" style={homeStyles.snapVideo} /> : null}
+            {audioData ? <AudioIcon style={homeStyles.snapImage} /> : null}
           </View>
           <Button title="Formu Gönder" />
         </KeyboardAwareScrollView>
