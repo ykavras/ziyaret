@@ -14,7 +14,31 @@ import { Buffer } from 'buffer';
 import AudioIcon from '../../../assets/icons/Microphone';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getServices } from "../../../store/actions/example";
+import {
+  getServices,
+  nameChanged,
+  surnameChanged,
+  phoneChanged,
+  presentChanged,
+  refererFirstNameChanged,
+  refererLastNameChanged,
+  refererPhoneChanged,
+  standAreaChanged,
+  standTimeChanged,
+  standNameChanged,
+  blockNameChanged,
+  flatNoChanged,
+  interViewResultChanged,
+  interViewResultDetailChanged,
+  revisitTimeChanged,
+  otherIssChanged,
+  fileChanged,
+  photoChanged,
+  voiceChanged,
+  longChanged,
+  latChanged,
+  offeredProductChanged,
+} from "../../../store/actions/example";
 
 class FormOne extends Component {
   constructor(props) {
@@ -35,15 +59,15 @@ class FormOne extends Component {
       productArray: [
         {
           label: 'Fiber İnternet',
-          value: '0',
+          value: 1,
         },
         {
           label: 'Fiber+TV’li İnter net',
-          value: '1',
+          value: 2,
         },
         {
           label: 'Fiber+Donanımlı Kampanya',
-          value: '2',
+          value: 3,
         }
       ],
       presentationsTypes: [
@@ -116,6 +140,14 @@ class FormOne extends Component {
 
     this.props.getServices();
   }
+
+  onNameChanged = (text) => {
+    nameChanged(text);
+  };
+
+  onNameChanged = (text) => {
+    surnameChanged(text);
+  };
 
   renderPresentation = (presentation) => {
     switch (presentation) {
@@ -331,7 +363,6 @@ class FormOne extends Component {
     });
   }
 
-
   render() {
     const { navigate } = this.props.navigation;
     const {
@@ -343,8 +374,10 @@ class FormOne extends Component {
       image,
       video,
       audio,
-      audioData
+      audioData,
+      product
     } = this.state;
+    console.log(product)
     const { isHome, isHomeErrorMessage, home } = this.props.getServicesToProps;
     console.log(isHome, isHomeErrorMessage, home)
     return (

@@ -19,7 +19,7 @@ class Login extends Component {
       if (value !== null) {
         this.props.loginToProps.token = value;
         const { navigate } = this.props.navigation;
-        return (navigate('Accounts'))
+        return (navigate('FormOne'))
       }
     });
   }
