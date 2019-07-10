@@ -11,13 +11,15 @@ export const fetchingSuccess = (type, json) => ({ type, payload: json });
 
 export const fetchingFailure = (type, error) => ({ type, payload: error });
 
-export const example = () => async (dispatch) => {
+export const getServices = () => async (dispatch) => {
   dispatch(fetchingRequest(EXAMPLE_REQUEST));
   try {
-    const response = await api.post('');
+    const response = await api.get('services');
     const payload = await response.data;
     dispatch(fetchingSuccess(EXAMPLE_SUCCESS, payload));
   } catch (error) {
     dispatch(fetchingFailure(EXAMPLE_FAILURE, error.response));
   }
 };
+
+

@@ -1,8 +1,7 @@
 import axios from 'axios';
 import store from '../store/index';
 
-const BASE_URL = 'http://';
-
+const BASE_URL = 'http://192.168.1.5:8000/api/';
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -13,10 +12,10 @@ axiosInstance.defaults.headers.common['Content-Type'] = 'application/json';
 
 axiosInstance.interceptors.request.use((config) => {
   console.log('REQUEST : ', config);
-  // const { token } = store.getState().loginReducer;
-  // if (token !== '' && config != null) {
-  //    config.headers.Authorization = `JWT ${ token }`;
-  // }
+  const { token } = store.getState().loginReducer;
+  if (token !== '' && config != null) {
+    config.headers.Authorization = `Token ${token}`;
+  }
   return config;
 }, err => Promise.reject(err));
 

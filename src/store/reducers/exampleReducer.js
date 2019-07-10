@@ -13,15 +13,13 @@ const INITIAL_STATE = {
 export default function (state = INITIAL_STATE, action) {
   const { type, payload } = action;
   switch (type) {
-  case EXAMPLE_REQUEST:
-    return {
-      ...state, isHome: false, isHomeErrorMessage: null, home: null,
-    };
-  case EXAMPLE_SUCCESS:
-    return { ...state, isHome: true, home: payload };
-  case EXAMPLE_FAILURE:
-    return { ...state, isHome: false, isHomeErrorMessage: payload };
-  default:
-    return state;
+    case EXAMPLE_REQUEST:
+      return { ...state, isHome: false, isHomeErrorMessage: null, home: null };
+    case EXAMPLE_SUCCESS:
+      return { ...state, isHome: true, home: payload };
+    case EXAMPLE_FAILURE:
+      return { ...state, isHome: false, isHomeErrorMessage: payload };
+    default:
+      return state;
   }
 }

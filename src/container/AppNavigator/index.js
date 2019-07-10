@@ -42,7 +42,7 @@ const RootNavigator = createSwitchNavigator({
   FormOne,
   FormTwo
 }, {
-  initialRouteName: 'FormOne',
+  initialRouteName: 'Login',
 });
 
 export default createAppContainer(RootNavigator);

@@ -12,6 +12,9 @@ import Video from 'react-native-video';
 import AudioRecord from 'react-native-audio-record';
 import { Buffer } from 'buffer';
 import AudioIcon from '../../../assets/icons/Microphone';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getServices } from "../../../store/actions/example";
 
 class FormOne extends Component {
   constructor(props) {
@@ -110,6 +113,8 @@ class FormOne extends Component {
     };
 
     AudioRecord.init(options);
+
+    this.props.getServices();
   }
 
   renderPresentation = (presentation) => {
@@ -340,6 +345,8 @@ class FormOne extends Component {
       audio,
       audioData
     } = this.state;
+    const { isHome, isHomeErrorMessage, home } = this.props.getServicesToProps;
+    console.log(isHome, isHomeErrorMessage, home)
     return (
       <View style={homeStyles.wrapper}>
         <StatusBar barStyle="light-content" />
@@ -409,4 +416,15 @@ class FormOne extends Component {
   }
 }
 
-export default FormOne;
+FormOne.propTypes = {
+  getServices: PropTypes.func.isRequired,
+  getServicesToProps: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = state => {
+  return {
+    getServicesToProps: state.exampleReducer,
+  }
+};
+
+export default connect(mapStateToProps, { getServices })(FormOne)
