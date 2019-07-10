@@ -1,7 +1,7 @@
 import {
-  EXAMPLE_REQUEST,
-  EXAMPLE_SUCCESS,
-  EXAMPLE_FAILURE,
+  POST_INTERVIEW_REQUEST,
+  POST_INTERVIEW_SUCCESS,
+  POST_INTERVIEW_FAILURE,
   NAME_CHANGED,
   SURNAME_CHANGED,
   PHONE_CHANGED,
@@ -12,6 +12,7 @@ import {
   STAND_AREA_CHANGED,
   STAND_TIME_CHANGED,
   STAND_NAME_CHANGED,
+  SITE_NAME_CHANGED,
   BLOCK_NAME_CHANGED,
   FLAT_NO_CHANGED,
   INTERVIEW_RESULT_CHANGED,
@@ -30,6 +31,11 @@ const INITIAL_STATE = {
   isHome: false,
   isHomeErrorMessage: null,
   home: null,
+  isPost: false,
+  isPostErrorMessage: null,
+  post: null,
+  lat: '',
+  long: '',
   name: '',
   surname: '',
   phone: '',
@@ -40,6 +46,7 @@ const INITIAL_STATE = {
   standArea: '',
   standTime: '',
   standName: '',
+  siteName: '',
   blockName: '',
   flatNo: '',
   interViewResult: '',
@@ -57,56 +64,60 @@ const INITIAL_STATE = {
 export default function (state = INITIAL_STATE, action) {
   const { type, payload } = action;
   switch (type) {
-    case EXAMPLE_REQUEST:
-      return { ...state, isHome: false, isHomeErrorMessage: null, home: null };
-    case EXAMPLE_SUCCESS:
-      return { ...state, isHome: false, home: payload };
-    case EXAMPLE_FAILURE:
-      return { ...state, isHome: false, isHomeErrorMessage: payload };
+    //POST INTERVIEW
+    case POST_INTERVIEW_REQUEST:
+      return { ...state, isPost: true, isPostErrorMessage: null, post: null };
+    case POST_INTERVIEW_SUCCESS:
+      return { ...state, isPost: false, post: payload };
+    case POST_INTERVIEW_FAILURE:
+      return { ...state, isPost: false, isPostErrorMessage: payload };
+    //FIELDS
     case NAME_CHANGED:
-      return { ...state, name: '' };
+      return { ...state, name: payload };
     case SURNAME_CHANGED:
-      return { ...state, surname: '' }
+      return { ...state, surname: payload }
     case PHONE_CHANGED:
-      return { ...state, phone: '' }
+      return { ...state, phone: payload }
     case PRESENT_CHANGED:
-      return { ...state, present: '' }
+      return { ...state, present: payload }
     case REFERER_FIRSTNAME_CHANGED:
-      return { ...state, refererFirstName: '' }
+      return { ...state, refererFirstName: payload }
     case REFERER_LASTNAME_CHANGED:
-      return { ...state, refererLastName: '' }
+      return { ...state, refererLastName: payload }
     case REFERER_PHONE_CHANGED:
-      return { ...state, refererPhone: '' }
+      return { ...state, refererPhone: payload }
     case STAND_AREA_CHANGED:
-      return { ...state, standArea: '' }
+      return { ...state, standArea: payload }
     case STAND_TIME_CHANGED:
-      return { ...state, standTime: '' }
+      return { ...state, standTime: payload }
     case STAND_NAME_CHANGED:
-      return { ...state, standName: '' }
+      return { ...state, standName: payload }
+    case SITE_NAME_CHANGED:
+      return { ...state, siteName: payload }
     case BLOCK_NAME_CHANGED:
-      return { ...state, blockName: '' }
+      return { ...state, blockName: payload }
     case FLAT_NO_CHANGED:
-      return { ...state, flatNo: '' }
+      return { ...state, flatNo: payload }
     case INTERVIEW_RESULT_CHANGED:
-      return { ...state, interViewResult: '' }
+      return { ...state, interViewResult: payload }
     case INTERVIEW_RESULT_DETAIL_CHANGED:
-      return { ...state, interViewResultDetail: '' }
+      return { ...state, interViewResultDetail: payload }
     case REVISIT_TIME_CHANGED:
-      return { ...state, revisitTime: '' }
+      return { ...state, revisitTime: payload }
     case OTHER_ISS_CHANGED:
-      return { ...state, otherIss: '' }
+      return { ...state, otherIss: payload }
     case FILE_CHANGED:
-      return { ...state, file: null }
+      return { ...state, file: payload }
     case PHOTO_CHANGED:
-      return { ...state, photo: null }
+      return { ...state, photo: payload }
     case VOICE_CHANGED:
-      return { ...state, voice: null }
+      return { ...state, voice: payload }
     case LONG_CHANGED:
-      return { ...state, long: '' }
+      return { ...state, long: payload }
     case LAT_CHANGED:
-      return { ...state, lat: '' }
+      return { ...state, lat: payload }
     case OFFERED_PRODUCT_CHANGED:
-      return { ...state, offeredProduct: null }
+      return { ...state, offeredProduct: payload }
     default:
       return state;
   }

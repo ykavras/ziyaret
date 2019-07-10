@@ -15,7 +15,7 @@ import AudioIcon from '../../../assets/icons/Microphone';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  getServices,
+  postInterview,
   nameChanged,
   surnameChanged,
   phoneChanged,
@@ -26,6 +26,7 @@ import {
   standAreaChanged,
   standTimeChanged,
   standNameChanged,
+  siteNameChanged,
   blockNameChanged,
   flatNoChanged,
   interViewResultChanged,
@@ -46,7 +47,6 @@ class FormOne extends Component {
     this.state = {
       image: '',
       video: '',
-      product: '',
       presentation: '',
       interview: '',
       subscribers: '',
@@ -73,15 +73,19 @@ class FormOne extends Component {
       presentationsTypes: [
         {
           label: 'Referans',
-          value: 0,
+          value: 'Referans',
         },
         {
           label: 'Stand',
-          value: 1,
+          value: 'Stand',
         },
         {
-          label: 'D2D ve Hunter',
-          value: 2,
+          label: 'D2D',
+          value: 'D2D',
+        },
+        {
+          label: 'Hunter',
+          value: 'Hunter',
         }
       ],
       interviewResult: [
@@ -113,15 +117,15 @@ class FormOne extends Component {
       subscribersArray: [
         {
           label: 'Vodafone',
-          value: '0',
+          value: 'Vodafone',
         },
         {
           label: 'Türk Telekom',
-          value: '1',
+          value: 'Türk Telekom',
         },
         {
           label: 'Metro',
-          value: '2',
+          value: 'Metro',
         },
       ]
     }
@@ -137,34 +141,80 @@ class FormOne extends Component {
     };
 
     AudioRecord.init(options);
-
-    this.props.getServices();
   }
 
-  onNameChanged = (text) => {
-    nameChanged(text);
-  };
+  onNameChanged = (text) => { this.props.nameChanged(text); };
 
-  onNameChanged = (text) => {
-    surnameChanged(text);
-  };
+  onSurnameChanged = (text) => { this.props.surnameChanged(text); };
+
+  onPhoneChanged = (text) => { this.props.phoneChanged(text); };
+
+  onPresentChanged = (text) => { this.props.presentChanged(text); };
+
+  onRefererFirstNameChanged = (text) => { this.props.refererFirstNameChanged(text); };
+
+  onRefererLastNameChanged = (text) => { this.props.refererLastNameChanged(text); };
+
+  onRefererPhoneChanged = (text) => { this.props.refererPhoneChanged(text); };
+
+  onStandAreaChanged = (text) => { this.props.standAreaChanged(text); };
+
+  onStandTimeChanged = (text) => { this.props.standTimeChanged(text); };
+
+  onStandNameChanged = (text) => { this.props.standNameChanged(text); };
+
+  onSiteNameChanged = (text) => { this.props.siteNameChanged(text); };
+
+  onBlockNameChanged = (text) => { this.props.blockNameChanged(text); };
+
+  onFlatNoChanged = (text) => { this.props.flatNoChanged(text); };
+
+  onInterViewResultChanged = (text) => { this.props.interViewResultChanged(text); };
+
+  onInterViewResultDetailChanged = (text) => { this.props.interViewResultDetailChanged(text); };
+
+  onRevisitTimeChanged = (text) => { this.props.revisitTimeChanged(text); };
+
+  onOtherIssChanged = (text) => { this.props.otherIssChanged(text); };
+
+  onFileChanged = (text) => { this.props.fileChanged(text); };
+
+  onPhotoChanged = (text) => { this.props.photoChanged(text); };
+
+  onVoiceChanged = (text) => { this.props.voiceChanged(text); };
+
+  onLongChanged = (text) => { this.props.longChanged(text); };
+
+  onLatChanged = (text) => { this.props.latChanged(text); };
+
+  onOfferedProductChanged = (text) => { this.props.offeredProductChanged(text) };
+
 
   renderPresentation = (presentation) => {
     switch (presentation) {
       case 0:
         return (
           <Fragment>
-            <Input label="Referans Adı Soyadı"
-              placeholder="Referans adı ve soyadı giriniz"
+            <Input label="Referans Adı"
+              placeholder="Referansın adını giriniz"
               blurOnSubmit={false}
               returnKeyType="next"
-              onSubmitEditing={() => {
-                this.phoneNumber.focus();
-              }} />
+              onSubmitEditing={() => { this.phoneNumber.focus(); }}
+              onChangeText={this.onRefererFirstNameChanged.bind(this)}
+            />
+            <Input label="Referans Soyadı"
+              placeholder="Referansın soyadını giriniz"
+              blurOnSubmit={false}
+              returnKeyType="next"
+              onSubmitEditing={() => { this.phoneNumber.focus(); }}
+              onChangeText={this.onRefererLastNameChanged.bind(this)}
+            />
             <Input label="Cep Telefonu Numarası"
               placeholder="Cep telefonu numarasını giriniz"
               keyboardType="numeric"
-              onRef={(input) => { this.phoneNumber = input; }} />
+              onRef={(input) => { this.phoneNumber = input; }}
+              onChangeText={this.onRefererPhoneChanged.bind(this)}
+            />
           </Fragment>
         )
         break;
@@ -175,12 +225,19 @@ class FormOne extends Component {
               placeholder="Standın kurulduğu bölgeyi yazınız"
               blurOnSubmit={false}
               returnKeyType="next"
-              onSubmitEditing={() => {
-                this.stand.focus();
-              }} />
+              onSubmitEditing={() => { this.stand.focus(); }}
+              onChangeText={this.onStandAreaChanged.bind(this)}
+            />
             <Input label="Stand Süresi"
               placeholder="Stand süresini giriniz"
-              onRef={(input) => { this.stand = input; }} />
+              onRef={(input) => { this.standName = input; }}
+              onChangeText={this.onStandTimeChanged.bind(this)}
+            />
+            <Input label="Stand Adı"
+              placeholder="Standın adını yazınız"
+              onRef={(input) => { this.standName = input; }}
+              onChangeText={this.onStandNameChanged.bind(this)}
+            />
           </Fragment>
         )
         break;
@@ -191,16 +248,22 @@ class FormOne extends Component {
               placeholder="Site adını giriniz"
               blurOnSubmit={false}
               returnKeyType="next"
-              onSubmitEditing={() => { this.block.focus(); }} />
+              onSubmitEditing={() => { this.block.focus(); }}
+              onChangeText={this.onSiteNameChanged.bind(this)}
+            />
             <Input label="Blok Adı"
               placeholder="Blok adını giriniz"
               blurOnSubmit={false}
               returnKeyType="next"
               onRef={(input) => { this.block = input; }}
-              onSubmitEditing={() => { this.circle.focus(); }} />
+              onSubmitEditing={() => { this.circle.focus(); }}
+              onChangeText={this.onBlockNameChanged.bind(this)}
+            />
             <Input label="Daire Numarası"
               placeholder="Daire Numarasını Giriniz"
-              onRef={(input) => { this.circle = input; }} />
+              onRef={(input) => { this.circle = input; }}
+              onChangeText={this.onFlatNoChanged.bind(this)}
+            />
           </Fragment>
         )
         break;
@@ -241,8 +304,7 @@ class FormOne extends Component {
             label="Başka ISS Abonesi"
             selectText="İlgili aboneyi seçiniz"
             array={this.state.subscribersArray}
-            onValueChange={value => { this.setState({ subscribers: value }) }}
-            onRef={el => { this.state.subscribers = el; }} />
+            onValueChange={value => { this.onOtherIssChanged(value) }} />
         )
         break;
       case 5:
@@ -263,8 +325,9 @@ class FormOne extends Component {
         res.uri,
         res.type, // mime type
         res.name,
-        res.size
+        res.size,
       );
+      this.onFileChanged(res.uri)
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         // User cancelled the picker, exit any dialogs or menus and move on
@@ -279,6 +342,7 @@ class FormOne extends Component {
       const options = { quality: 0.5, base64: true };
       const data = await camera.takePictureAsync(options);
       await this.closeCamera(data.uri)
+      this.onPhotoChanged(data.base64)
     }
   };
 
@@ -298,6 +362,7 @@ class FormOne extends Component {
     const { uri, codec = "mp4" } = await camera.recordAsync();
     this.setState({ video: uri })
   }
+
   cameraView = () => {
     const { camera, recording } = this.state;
     const PendingView = () => (
@@ -360,7 +425,25 @@ class FormOne extends Component {
     AudioRecord.on('data', data => {
       chunk = Buffer.from(data, 'base64');
       this.setState({ audio: false, audioData: chunk })
+      this.onVoiceChanged(chunk)
     });
+  }
+
+  postDatas = async () => {
+    try {
+      const { name, surname, phone, present, refererFirstName, refererLastName, refererPhone, standArea,
+        standTime, standName, siteName, blockName, flatNo, interViewResult, interViewResultDetail, revisitTime, otherIss,
+        file, photo, voice, long, lat, offeredProduct } = await this.props.postInterviewToProps;
+      await this.props.postInterview(name, surname, phone, present, refererFirstName, refererLastName, refererPhone, standArea,
+        standTime, standName, siteName, blockName, flatNo, interViewResult, interViewResultDetail, revisitTime, otherIss,
+        file, photo, voice, long, lat, offeredProduct);
+    } catch (e) {
+      console.log(error)
+    }
+  };
+
+  renderItems = (isPost, isPostErrorMessage, post) => {
+    console.log(isPost, isPostErrorMessage, post)
   }
 
   render() {
@@ -375,26 +458,44 @@ class FormOne extends Component {
       video,
       audio,
       audioData,
-      product
     } = this.state;
-    console.log(product)
-    const { isHome, isHomeErrorMessage, home } = this.props.getServicesToProps;
-    console.log(isHome, isHomeErrorMessage, home)
+    const { isPost, isPostErrorMessage, post } = this.props.postInterviewToProps;
     return (
       <View style={homeStyles.wrapper}>
         <StatusBar barStyle="light-content" />
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false} contentContainerStyle={[styles.keyboard]} extraHeight={40}>
           <Text style={homeStyles.loginText}>Fiberteknoloji ve Hometechnology</Text>
-          <Input label="Adı" placeholder="Adınızı giriniz" blurOnSubmit={false} returnKeyType="next" onSubmitEditing={() => { this.surname.focus(); }} />
-          <Input label="Soyadı" placeholder="Soyadınızı giriniz" onRef={(input) => { this.surname = input; }} blurOnSubmit={false} returnKeyType="next" onSubmitEditing={() => { this.phone.focus(); }} />
-          <Input label="Cep Telefonu" keyboardType="numeric" placeholder="Cep telefonunuzu giriniz" onRef={(input) => { this.phone = input; }} />
+          <Input label="Lat" onChangeText={this.onLatChanged.bind(this)} />
+          <Input label="Long" onChangeText={this.onLongChanged.bind(this)} />
+          <Input
+            label="Adı"
+            placeholder="Adınızı giriniz"
+            blurOnSubmit={false} returnKeyType="next"
+            onSubmitEditing={() => { this.surname.focus(); }}
+            onChangeText={this.onNameChanged.bind(this)}
+          />
+          <Input l
+            abel="Soyadı"
+            placeholder="Soyadınızı giriniz"
+            onRef={(input) => { this.surname = input; }}
+            blurOnSubmit={false}
+            returnKeyType="next"
+            onSubmitEditing={() => { this.phone.focus(); }}
+            onChangeText={this.onSurnameChanged.bind(this)}
+          />
+          <Input
+            label="Cep Telefonu"
+            keyboardType="numeric"
+            placeholder="Cep telefonunuzu giriniz"
+            onRef={(input) => { this.phone = input; }}
+            onChangeText={this.onPhoneChanged.bind(this)}
+          />
           <Select
             label="Hangi Ürün Sunuldu ?"
             selectText="İlgili alanı seçiniz"
             array={productArray}
-            onValueChange={value => { this.setState({ product: value }) }}
-            onRef={el => { this.state.product = el; }} />
+            onValueChange={value => { this.onOfferedProductChanged(value) }} />
           <View style={homeStyles.tabs}>
             <Text style={homeStyles.tabTitle}>Sunum Şekli</Text>
             {
@@ -403,7 +504,14 @@ class FormOne extends Component {
                   presentation === index ?
                     <Tab key={index} title={item.label} active />
                     :
-                    <Tab key={index} title={item.label} onPress={() => this.setState({ presentation: index })} />
+                    <Tab
+                      key={index}
+                      title={item.label}
+                      onPress={() => {
+                        this.setState({ presentation: index })
+                        this.onPresentChanged(item.value)
+                      }
+                      } />
                 )
               })
             }
@@ -419,7 +527,10 @@ class FormOne extends Component {
                   interview === index ?
                     <Tab key={index} title={item.label} active />
                     :
-                    <Tab key={index} title={item.label} onPress={() => this.setState({ interview: index })} />
+                    <Tab key={index} title={item.label} onPress={() => {
+                      this.setState({ interview: index })
+                      this.onInterViewResultChanged(item.label)
+                    }} />
                 )
               })
             }
@@ -439,7 +550,10 @@ class FormOne extends Component {
             {video ? <Video paused source={{ uri: video }} ref={(ref) => { this.player = ref }} onBuffer={this.onBuffer} onError={this.videoError} resizeMode="cover" style={homeStyles.snapVideo} /> : null}
             {audioData ? <AudioIcon style={homeStyles.snapImage} /> : null}
           </View>
-          <Button title="Formu Gönder" />
+          {
+            this.renderItems(isPost, isPostErrorMessage, post)
+          }
+          <Button title="Formu Gönder" onPress={this.postDatas.bind(this)} />
         </KeyboardAwareScrollView>
         {
           this.cameraView()
@@ -450,14 +564,39 @@ class FormOne extends Component {
 }
 
 FormOne.propTypes = {
-  getServices: PropTypes.func.isRequired,
-  getServicesToProps: PropTypes.object.isRequired,
+  postInterview: PropTypes.func.isRequired,
+  postInterviewToProps: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    getServicesToProps: state.exampleReducer,
+    postInterviewToProps: state.exampleReducer,
   }
 };
 
-export default connect(mapStateToProps, { getServices })(FormOne)
+export default connect(mapStateToProps, {
+  postInterview,
+  nameChanged,
+  surnameChanged,
+  phoneChanged,
+  presentChanged,
+  refererFirstNameChanged,
+  refererLastNameChanged,
+  refererPhoneChanged,
+  standAreaChanged,
+  standTimeChanged,
+  standNameChanged,
+  siteNameChanged,
+  blockNameChanged,
+  flatNoChanged,
+  interViewResultChanged,
+  interViewResultDetailChanged,
+  revisitTimeChanged,
+  otherIssChanged,
+  fileChanged,
+  photoChanged,
+  voiceChanged,
+  longChanged,
+  latChanged,
+  offeredProductChanged,
+})(FormOne)
