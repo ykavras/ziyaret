@@ -346,9 +346,9 @@ class FormOne extends Component {
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false} contentContainerStyle={[styles.keyboard]} extraHeight={40}>
           <Text style={homeStyles.loginText}>Fiberteknoloji ve Hometechnology</Text>
-          <Input label="Adı" placeholder="Adınızı giriniz" />
-          <Input label="Soyadı" placeholder="Soyadınızı giriniz" />
-          <Input label="Cep Telefonu" placeholder="Cep telefonunuzu giriniz" />
+          <Input label="Adı" placeholder="Adınızı giriniz" blurOnSubmit={false} returnKeyType="next" onSubmitEditing={() => { this.surname.focus(); }} />
+          <Input label="Soyadı" placeholder="Soyadınızı giriniz" onRef={(input) => { this.surname = input; }} blurOnSubmit={false} returnKeyType="next" onSubmitEditing={() => { this.phone.focus(); }} />
+          <Input label="Cep Telefonu" keyboardType="numeric" placeholder="Cep telefonunuzu giriniz" onRef={(input) => { this.phone = input; }} />
           <Select
             label="Hangi Ürün Sunuldu ?"
             selectText="İlgili alanı seçiniz"
