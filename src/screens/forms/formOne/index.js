@@ -55,6 +55,7 @@ class FormOne extends Component {
       recording: false,
       audio: false,
       audioData: '',
+      mapRegion: null,
       productArray: [
         {
           label: 'Fiber İnternet',
@@ -140,6 +141,29 @@ class FormOne extends Component {
     };
 
     AudioRecord.init(options);
+
+
+    if (navigator.geolocation) {
+      var location_timeout = setTimeout("geolocFail()", 10000);
+
+      const { latChanged, longChanged } = this.props;
+
+      navigator.geolocation.getCurrentPosition(function (position) {
+        clearTimeout(location_timeout);
+
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        latChanged(lat);
+        longChanged(lng);
+      }, function (error) {
+        clearTimeout(location_timeout);
+        geolocFail();
+      });
+    } else {
+      // Fallback for no geolocation
+      geolocFail();
+    }
+
   }
 
   onNameChanged = (text) => { this.props.nameChanged(text); };
@@ -190,10 +214,6 @@ class FormOne extends Component {
   onPhotoChanged = (text) => { this.props.photoChanged(text); };
 
   onVoiceChanged = (text) => { this.props.voiceChanged(text); };
-
-  onLongChanged = (text) => { this.props.longChanged(text); };
-
-  onLatChanged = (text) => { this.props.latChanged(text); };
 
   onOfferedProductChanged = (text) => { this.props.offeredProductChanged(text) };
 
@@ -481,8 +501,6 @@ class FormOne extends Component {
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false} contentContainerStyle={[styles.keyboard]} extraHeight={40}>
           <Text style={homeStyles.loginText}>Fiberteknoloji ve Hometechnology</Text>
-          <Input label="Lat" onChangeText={this.onLatChanged.bind(this)} />
-          <Input label="Long" onChangeText={this.onLongChanged.bind(this)} />
           <Input
             label="Adı"
             placeholder="Adınızı giriniz"
