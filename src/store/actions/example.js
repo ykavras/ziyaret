@@ -34,12 +34,54 @@ export const fetchingSuccess = (type, json) => ({ type, payload: json });
 
 export const fetchingFailure = (type, error) => ({ type, payload: error });
 
-export const postInterview = (name, surname, phone, present, refererFirstName, refererLastName, refererPhone, standArea,
-  standTime, standName, siteName, blockName, flatNo, interViewResult, interViewResultDetail, revisitTime, otherIss,
-  file, photo, voice, long, lat, offeredProduct) => {
-  const data = { name, surname, phone, present, refererFirstName, refererLastName, refererPhone, standArea,
-    standTime, standName, siteName, blockName, flatNo, interViewResult, interViewResultDetail, revisitTime, otherIss,
-    file, photo, voice, long, lat, offeredProduct };
+export const postInterview = (
+  customer_first_name,
+  customer_last_name,
+  customer_mobile_phone,
+  present_type,
+  referer_firt_name,
+  referer_last_name,
+  referer_mobile_phone,
+  stand_area,
+  stand_time,
+  site_name,
+  block_name,
+  flat_no,
+  interview_result,
+  interview_result_detail,
+  revisit_time,
+  other_iss,
+  file,
+  photo,
+  voice,
+  long,
+  lat,
+  offered_product
+) => {
+  const data = {
+    customer_first_name,
+    customer_last_name,
+    customer_mobile_phone,
+    present_type,
+    referer_firt_name,
+    referer_last_name,
+    referer_mobile_phone,
+    stand_area,
+    stand_time,
+    site_name,
+    block_name,
+    flat_no,
+    interview_result,
+    interview_result_detail,
+    revisit_time,
+    other_iss,
+    file,
+    photo,
+    voice,
+    long,
+    lat,
+    offered_product
+  };
   console.log(data)
   return async dispatch => {
     dispatch(fetchingRequest(POST_INTERVIEW_REQUEST));

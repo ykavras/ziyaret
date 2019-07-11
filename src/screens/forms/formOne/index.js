@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import {
-  View, StatusBar, Text, Image
+  View, StatusBar, Text, Image, ActivityIndicator
 } from 'react-native';
 import homeStyles from '../styles';
 import styles from './styles';
@@ -25,7 +25,6 @@ import {
   refererPhoneChanged,
   standAreaChanged,
   standTimeChanged,
-  standNameChanged,
   siteNameChanged,
   blockNameChanged,
   flatNoChanged,
@@ -73,11 +72,11 @@ class FormOne extends Component {
       presentationsTypes: [
         {
           label: 'Referans',
-          value: 'Referans',
+          value: 'ref',
         },
         {
           label: 'Stand',
-          value: 'Stand',
+          value: 'stand',
         },
         {
           label: 'D2D',
@@ -85,33 +84,33 @@ class FormOne extends Component {
         },
         {
           label: 'Hunter',
-          value: 'Hunter',
+          value: 'hunter',
         }
       ],
       interviewResult: [
         {
           label: 'Satış Tamam',
-          value: '0',
+          value: 'ST',
         },
         {
           label: 'Tekrar Ziyaret Edilecek',
-          value: '1',
+          value: 'TZ',
         },
         {
           label: 'Olumsuz',
-          value: '2',
+          value: 'olm',
         },
         {
           label: 'Kapı Açılmadı',
-          value: '3',
+          value: 'KA',
         },
         {
           label: 'Başka ISS Abonesi',
-          value: '4',
+          value: 'BI',
         },
         {
           label: 'Fiyat Yüksek',
-          value: '5',
+          value: 'FY',
         }
       ],
       subscribersArray: [
@@ -161,8 +160,6 @@ class FormOne extends Component {
 
   onStandTimeChanged = (text) => { this.props.standTimeChanged(text); };
 
-  onStandNameChanged = (text) => { this.props.standNameChanged(text); };
-
   onSiteNameChanged = (text) => { this.props.siteNameChanged(text); };
 
   onBlockNameChanged = (text) => { this.props.blockNameChanged(text); };
@@ -173,7 +170,18 @@ class FormOne extends Component {
 
   onInterViewResultDetailChanged = (text) => { this.props.interViewResultDetailChanged(text); };
 
-  onRevisitTimeChanged = (text) => { this.props.revisitTimeChanged(text); };
+  onRevisitTimeChanged = () => {
+    const { date, time } = this.state;
+    if (date && time) {
+      const month = date.slice(0, 2);
+      const day = date.slice(3, 5);
+      const year = date.slice(-2);
+      const hour = time.slice(0, 2);
+      const min = time.slice(-2);
+      const newDate = new Date(year, month, day, hour, min)
+      this.props.revisitTimeChanged(newDate);
+    }
+  };
 
   onOtherIssChanged = (text) => { this.props.otherIssChanged(text); };
 
@@ -188,7 +196,6 @@ class FormOne extends Component {
   onLatChanged = (text) => { this.props.latChanged(text); };
 
   onOfferedProductChanged = (text) => { this.props.offeredProductChanged(text) };
-
 
   renderPresentation = (presentation) => {
     switch (presentation) {
@@ -230,13 +237,8 @@ class FormOne extends Component {
             />
             <Input label="Stand Süresi"
               placeholder="Stand süresini giriniz"
-              onRef={(input) => { this.standName = input; }}
+              onRef={(input) => { this.stand = input; }}
               onChangeText={this.onStandTimeChanged.bind(this)}
-            />
-            <Input label="Stand Adı"
-              placeholder="Standın adını yazınız"
-              onRef={(input) => { this.standName = input; }}
-              onChangeText={this.onStandNameChanged.bind(this)}
             />
           </Fragment>
         )
@@ -286,9 +288,11 @@ class FormOne extends Component {
             time={time}
             onDateChangeDate={(item) => {
               this.setState({ date: item });
+              this.onRevisitTimeChanged()
             }}
             onDateChangeTime={(item) => {
               this.setState({ time: item });
+              this.onRevisitTimeChanged()
             }}
           />
         )
@@ -432,10 +436,10 @@ class FormOne extends Component {
   postDatas = async () => {
     try {
       const { name, surname, phone, present, refererFirstName, refererLastName, refererPhone, standArea,
-        standTime, standName, siteName, blockName, flatNo, interViewResult, interViewResultDetail, revisitTime, otherIss,
+        standTime, siteName, blockName, flatNo, interViewResult, interViewResultDetail, revisitTime, otherIss,
         file, photo, voice, long, lat, offeredProduct } = await this.props.postInterviewToProps;
       await this.props.postInterview(name, surname, phone, present, refererFirstName, refererLastName, refererPhone, standArea,
-        standTime, standName, siteName, blockName, flatNo, interViewResult, interViewResultDetail, revisitTime, otherIss,
+        standTime, siteName, blockName, flatNo, interViewResult, interViewResultDetail, revisitTime, otherIss,
         file, photo, voice, long, lat, offeredProduct);
     } catch (e) {
       console.log(error)
@@ -444,6 +448,17 @@ class FormOne extends Component {
 
   renderItems = (isPost, isPostErrorMessage, post) => {
     console.log(isPost, isPostErrorMessage, post)
+    if (isPost) {
+      return (<ActivityIndicator style={styles.loading} color="white" />)
+    }
+    if (post) {
+      return (<Text style={styles.successText}>Teşekkürler</Text>)
+    }
+    if (isPostErrorMessage) {
+      for (let [key, value] of Object.entries(isPostErrorMessage.data)) {
+        return (<Text style={[styles.successText, styles.successTextErr]}>{key} : {value}</Text>)
+      }
+    }
   }
 
   render() {
@@ -475,8 +490,8 @@ class FormOne extends Component {
             onSubmitEditing={() => { this.surname.focus(); }}
             onChangeText={this.onNameChanged.bind(this)}
           />
-          <Input l
-            abel="Soyadı"
+          <Input
+            label="Soyadı"
             placeholder="Soyadınızı giriniz"
             onRef={(input) => { this.surname = input; }}
             blurOnSubmit={false}
@@ -529,7 +544,7 @@ class FormOne extends Component {
                     :
                     <Tab key={index} title={item.label} onPress={() => {
                       this.setState({ interview: index })
-                      this.onInterViewResultChanged(item.label)
+                      this.onInterViewResultChanged(item.value)
                     }} />
                 )
               })
@@ -585,7 +600,6 @@ export default connect(mapStateToProps, {
   refererPhoneChanged,
   standAreaChanged,
   standTimeChanged,
-  standNameChanged,
   siteNameChanged,
   blockNameChanged,
   flatNoChanged,

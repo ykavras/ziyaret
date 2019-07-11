@@ -69,8 +69,8 @@ class Login extends Component {
           extraHeight={40}>
           <Image source={TurkcellLogo} style={homeStyles.logo} />
           <Text style={homeStyles.loginText}>Giriş Yap</Text>
-          <Input label="Kullanıcı Adı"
-            placeholder="Kullanıcı adınızı giriniz"
+          <Input label="Sicil No"
+            placeholder="Sicil noyu giriniz"
             blurOnSubmit={false}
             returnKeyType="next"
             onSubmitEditing={() => {
