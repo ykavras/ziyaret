@@ -11,6 +11,7 @@ import { RNCamera } from 'react-native-camera';
 import Video from 'react-native-video';
 import AudioRecord from 'react-native-audio-record';
 import AudioIcon from '../../../assets/icons/Microphone';
+import SuccessIcon from '../../../assets/icons/Success';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -225,13 +226,14 @@ class FormOne extends Component {
               placeholder="Referansın adını giriniz"
               blurOnSubmit={false}
               returnKeyType="next"
-              onSubmitEditing={() => { this.phoneNumber.focus(); }}
+              onSubmitEditing={() => { this.referansLAST.focus(); }}
               onChangeText={this.onRefererFirstNameChanged.bind(this)}
             />
             <Input label="Referans Soyadı"
               placeholder="Referansın soyadını giriniz"
               blurOnSubmit={false}
               returnKeyType="next"
+              onRef={(input) => { this.referansLAST = input; }}
               onSubmitEditing={() => { this.phoneNumber.focus(); }}
               onChangeText={this.onRefererLastNameChanged.bind(this)}
             />
@@ -483,7 +485,15 @@ class FormOne extends Component {
       return (<ActivityIndicator style={styles.loading} color="white" />)
     }
     if (post) {
-      return (<Text style={styles.successText}>Teşekkürler</Text>)
+      setTimeout(() => {
+        this.props.navigation.navigate('Choose');
+      },2000) 
+      return (
+        <View style={homeStyles.successWrapper}>
+          <SuccessIcon style={homeStyles.successIcon} />
+          <Text style={homeStyles.successTitle}>Teşekkürler</Text>
+        </View>
+      )
     }
     if (isPostErrorMessage) {
       for (let [key, value] of Object.entries(isPostErrorMessage.data)) {

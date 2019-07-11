@@ -14,12 +14,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 class Login extends Component {
   componentDidMount() {
-    //AsyncStorage.clear()
+    //AsyncStorage.clear();
     AsyncStorage.getItem('token').then((value) => {
       if (value !== null) {
         this.props.loginToProps.token = value;
         const { navigate } = this.props.navigation;
-        return (navigate('FormOne'))
+        return (navigate('Choose'))  
       }
     });
   }
@@ -48,7 +48,7 @@ class Login extends Component {
     if (login && token) {
       AsyncStorage.setItem('token', login.token);
       const { navigate } = this.props.navigation;
-      return (navigate('FormOne'))
+      return (navigate('Choose')) 
     }
     if (loginErrorMessage) {
       for (let [key, value] of Object.entries(loginErrorMessage.data)) {
@@ -84,7 +84,7 @@ class Login extends Component {
             onRef={(input) => { this.pass = input; }}
             onChangeText={this.onPasswordChanged.bind(this)}
           />
-          <View style={homeStyles.links}>
+          <View style={[homeStyles.links, { display: 'none' }]}>
             <TouchableOpacity style={homeStyles.link}>
               <Text style={homeStyles.linkTitle}>Kayıt Ol</Text>
             </TouchableOpacity>

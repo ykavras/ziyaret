@@ -23,4 +23,28 @@ export default StyleSheet.create({
   imgWrapper: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 20 },
   snapImage: { width: '30%', height: 200, resizeMode: 'cover', borderRadius: 6, marginRight: 2, },
   snapVideo: { width: '30%', height: 200, borderRadius: 6, marginLeft: 2, },
+  successWrapper: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: theme.colorYellow,
+    zIndex: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  successIcon: {
+    width: 200, 
+    height: 200,
+    marginTop: (height / 2),
+    resizeMode: 'contain',
+  },
+  successTitle: {
+    fontFamily: theme.fontSemiBold,
+    color: theme.colorBlue,
+    fontSize: 40,
+    paddingTop: 20,
+  },
 });

@@ -44,7 +44,7 @@ class Choose extends Component {
         <StatusBar barStyle="dark-content" />
         <Animated.View style={styles.centered}>
           <Animated.View style={[styles.button, styles.buttonLeft, { top, opacity }]}>
-            <TouchableOpacity style={styles.buttons}>
+            <TouchableOpacity style={styles.buttons} onPress={() => navigate('FormOne')}>
               <Text style={[styles.buttonTitle, styles.buttonTitleLeft]}>Fiberteknoloji</Text>
               <Text style={[styles.buttonTitle, styles.buttonTitleLeft]}>ve</Text>
               <Text style={[styles.buttonTitle, styles.buttonTitleLeft]}>Hometechnology</Text>
