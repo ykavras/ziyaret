@@ -497,7 +497,7 @@ class FormOne extends Component {
     const { isPost, isPostErrorMessage, post } = this.props.postInterviewToProps;
     return (
       <View style={homeStyles.wrapper}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false} contentContainerStyle={[styles.keyboard]} extraHeight={40}>
           <Text style={homeStyles.loginText}>Fiberteknoloji ve Hometechnology</Text>
