@@ -51,7 +51,7 @@ const INITIAL_STATE = {
   flatNo: '',
   interViewResult: '',
   interViewResultDetail: '',
-  revisitTime: '',
+  revisitTime: null,
   otherIss: '',
   file: null,
   photo: null,

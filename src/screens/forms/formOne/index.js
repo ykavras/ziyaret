@@ -10,7 +10,6 @@ import DocumentPicker from 'react-native-document-picker';
 import { RNCamera } from 'react-native-camera';
 import Video from 'react-native-video';
 import AudioRecord from 'react-native-audio-record';
-import { Buffer } from 'buffer';
 import AudioIcon from '../../../assets/icons/Microphone';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -54,7 +53,7 @@ class FormOne extends Component {
       camera: false,
       recording: false,
       audio: false,
-      audioData: '',
+      audioData: false,
       mapRegion: null,
       productArray: [
         {
@@ -137,7 +136,7 @@ class FormOne extends Component {
       channels: 1,        // 1 or 2, default 1
       bitsPerSample: 16,  // 8 or 16, default 16
       audioSource: 6,     // android only (see below)
-      wavFile: 'test.wav' // default 'audio.wav'
+      wavFile: 'record.wav' // default 'audio.wav'
     };
 
     AudioRecord.init(options);
@@ -298,7 +297,11 @@ class FormOne extends Component {
     const { date, time } = this.state;
     switch (interview) {
       case 0:
-        return <Input label="Satış Tamam Metni" placeholder="Satış tamam metnini giriniz" />
+        return <Input
+          label="Satış Tamam Metni"
+          placeholder="Satış tamam metnini giriniz"
+          onChangeText={this.onInterViewResultDetailChanged.bind(this)}
+        />
         break;
       case 1:
         return (
@@ -318,7 +321,11 @@ class FormOne extends Component {
         )
         break;
       case 2:
-        return <Input label="Olumsuz Metni" placeholder="Neden olumsuz olduğunu giriniz" />
+        return <Input
+          label="Olumsuz Metni"
+          placeholder="Neden olumsuz olduğunu giriniz"
+          onChangeText={this.onInterViewResultDetailChanged.bind(this)}
+        />
         break;
       case 3:
         break;
@@ -332,7 +339,12 @@ class FormOne extends Component {
         )
         break;
       case 5:
-        return <Input label="Fiyat Yüksek" placeholder="Mevcut fatura tutarını giriniz" keyboardType="numeric" />
+        return <Input
+          label="Fiyat Yüksek"
+          placeholder="Mevcut fatura tutarını giriniz"
+          keyboardType="numeric"
+          onChangeText={this.onInterViewResultDetailChanged.bind(this)}
+        />
         break;
       default:
       // code block
@@ -447,9 +459,8 @@ class FormOne extends Component {
   audioStop = async () => {
     audioFile = await AudioRecord.stop();
     AudioRecord.on('data', data => {
-      chunk = Buffer.from(data, 'base64');
-      this.setState({ audio: false, audioData: chunk })
-      this.onVoiceChanged(chunk)
+      this.setState({ audio: false, audioData: true })
+      this.onVoiceChanged(data)
     });
   }
 
