@@ -13,13 +13,13 @@ import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
 
 class Login extends Component {
-  componentDidMount() {
+  componentDidMount = async () => {
     //AsyncStorage.clear();
     AsyncStorage.getItem('token').then((value) => {
       if (value !== null) {
         this.props.loginToProps.token = value;
         const { navigate } = this.props.navigation;
-        return (navigate('Choose'))  
+        return (navigate('Form'))
       }
     });
   }
@@ -48,7 +48,7 @@ class Login extends Component {
     if (login && token) {
       AsyncStorage.setItem('token', login.token);
       const { navigate } = this.props.navigation;
-      return (navigate('Choose')) 
+      return (navigate('Form'))
     }
     if (loginErrorMessage) {
       for (let [key, value] of Object.entries(loginErrorMessage.data)) {

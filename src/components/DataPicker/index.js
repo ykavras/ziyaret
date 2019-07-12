@@ -19,12 +19,12 @@ const dateSetting = {
     fontFamily: theme.fontSemiBold,
   },
   placeholderText: {
-    fontSize: 10,
+    fontSize: 12,
     fontFamily: theme.fontMedium,
     color: theme.colorWhite,
   },
   dateText: {
-    fontSize: 10,
+    fontSize: 12,
     color: theme.colorWhite,
     fontFamily: theme.fontMedium,
   },

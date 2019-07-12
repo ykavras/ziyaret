@@ -8,17 +8,13 @@ import {
 } from 'react-native';
 import {
   Login,
-  Choose,
-  FormOne,
-  FormTwo
+  Form
 } from '../../screens';
 
 
 const StackNavigator = createStackNavigator({
   Login,
-  Choose,
-  FormOne,
-  FormTwo
+  Form
 }, {
   headerMode: 'none',
   navigationOptions: { headerVisible: false },
@@ -38,9 +34,7 @@ const StackNavigator = createStackNavigator({
 const RootNavigator = createSwitchNavigator({
   StackNavigator,
   Login,
-  Choose,
-  FormOne,
-  FormTwo
+  Form
 }, {
   initialRouteName: 'Login',
 });

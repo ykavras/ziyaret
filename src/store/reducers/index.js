@@ -1,9 +1,13 @@
 import { combineReducers } from 'redux';
-import exampleReducer from './exampleReducer';
+import visitsReducer from './visitsReducer';
 import loginReducer from './loginReducer';
+import servicesReducer from './servicesReducer';
+import dealersReducer from './dealersReducer';
 
 
 export default combineReducers({
-  exampleReducer,
-  loginReducer
+  visitsReducer,
+  loginReducer,
+  servicesReducer,
+  dealersReducer
 });

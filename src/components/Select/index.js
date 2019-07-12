@@ -27,7 +27,9 @@ export function Select(props) {
     array,
     onRef,
     onValueChange,
-    selectText
+    selectText,
+    itemKey,
+    value
   } = props;
   return (
     <View style={styles.inputWrapper}>
@@ -46,6 +48,8 @@ export function Select(props) {
         style={pickerStyle}
         useNativeAndroidPickerStyle={false}
         ref={onRef}
+        itemKey={itemKey}
+        value={value}
       />
     </View>
   );

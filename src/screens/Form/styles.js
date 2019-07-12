@@ -3,9 +3,19 @@ import theme from '../../lib/theme';
 const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
   wrapper: { flex: 1, backgroundColor: theme.colorBlue, },
-  keyboard: { flex: 1, justifyContent: 'center', paddingHorizontal: 15, },
+  keyboard: { justifyContent: 'center', paddingHorizontal: 15,paddingVertical: 40, },
+  successText: {
+    textAlign: 'center',
+    paddingVertical: 10,
+    fontSize: 14,
+    fontFamily: theme.fontRegular,
+    color: theme.colorWhite
+  },
+  successTextErr: {
+    color: theme.colorYellow,
+  },
   logo: { width: 'auto', height: 44, resizeMode: 'contain', marginBottom: 44, },
-  loginText: { fontFamily: theme.fontSemiBold, fontSize: 20, color: theme.colorWhite, marginBottom: 20, },
+  loginText: { fontFamily: theme.fontSemiBold, fontSize: 18, color: theme.colorWhite, marginBottom: 10, },
   links: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 5, },
   link: { paddingVertical: 10, },
   linkTitle: { fontFamily: theme.fontRegular, fontSize: 12, lineHeight: 14, color: theme.colorWhite, },

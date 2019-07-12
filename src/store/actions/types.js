@@ -7,29 +7,70 @@ export const LOGIN_USERNAME_CHANGED = 'LOGIN_USERNAME_CHANGED';
 export const LOGIN_PASSWORD_CHANGED = 'LOGIN_PASSWORD_CHANGED';
 
 // INTERVIEW
-export const POST_INTERVIEW_REQUEST = 'POST_INTERVIEW_REQUEST';
-export const POST_INTERVIEW_SUCCESS = 'POST_INTERVIEW_SUCCESS';
-export const POST_INTERVIEW_FAILURE = 'POST_INTERVIEW_FAILURE';
-export const NAME_CHANGED = 'NAME_CHANGED';
-export const SURNAME_CHANGED = 'SURNAME_CHANGED';
-export const PHONE_CHANGED = 'PHONE_CHANGED';
-export const PRESENT_CHANGED = 'PRESENT_CHANGED';
-export const REFERER_FIRSTNAME_CHANGED = 'REFERER_FIRSTNAME_CHANGED';
-export const REFERER_LASTNAME_CHANGED = 'REFERER_LASTNAME_CHANGED';
-export const REFERER_PHONE_CHANGED = 'REFERER_PHONE_CHANGED';
-export const STAND_AREA_CHANGED = 'STAND_AREA_CHANGED';
-export const STAND_TIME_CHANGED = 'STAND_TIME_CHANGED';
-export const STAND_NAME_CHANGED = 'STAND_NAME_CHANGED';
-export const SITE_NAME_CHANGED = 'SITE_NAME_CHANGED';
-export const BLOCK_NAME_CHANGED = 'BLOCK_NAME_CHANGED';
-export const FLAT_NO_CHANGED = 'FLAT_NO_CHANGED';
-export const INTERVIEW_RESULT_CHANGED = 'INTERVIEW_RESULT_CHANGED';
-export const INTERVIEW_RESULT_DETAIL_CHANGED = 'INTERVIEW_RESULT_DETAIL_CHANGED';
-export const REVISIT_TIME_CHANGED = 'REVISIT_TIME_CHANGED';
-export const OTHER_ISS_CHANGED = 'OTHER_ISS_CHANGED';
-export const FILE_CHANGED = 'FILE_CHANGED';
-export const PHOTO_CHANGED = 'PHOTO_CHANGED';
-export const VOICE_CHANGED = 'VOICE_CHANGED';
-export const LONG_CHANGED = 'LONG_CHANGED';
-export const LAT_CHANGED = 'LAT_CHANGED';
-export const OFFERED_PRODUCT_CHANGED = 'OFFERED_PRODUCT_CHANGED';
+export const VISITS_REQUEST = 'VISITS_REQUEST';
+export const VISITS_SUCCESS = 'VISITS_SUCCESS';
+export const VISITS_FAILURE = 'VISITS_FAILURE';
+
+export const company_name = 'company_name';
+export const customer_first_name = 'customer_first_name';
+export const customer_last_name = 'customer_last_name';
+export const customer_mobile_phone = 'customer_mobile_phone';
+export const customer_phone = 'customer_phone';
+
+export const is_decider = 'is_decider';
+export const decider_first_name = 'decider_first_name';
+export const decider_last_name = 'decider_last_name';
+export const decider_mobile_phone = 'decider_mobile_phone';
+
+export const sector = 'sector';
+
+export const city = 'city';
+export const district = 'district';
+
+export const present_type = 'present_type';
+
+export const referer_firt_name = 'referer_firt_name';
+export const referer_last_name = 'referer_last_name';
+export const referer_mobile_phone = 'referer_mobile_phone';
+
+export const stand_area = 'stand_area';
+export const stand_time = 'stand_time';
+
+export const site_name = 'site_name';
+export const block_name = 'block_name';
+export const flat_no = 'flat_no';
+
+export const interview_result = 'interview_result';
+export const interview_result_detail = 'interview_result_detail';
+
+export const revisit_time = 'revisit_time';
+export const other_company = 'other_company';
+
+export const file = 'file';
+export const photo = 'photo';
+export const voice = 'voice';
+
+export const long = 'long';
+export const lat = 'lat';
+
+export const dealer = 'dealer';
+
+export const offered_product = 'offered_product';
+
+
+
+
+
+
+
+
+
+//SERVICES
+export const SERVICES_REQUEST = 'SERVICES_REQUEST';
+export const SERVICES_SUCCESS = 'SERVICES_SUCCESS';
+export const SERVICES_FAILURE = 'SERVICES_FAILURE';
+
+//DEALERS
+export const DEALERS_REQUEST = 'DEALERS_REQUEST';
+export const DEALERS_SUCCESS = 'DEALERS_SUCCESS';
+export const DEALERS_FAILURE = 'DEALERS_FAILURE';
