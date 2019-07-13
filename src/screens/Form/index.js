@@ -12,7 +12,6 @@ import AudioRecord from 'react-native-audio-record';
 import AudioIcon from '../../assets/icons/Microphone';
 import ClosedIcon from '../../assets/icons/Closed';
 import FileIcon from '../../assets/icons/AddFile';
-import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -178,11 +177,7 @@ class Form extends Component {
 
   componentDidMount() {
     const options = {
-      sampleRate: 44100,  // default 44100
-      channels: 1,        // 1 or 2, default 1
-      bitsPerSample: 16,  // 8 or 16, default 16
-      audioSource: 6,     // android only (see below)
-      wavFile: 'record.wav' // default 'audio.wav'
+      audioSource: 6
     };
 
     AudioRecord.init(options);
@@ -410,12 +405,6 @@ class Form extends Component {
   renderDealers = (isDealers, dealersErrorMessage, dealers) => {
     if (isDealers) return (<ActivityIndicator color="white" />)
     if (dealersErrorMessage) {
-      if (dealersErrorMessage.data.detail === 'Invalid token.') {
-        AsyncStorage.clear()
-        setTimeout(() => {
-          this.props.navigation.navigate('Login');
-        }, 2000)
-      }
       for (let [key, value] of Object.entries(dealersErrorMessage.data)) {
         return (<Text style={[styles.successText, styles.successTextErr]}>{key} : {value}</Text>)
       }
@@ -752,7 +741,7 @@ class Form extends Component {
     }
     if (isPostErrorMessage) {
       for (let [key, value] of Object.entries(isPostErrorMessage.data)) {
-        return (<Text style={[styles.successText, styles.successTextErr]}>{key} : {value}</Text>)
+        return <Text style={[styles.successText, styles.successTextErr]}>{key} : {value}</Text>
       }
     }
   }

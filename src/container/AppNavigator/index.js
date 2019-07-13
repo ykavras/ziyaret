@@ -9,14 +9,16 @@ import {
 import {
   Login,
   Form,
-  Success
+  Success,
+  Choose
 } from '../../screens';
 
 
 const StackNavigator = createStackNavigator({
   Login,
   Form,
-  Success
+  Success,
+  Choose
 }, {
   headerMode: 'none',
   navigationOptions: { headerVisible: false },
@@ -37,7 +39,8 @@ const RootNavigator = createSwitchNavigator({
   StackNavigator,
   Login,
   Form,
-  Success
+  Success,
+  Choose
 }, {
   initialRouteName: 'Login',
 });

@@ -19,7 +19,7 @@ class Login extends Component {
       if (value !== null) {
         this.props.loginToProps.token = value;
         const { navigate } = this.props.navigation;
-        return (navigate('Form'))
+        return (navigate('Choose'))
       }
     });
   }
@@ -48,7 +48,7 @@ class Login extends Component {
     if (login && token) {
       AsyncStorage.setItem('token', login.token);
       const { navigate } = this.props.navigation;
-      return (navigate('Form'))
+      return (navigate('Choose'))
     }
     if (loginErrorMessage) {
       for (let [key, value] of Object.entries(loginErrorMessage.data)) {

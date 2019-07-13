@@ -7,7 +7,7 @@ class Success extends Component {
 
   componentDidMount() {
     setTimeout(() => {
-      this.props.navigation.navigate('Form');
+      this.props.navigation.navigate('Choose');
     }, 2000)
   }
 
