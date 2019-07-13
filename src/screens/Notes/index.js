@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { getNotes, postNote, notesChanged, notesDefault } from '../../store/actions/notes';
 import styles from './styles';
 import Note from '../../assets/icons/Note';
+import BackIcon from '../../assets/icons/Back';
 
 class Notes extends Component {
 
@@ -81,6 +82,9 @@ class Notes extends Component {
     return (
       <View style={styles.wrapper}>
         <StatusBar barStyle="light-content" />
+        <TouchableOpacity style={styles.btnBack} onPress={() => this.props.navigation.navigate('Choose')}>
+          <BackIcon fill="blue" style={styles.btnBackIcon} />
+        </TouchableOpacity>
         {
           this.renderGetNotes(isNotes, notesErrorMessage, notes)
         }

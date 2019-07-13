@@ -17,7 +17,7 @@ export default StyleSheet.create({
   },
   listing: {
     paddingHorizontal: 15,
-    paddingTop: 20,
+    paddingTop: 80,
     paddingBottom: 60
   },
   textWrapper: {
@@ -102,5 +102,23 @@ export default StyleSheet.create({
     color: theme.colorBlue,
     fontFamily: theme.fontMedium,
     paddingLeft: 10,
+  },
+  btnBack: {
+    width: 60,
+    height: 60,
+    borderBottomRightRadius: 30,
+    backgroundColor: theme.colorWhite,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    zIndex: 1,
+    elevation: 1,
+  },
+  btnBackIcon: {
+    width: 24,
+    height: 30,
+    resizeMode: 'contain'
   },
 });
