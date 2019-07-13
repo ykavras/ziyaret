@@ -12,6 +12,7 @@ import AudioRecord from 'react-native-audio-record';
 import AudioIcon from '../../assets/icons/Microphone';
 import ClosedIcon from '../../assets/icons/Closed';
 import FileIcon from '../../assets/icons/AddFile';
+import BackIcon from '../../assets/icons/Back';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -762,8 +763,11 @@ class Form extends Component {
     return (
       <View style={styles.wrapper}>
         <StatusBar barStyle="light-content" />
+        <TouchableOpacity style={styles.btnBack} onPress={() => this.props.navigation.navigate('Choose')}>
+          <BackIcon fill="blue" style={styles.btnBackIcon} />
+        </TouchableOpacity>
         <KeyboardAwareScrollView
-          showsVerticalScrollIndicator={false} contentContainerStyle={[styles.keyboard]} extraHeight={40}>
+          showsVerticalScrollIndicator={false} contentContainerStyle={styles.keyboard} extraHeight={40}>
           <Text style={styles.loginText}>İlgili Bayiyi Seçiniz.</Text>
           {
             this.renderDealers(isDealers, dealersErrorMessage, dealers)

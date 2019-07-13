@@ -13,7 +13,7 @@ axiosInstance.defaults.headers.common['Content-Type'] = 'application/json';
 axiosInstance.interceptors.request.use((config) => {
   console.log('REQUEST : ', config);
   const { token } = store.getState().loginReducer;
-  if (token !== '' && config != null) {
+  if (token !== '' && token !== null && config != null) { 
     config.headers.Authorization = `Token ${token}`;
   }
   return config;

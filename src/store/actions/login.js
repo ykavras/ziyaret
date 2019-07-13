@@ -5,6 +5,7 @@ import {
   LOGIN_FAILURE,
   LOGIN_USERNAME_CHANGED,
   LOGIN_PASSWORD_CHANGED,
+  LOGOUT
 } from "./types";
 import api from '../../lib/api';
 
@@ -45,4 +46,8 @@ export const loginDefault = () => {
   return async dispatch => {
     dispatch(fetchingRequest(LOGIN_DEFAULT));
   }
+};
+
+export const logout = () => {
+  return { type: LOGOUT }
 };
