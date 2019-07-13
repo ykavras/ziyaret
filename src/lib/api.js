@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from '../store/index';
 
-const BASE_URL = 'http://192.168.1.102:8000/api/';
+const BASE_URL = 'http://172.105.66.178:8000/api/';
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
