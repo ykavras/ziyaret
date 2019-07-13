@@ -307,7 +307,15 @@ class Form extends Component {
     this.setState({ camera: true })
   }
 
-  closeCamera = (image) => { this.setState({ image, camera: false }) }
+  closeCamera = (image) => {
+    console.log(image)
+    if (image) {
+      this.setState({ image, camera: false })
+    } else {
+      this.setState({ camera: false })
+    }
+  }
+
 
   clearImage = () => {
     this.setState({ image: '' })
@@ -372,10 +380,10 @@ class Form extends Component {
                   <CameraButton label="KAPAT" onPress={() => this.closeCamera()} />
                   <CameraButton label="ÇEK" onPress={() => this.takePicture(camera)} />
                   {
-                    recording ?
-                      <CameraButton label="BİTİR" onPress={() => this.stopRecording(camera)} />
-                      :
-                      <CameraButton label="KAYIT" onPress={() => this.startRecording(camera)} />
+                    //recording ?
+                    //  <CameraButton label="BİTİR" onPress={() => this.stopRecording(camera)} />
+                    //  :
+                    //  <CameraButton label="KAYIT" onPress={() => this.startRecording(camera)} />
                   }
                 </View>
               );
@@ -779,7 +787,7 @@ class Form extends Component {
           }
           <View style={styles.filesWrapper}>
             <AddFile title="Dosya Ekle" type="file" onPress={() => this.documentAdd()} />
-            <AddFile title="Video/Fotoğraf Çek veya Ekle" type="gallery" onPress={() => this.openCamera()} />
+            <AddFile title="Fotoğraf Çek" type="gallery" onPress={() => this.openCamera()} />
             {
               audio ? <AddFile title="Stop" type="audio" onPress={() => this.audioStop()} /> : <AddFile title="Ses Kaydı Al" type="audio" onPress={() => this.audioStart()} />
             }

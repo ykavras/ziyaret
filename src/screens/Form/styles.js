@@ -31,7 +31,7 @@ export default StyleSheet.create({
   },
   waitingTitle: { color: theme.colorWhite, fontSize: 16, fontFamily: theme.fontMedium, textAlign: 'center' },
   imgWrapper: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 20 },
-  snapImage: { width: '30%', height: 200, marginRight: 2, },
+  snapImage: { width: '40%', height: 200, marginRight: 2, },
   snapVideo: { width: '30%', height: 200, marginLeft: 2, },
   closedBtn: {
     position: 'absolute',
