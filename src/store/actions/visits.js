@@ -110,6 +110,7 @@ export const postVisits = (
     dealer,
     offered_product
   };
+  console.log(data)
   return async dispatch => {
     dispatch(fetchingRequest(VISITS_REQUEST));
     try {

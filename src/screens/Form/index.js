@@ -226,7 +226,7 @@ class Form extends Component {
 
   onPresentType = (text) => { this.props.presentType(text); }
 
-  onRefererFirstName = (text) => { this.props.refererFirtName(text) }
+  onRefererFirstName = (text) => { this.props.refererFirstName(text) }
   onRefererLastName = (text) => { this.props.refererLastName(text) }
   onRefererMobilePhone = (text) => { this.props.refererMobilePhone(text) }
 
@@ -422,9 +422,9 @@ class Form extends Component {
     const { presentTypeState, interviewResult } = this.state;
     return (
       <Fragment>
-        <Input label="Kişi Adı" placeholder="Kişi adını giriniz" onChangeText={() => this.onCustomerFirstName.bind(this)} />
-        <Input label="Kişi Soyadı" placeholder="Kişi soyadınız giriniz" onChangeText={() => this.onCustomerLastName.bind(this)} />
-        <Input label="Kişi Cep Telefonu" placeholder="Kişi cep telefonunu giriniz" keyboardType="numeric" onChangeText={() => this.onCustomerMobilePhone.bind(this)} />
+        <Input label="Kişi Adı" placeholder="Kişi adını giriniz" onChangeText={this.onCustomerFirstName.bind(this)} />
+        <Input label="Kişi Soyadı" placeholder="Kişi soyadınız giriniz" onChangeText={this.onCustomerLastName.bind(this)} />
+        <Input label="Kişi Cep Telefonu" placeholder="Kişi cep telefonunu giriniz" keyboardType="numeric" onChangeText={this.onCustomerMobilePhone.bind(this)} />
         {
           this.renderWhichProduct(isServices, servicesErrorMessage, services)
         }
@@ -481,7 +481,7 @@ class Form extends Component {
           <Fragment>
             <Input label="Referans Adı" placeholder="Referans adını giriniz" onChangeText={this.onRefererFirstName.bind(this)} />
             <Input label="Referans Soyadı" placeholder="Referans soyadını giriniz" onChangeText={this.onRefererLastName.bind(this)} />
-            <Input label="Referans Cep Telefonu" placeholder="Referans cep telefonunu giriniz" onChangeText={this.onRefererMobilePhone.bind(this)} />
+            <Input label="Referans Cep Telefonu" placeholder="Referans cep telefonunu giriniz" keyboardType="numeric" onChangeText={this.onRefererMobilePhone.bind(this)} />
           </Fragment>
         )
         break;
@@ -713,9 +713,9 @@ class Form extends Component {
     if (isPost) {
       return (<ActivityIndicator style={styles.loading} color="white" />)
     }
-    if (post){
-      this.props.visitsDefault();
-      this.props.navigation.navigate('Success');
+    if (post) {
+      //this.props.visitsDefault();
+      //this.props.navigation.navigate('Success');
     }
     if (isPostErrorMessage) {
       for (let [key, value] of Object.entries(isPostErrorMessage.data)) {
