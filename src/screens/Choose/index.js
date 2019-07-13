@@ -22,14 +22,15 @@ class Choose extends Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.wrapper}>
-        <TouchableOpacity style={styles.btnLogout} onPress={() => this.removeItemValue('token')}>
-          <LogoutIcon fill="red" style={styles.btnLogoutIcon} />
-        </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.buttonTop]} onPress={() => navigate('Form')}>
-          <Text style={styles.buttonTitle}>Ziyaret</Text>
+          <Text style={styles.buttonTitle}>Ziyaret Formu</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.buttonBottom]}>
           <Text style={[styles.buttonTitle, styles.buttonTitleBlue]}>Notlarım</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btnLogout} onPress={() => this.removeItemValue('token')}>
+          <LogoutIcon fill="red" style={styles.btnLogoutIcon} />
+          <Text style={styles.btnLogoutText}>Çıkış Yap</Text>
         </TouchableOpacity>
       </View>
     )

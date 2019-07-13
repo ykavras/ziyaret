@@ -27,16 +27,22 @@ export default StyleSheet.create({
   },
   btnLogout: {
     height: 60,
-    borderBottomRightRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 2,
     zIndex: 2,
-    backgroundColor: theme.colorWhite
+    backgroundColor: theme.colorWhite,
+    flexDirection: 'row',
   },
   btnLogoutIcon: {
     width: 30,
     height: 30,
     resizeMode: 'contain'
+  },
+  btnLogoutText: {
+    fontSize: 16,
+    color: 'red',
+    fontFamily: theme.fontMedium,
+    paddingLeft: 10,
   },
 });
