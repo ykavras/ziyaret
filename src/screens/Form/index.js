@@ -756,7 +756,7 @@ class Form extends Component {
         <StatusBar barStyle="light-content" />
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false} contentContainerStyle={[styles.keyboard]} extraHeight={40}>
-          <Text style={styles.loginText}>İlgili Formu Seçip Doldurunuz</Text>
+          <Text style={styles.loginText}>İlgili Bayiyi Seçiniz.</Text>
           {
             this.renderDealers(isDealers, dealersErrorMessage, dealers)
           }

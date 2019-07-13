@@ -15,7 +15,7 @@ export default StyleSheet.create({
     color: theme.colorYellow,
   },
   logo: { width: 'auto', height: 44, resizeMode: 'contain', marginBottom: 44, },
-  loginText: { fontFamily: theme.fontSemiBold, fontSize: 18, color: theme.colorWhite, marginBottom: 10, },
+  loginText: { fontFamily: theme.fontSemiBold, fontSize: 22, color: theme.colorWhite, marginBottom: 10, },
   links: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 5, },
   link: { paddingVertical: 10, },
   linkTitle: { fontFamily: theme.fontRegular, fontSize: 12, lineHeight: 14, color: theme.colorWhite, },
