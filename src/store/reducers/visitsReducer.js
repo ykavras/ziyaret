@@ -2,6 +2,7 @@ import {
   VISITS_REQUEST,
   VISITS_SUCCESS,
   VISITS_FAILURE,
+  VISITS_DEFAULT,
   company_name, customer_first_name, customer_last_name, customer_mobile_phone, customer_phone,
   is_decider, decider_first_name, decider_last_name, decider_mobile_phone,
   sector,
@@ -46,7 +47,24 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, isPost: false, post: payload };
     case VISITS_FAILURE:
       return { ...state, isPost: false, isPostErrorMessage: payload };
-
+    case VISITS_DEFAULT:
+      return {
+        isPost: false, isPostErrorMessage: null, post: null,
+        company_name: '', customer_first_name: '', customer_last_name: '', customer_mobile_phone: '', customer_phone: '',
+        is_decider: false, decider_first_name: '', decider_last_name: '', decider_mobile_phone: '',
+        sector: '',
+        city: '', district: '',
+        present_type: null,
+        referer_firt_name: '', referer_last_name: '', referer_mobile_phone: '',
+        stand_area: '', stand_time: '',
+        site_name: '', block_name: '', flat_no: '',
+        interview_result: '', interview_result_detail: '',
+        revisit_time: null, other_company: '',
+        file: null, photo: null, voice: null,
+        long: '', lat: '',
+        dealer: null,
+        offered_product: null
+      };
     //FIELS
     case company_name: return { ...state, company_name: payload };
     case customer_first_name: return { ...state, customer_first_name: payload };

@@ -10,11 +10,12 @@ import { RNCamera } from 'react-native-camera';
 import Video from 'react-native-video';
 import AudioRecord from 'react-native-audio-record';
 import AudioIcon from '../../assets/icons/Microphone';
-import SuccessIcon from '../../assets/icons/Success';
+import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   postVisits,
+  visitsDefault,
   companyName,
   customerFirstName,
   customerLastName,
@@ -377,6 +378,12 @@ class Form extends Component {
   renderDealers = (isDealers, dealersErrorMessage, dealers) => {
     if (isDealers) return (<ActivityIndicator color="white" />)
     if (dealersErrorMessage) {
+      if (dealersErrorMessage.data.detail === 'Invalid token.') {
+        AsyncStorage.clear()
+        setTimeout(() => {
+          this.props.navigation.navigate('Login');
+        }, 2000)
+      }
       for (let [key, value] of Object.entries(dealersErrorMessage.data)) {
         return (<Text style={[styles.successText, styles.successTextErr]}>{key} : {value}</Text>)
       }
@@ -706,13 +713,9 @@ class Form extends Component {
     if (isPost) {
       return (<ActivityIndicator style={styles.loading} color="white" />)
     }
-    if (post) {
-      return (
-        <View style={styles.successWrapper}>
-          <SuccessIcon style={styles.successIcon} />
-          <Text style={styles.successTitle}>Teşekkürler</Text>
-        </View>
-      )
+    if (post){
+      this.props.visitsDefault();
+      this.props.navigation.navigate('Success');
     }
     if (isPostErrorMessage) {
       for (let [key, value] of Object.entries(isPostErrorMessage.data)) {
@@ -728,7 +731,7 @@ class Form extends Component {
       audio,
       audioData,
       openForm1,
-      openForm2
+      openForm2,
     } = this.state;
     const { isPost, isPostErrorMessage, post } = this.props.postVisitsToProps;
     const { isDealers, dealersErrorMessage, dealers } = this.props.getDealersToProps;
@@ -774,6 +777,7 @@ class Form extends Component {
 
 Form.propTypes = {
   postVisits: PropTypes.func.isRequired,
+  visitsDefault: PropTypes.func.isRequired,
   postVisitsToProps: PropTypes.object.isRequired,
   getServices: PropTypes.func.isRequired,
   getServicesToProps: PropTypes.object.isRequired,
@@ -791,6 +795,7 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   postVisits,
+  visitsDefault,
   getServices,
   getDealers,
   companyName,

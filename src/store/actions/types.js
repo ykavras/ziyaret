@@ -10,6 +10,7 @@ export const LOGIN_PASSWORD_CHANGED = 'LOGIN_PASSWORD_CHANGED';
 export const VISITS_REQUEST = 'VISITS_REQUEST';
 export const VISITS_SUCCESS = 'VISITS_SUCCESS';
 export const VISITS_FAILURE = 'VISITS_FAILURE';
+export const VISITS_DEFAULT = 'VISITS_DEFAULT';
 
 export const company_name = 'company_name';
 export const customer_first_name = 'customer_first_name';

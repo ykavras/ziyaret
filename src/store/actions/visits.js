@@ -2,6 +2,7 @@ import {
   VISITS_REQUEST,
   VISITS_SUCCESS,
   VISITS_FAILURE,
+  VISITS_DEFAULT,
   company_name,
   customer_first_name,
   customer_last_name,
@@ -109,7 +110,6 @@ export const postVisits = (
     dealer,
     offered_product
   };
-  console.log(data)
   return async dispatch => {
     dispatch(fetchingRequest(VISITS_REQUEST));
     try {
@@ -121,6 +121,8 @@ export const postVisits = (
     }
   }
 };
+
+export const visitsDefault = (text) => { return { type: VISITS_DEFAULT, payload: text } };
 
 export const companyName = (text) => { return { type: company_name, payload: text } };
 export const customerFirstName = (text) => { return { type: customer_first_name, payload: text } };
