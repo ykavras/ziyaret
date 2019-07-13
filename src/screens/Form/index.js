@@ -422,9 +422,9 @@ class Form extends Component {
     const { presentTypeState, interviewResult } = this.state;
     return (
       <Fragment>
-        <Input label="Kişi Adı" placeholder="Kişi adını giriniz" onChangeText={() => this.onRefererFirstName.bind(this)} />
-        <Input label="Kişi Soyadı" placeholder="Kişi soyadınız giriniz" onChangeText={() => this.onRefererLastName.bind(this)} />
-        <Input label="Kişi Cep Telefonu" placeholder="Kişi cep telefonunu giriniz" keyboardType="numeric" onChangeText={() => this.onRefererMobilePhone.bind(this)} />
+        <Input label="Kişi Adı" placeholder="Kişi adını giriniz" onChangeText={() => this.onCustomerFirstName.bind(this)} />
+        <Input label="Kişi Soyadı" placeholder="Kişi soyadınız giriniz" onChangeText={() => this.onCustomerLastName.bind(this)} />
+        <Input label="Kişi Cep Telefonu" placeholder="Kişi cep telefonunu giriniz" keyboardType="numeric" onChangeText={() => this.onCustomerMobilePhone.bind(this)} />
         {
           this.renderWhichProduct(isServices, servicesErrorMessage, services)
         }
@@ -464,7 +464,7 @@ class Form extends Component {
     if (services) {
       return (
         <Select
-          label="Hangi Ürün Seçildi ?"
+          label="Hangi Ürün Sunuldu ?"
           selectText="Lütfen ilgili ürünü seçiniz"
           array={services.map(a => ({ label: a.name, value: a.id }))}
           onValueChange={value => { this.onOfferedProduct(value) }}
