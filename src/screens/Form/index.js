@@ -11,6 +11,7 @@ import Video from 'react-native-video';
 import AudioRecord from 'react-native-audio-record';
 import AudioIcon from '../../assets/icons/Microphone';
 import ClosedIcon from '../../assets/icons/Closed';
+import FileIcon from '../../assets/icons/AddFile';
 import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -59,6 +60,8 @@ class Form extends Component {
     this.state = {
       image: '',
       video: '',
+      document: false,
+      documentName: '',
       presentation: '',
       subscribers: '',
       date: '',
@@ -275,6 +278,7 @@ class Form extends Component {
         res.name,
         res.size,
       );
+      this.setState({ document: true, documentName: res.name })
       this.onFileChanged(res.uri)
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
@@ -283,6 +287,11 @@ class Form extends Component {
         throw err;
       }
     }
+  }
+
+  clearDocument = () => {
+    this.setState({ document: false, documentName: '' })
+    this.onFileChanged(null)
   }
 
   takePicture = async (camera) => {
@@ -745,6 +754,8 @@ class Form extends Component {
       image,
       video,
       audio,
+      document,
+      documentName,
       audioData,
       openForm1,
       openForm2,
@@ -773,6 +784,19 @@ class Form extends Component {
               audio ? <AddFile title="Stop" type="audio" onPress={() => this.audioStop()} /> : <AddFile title="Ses Kaydı Al" type="audio" onPress={() => this.audioStart()} />
             }
           </View>
+          {
+            document
+              ?
+              <View style={styles.clearDocument}>
+                <FileIcon style={styles.clearDocumentIcon} />
+                <Text style={styles.clearDocumentText}>{documentName.substring(0, 30) + '...'}</Text>
+                <TouchableOpacity style={styles.closedBtn} onPress={() => this.clearDocument()}>
+                  <ClosedIcon style={styles.closed} />
+                </TouchableOpacity>
+              </View>
+              :
+              null
+          }
           <View style={styles.imgWrapper}>
             {
               image

@@ -57,4 +57,21 @@ export default StyleSheet.create({
     height: '100%',
     borderRadius: 6,
   },
+  clearDocument: {
+    marginVertical: 20,
+    height: 100,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  clearDocumentIcon: {
+    width: 100,
+    height: 100,
+    resizeMode: 'contain'
+  },
+  clearDocumentText: {
+    fontSize: 16,
+    color: theme.colorWhite,
+    fontFamily: theme.fontMedium,
+    paddingLeft: 10,
+  },
 });
