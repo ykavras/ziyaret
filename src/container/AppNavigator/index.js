@@ -10,7 +10,8 @@ import {
   Login,
   Form,
   Success,
-  Choose
+  Choose,
+  Notes
 } from '../../screens';
 
 
@@ -18,7 +19,8 @@ const StackNavigator = createStackNavigator({
   Login,
   Form,
   Success,
-  Choose
+  Choose,
+  Notes
 }, {
   headerMode: 'none',
   navigationOptions: { headerVisible: false },
@@ -40,7 +42,8 @@ const RootNavigator = createSwitchNavigator({
   Login,
   Form,
   Success,
-  Choose
+  Choose,
+  Notes
 }, {
   initialRouteName: 'Login',
 });

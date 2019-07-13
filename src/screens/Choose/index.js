@@ -25,7 +25,7 @@ class Choose extends Component {
         <TouchableOpacity style={[styles.button, styles.buttonTop]} onPress={() => navigate('Form')}>
           <Text style={styles.buttonTitle}>Ziyaret Formu</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.buttonBottom]}>
+        <TouchableOpacity style={[styles.button, styles.buttonBottom]} onPress={() => navigate('Notes')}>
           <Text style={[styles.buttonTitle, styles.buttonTitleBlue]}>Notlarım</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnLogout} onPress={() => this.removeItemValue('token')}>
