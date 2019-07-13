@@ -3,7 +3,7 @@ import theme from '../../lib/theme';
 const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
   wrapper: { flex: 1, backgroundColor: theme.colorBlue, },
-  keyboard: { justifyContent: 'center', paddingHorizontal: 15,paddingVertical: 40, },
+  keyboard: { justifyContent: 'center', paddingHorizontal: 15, paddingVertical: 40, },
   successText: {
     textAlign: 'center',
     paddingVertical: 10,
@@ -31,6 +31,30 @@ export default StyleSheet.create({
   },
   waitingTitle: { color: theme.colorWhite, fontSize: 16, fontFamily: theme.fontMedium, textAlign: 'center' },
   imgWrapper: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 20 },
-  snapImage: { width: '30%', height: 200, resizeMode: 'cover', borderRadius: 6, marginRight: 2, },
-  snapVideo: { width: '30%', height: 200, borderRadius: 6, marginLeft: 2, },
+  snapImage: { width: '30%', height: 200, marginRight: 2, },
+  snapVideo: { width: '30%', height: 200, marginLeft: 2, },
+  closedBtn: {
+    position: 'absolute',
+    right: 6,
+    top: 6,
+    width: 30,
+    height: 30,
+    zIndex: 1,
+  },
+  closed: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain'
+  },
+  snapImageImg: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 6,
+  },
+  snapVideoVid: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 6,
+  },
 });

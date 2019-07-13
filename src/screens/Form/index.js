@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import {
-  View, StatusBar, Text, Image, ActivityIndicator
+  View, StatusBar, Text, Image, ActivityIndicator, TouchableOpacity
 } from 'react-native';
 import styles from './styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -10,6 +10,7 @@ import { RNCamera } from 'react-native-camera';
 import Video from 'react-native-video';
 import AudioRecord from 'react-native-audio-record';
 import AudioIcon from '../../assets/icons/Microphone';
+import ClosedIcon from '../../assets/icons/Closed';
 import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -298,6 +299,20 @@ class Form extends Component {
   }
 
   closeCamera = (image) => { this.setState({ image, camera: false }) }
+
+  clearImage = () => {
+    this.setState({ image: '' })
+    this.onPhotoChanged(null)
+  }
+
+  clearVoice = () => {
+    this.setState({ audioData: false })
+    this.onVoiceChanged(null)
+  }
+
+  clearVideo = () => {
+    this.setState({ video: '' })
+  }
 
   stopRecording = async (camera) => {
     camera.stopRecording();
@@ -759,9 +774,46 @@ class Form extends Component {
             }
           </View>
           <View style={styles.imgWrapper}>
-            {image ? <Image source={{ uri: image }} style={styles.snapImage} /> : null}
-            {video ? <Video paused source={{ uri: video }} ref={(ref) => { this.player = ref }} onBuffer={this.onBuffer} onError={this.videoError} resizeMode="cover" style={styles.snapVideo} /> : null}
-            {audioData ? <AudioIcon style={styles.snapImage} /> : null}
+            {
+              image
+                ?
+                <View style={styles.snapImage}>
+                  <TouchableOpacity style={styles.closedBtn} onPress={() => this.clearImage()}>
+                    <ClosedIcon style={styles.closed} />
+                  </TouchableOpacity>
+                  <Image source={{ uri: image }} style={styles.snapImageImg} />
+                </View>
+                : null
+            }
+            {
+              video
+                ?
+                <View style={styles.snapVideo}>
+                  <TouchableOpacity style={styles.closedBtn} onPress={() => this.clearVideo()}>
+                    <ClosedIcon style={styles.closed} />
+                  </TouchableOpacity>
+                  <Video
+                    paused
+                    source={{ uri: video }} ref={(ref) => { this.player = ref }}
+                    onBuffer={this.onBuffer} onError={this.videoError}
+                    resizeMode="cover"
+                    style={styles.snapVideoVid} />
+                </View>
+                :
+                null
+            }
+            {
+              audioData
+                ?
+                <View style={styles.snapImage}>
+                  <TouchableOpacity style={styles.closedBtn} onPress={() => this.clearVoice()}>
+                    <ClosedIcon style={styles.closed} />
+                  </TouchableOpacity>
+                  <AudioIcon style={styles.snapImageImg} />
+                </View>
+                :
+                null
+            }
           </View>
           {
             this.renderItems(isPost, isPostErrorMessage, post)
