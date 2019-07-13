@@ -39,7 +39,7 @@ export function Select(props) {
         doneText="Tamam"
         placeholder={{
           label: `${selectText}`,
-          value: null,
+          value: value ? value : undefined,
           color: theme.colorBlue,
         }}
         placeholderTextColor="rgba(255,255,255,0.4)"

@@ -157,7 +157,7 @@ class Form extends Component {
       ],
       district: [
         {
-          label: 'Bayrampaşa,',
+          label: 'Bayrampaşa',
           value: 'Bayrampaşa',
         },
         {
@@ -243,12 +243,12 @@ class Form extends Component {
   onRevisitTime = () => {
     const { date, time } = this.state;
     if (date && time) {
-      const month = date.slice(0, 2);
-      const day = date.slice(3, 5);
-      const year = date.slice(-2);
+      const day = date.slice(0, 2);
+      const month = date.slice(3, 5);
+      const year = date.slice(-4);
       const hour = time.slice(0, 2);
       const min = time.slice(-2);
-      const newDate = new Date(year, month, day, hour, min)
+      const newDate = new Date(year, month - 1, day, hour, min)
       this.props.revisitTime(newDate);
     }
   }
@@ -570,15 +570,21 @@ class Form extends Component {
           array={isDecider}
           onValueChange={value => { this.onIsDeciders(value); this.setState({ whichIsDecider: value }); }}
         />
-        <Input label="Sektör" placeholder="Sektörünüzü yazınız" onChangeText={this.onSectorChanged.bind(this)} />
         {
           this.renderWhichIsDeciders()
         }
+        <Input label="Sektör" placeholder="Sektörünüzü yazınız" onChangeText={this.onSectorChanged.bind(this)} />
         <Select
           label="İl"
           selectText="Lütfen ili seçiniz"
           array={cities}
-          onValueChange={value => { this.onCityChanged(value); this.setState({ whichCities: value }) }} />
+          onValueChange={value => {
+            this.onCityChanged(value); this.setState({ whichCities: value })
+            if (value === 'Bölge Dışı') {
+              this.onDistrictChanged('Bölge Dışı')
+            }
+          }
+          } />
         {
           this.renderWhichCities()
         }
@@ -623,15 +629,10 @@ class Form extends Component {
           array={district}
           onValueChange={value => { this.onDistrictChanged(value) }} />
       )
-    } else if (whichCities === 'Bölge Dışı') {
-      this.onDistrictChanged('Bölge Dışı')
+    }
+    if (whichCities === 'Bölge Dışı') {
       return (
-        <Select
-          label="İlçe"
-          selectText="Lütfen ilçe seçiniz"
-          array={district}
-          value={'Bölge Dışı'}
-          onValueChange={value => { this.onDistrict(value) }} />
+        <Input label="İlçe" value="Bölge Dışı" />
       )
     }
   };
@@ -714,8 +715,8 @@ class Form extends Component {
       return (<ActivityIndicator style={styles.loading} color="white" />)
     }
     if (post) {
-      //this.props.visitsDefault();
-      //this.props.navigation.navigate('Success');
+      this.props.visitsDefault();
+      this.props.navigation.navigate('Success');
     }
     if (isPostErrorMessage) {
       for (let [key, value] of Object.entries(isPostErrorMessage.data)) {

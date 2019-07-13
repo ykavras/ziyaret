@@ -12,7 +12,8 @@ export function Input(props) {
     onSubmitEditing,
     blurOnSubmit,
     keyboardType,
-    onChangeText
+    onChangeText,
+    value
   } = props;
   return (
     <View style={styles.inputWrapper}>
@@ -27,6 +28,7 @@ export function Input(props) {
         blurOnSubmit={blurOnSubmit}
         keyboardType={keyboardType}
         onChangeText={onChangeText}
+        value={value}
       />
     </View>
   );
