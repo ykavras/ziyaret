@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StatusBar, FlatList, Text, ActivityIndicator, TextInput, Button, TouchableOpacity } from 'react-native';
+import { View, StatusBar, FlatList, Text, ActivityIndicator, TextInput, Button, TouchableOpacity, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getNotes, postNote, notesChanged, notesDefault } from '../../store/actions/notes';
@@ -80,44 +80,46 @@ class Notes extends Component {
     const { isNotes, notesErrorMessage, notes, isPostNote, postNoteErrorMessage, postNote } = this.props.getNotesToProps;
     const { note } = this.state;
     return (
-      <View style={styles.wrapper}>
-        <StatusBar barStyle="light-content" />
-        <TouchableOpacity style={styles.btnBack} onPress={() => this.props.navigation.navigate('Choose')}>
-          <BackIcon fill="blue" style={styles.btnBackIcon} />
-        </TouchableOpacity>
-        {
-          this.renderGetNotes(isNotes, notesErrorMessage, notes)
-        }
-        {
-          note
-            ?
-            <View style={styles.wrapperNote}>
-              <View style={styles.wrapperNoteIn}>
-                <Text style={styles.noteTitle}>Notum</Text>
-                <TextInput
-                  placeholder="Notunuzu yazınız"
-                  placeholderTextColor="rgba(255,255,255,0.5)"
-                  style={styles.noteInput}
-                  numberOfLines={10}
-                  multiline={true}
-                  underlineColorAndroid="transparent"
-                  onChangeText={this.onNotesChanged.bind(this)}
-                />
-                {
-                  this.renderPost(isPostNote, postNoteErrorMessage, postNote)
-                }
-              </View>
-            </View>
-            :
-            null
-        }
-        <View style={styles.openPost}>
-          <TouchableOpacity style={styles.openPostBtn} onPress={() => this.note()}>
-            <Note fill="#114AA1" style={styles.openPostBtnIcon} />
-            <Text style={styles.openPostTitle}>{note ? 'Not Ekleyi Kapat' : 'Not Ekle'}</Text>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.wrapper}>
+          <StatusBar barStyle="dark-content" />
+          <TouchableOpacity style={styles.btnBack} onPress={() => this.props.navigation.navigate('Choose')}>
+            <BackIcon fill="blue" style={styles.btnBackIcon} />
           </TouchableOpacity>
+          {
+            this.renderGetNotes(isNotes, notesErrorMessage, notes)
+          }
+          {
+            note
+              ?
+              <View style={styles.wrapperNote}>
+                <View style={styles.wrapperNoteIn}>
+                  <Text style={styles.noteTitle}>Notum</Text>
+                  <TextInput
+                    placeholder="Notunuzu yazınız"
+                    placeholderTextColor="rgba(255,255,255,0.5)"
+                    style={styles.noteInput}
+                    numberOfLines={10}
+                    multiline={true}
+                    underlineColorAndroid="transparent"
+                    onChangeText={this.onNotesChanged.bind(this)}
+                  />
+                  {
+                    this.renderPost(isPostNote, postNoteErrorMessage, postNote)
+                  }
+                </View>
+              </View>
+              :
+              null
+          }
+          <View style={styles.openPost}>
+            <TouchableOpacity style={styles.openPostBtn} onPress={() => this.note()}>
+              <Note fill="#114AA1" style={styles.openPostBtnIcon} />
+              <Text style={styles.openPostTitle}>{note ? 'Not Ekleyi Kapat' : 'Not Ekle'}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </SafeAreaView>
     )
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import {
-  View, StatusBar, Text, Image, ActivityIndicator, TouchableOpacity
+  View, StatusBar, Text, Image, ActivityIndicator, TouchableOpacity, SafeAreaView
 } from 'react-native';
 import styles from './styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -817,98 +817,100 @@ class Form extends Component {
     const { isPost, isPostErrorMessage, post } = this.props.postVisitsToProps;
     const { isDealers, dealersErrorMessage, dealers } = this.props.getDealersToProps;
     return (
-      <View style={styles.wrapper}>
-        <StatusBar barStyle="light-content" />
-        <TouchableOpacity style={styles.btnBack} onPress={() => this.props.navigation.navigate('Choose')}>
-          <BackIcon fill="black" style={styles.btnBackIcon} />
-        </TouchableOpacity>
-        <Text style={styles.loginText}>Ziyaret Formu</Text>
-        <KeyboardAwareScrollView
-          showsVerticalScrollIndicator={false} contentContainerStyle={styles.keyboard} extraHeight={40}>
-          {
-            this.renderDealers(isDealers, dealersErrorMessage, dealers)
-          }
-          {
-            openForm1 ? this.renderForm1() : null
-          }
-          {
-            openForm2 ? this.renderForm2() : null
-          }
-          {
-            openForm3 ? this.renderForm3() : null
-          }
-          <View style={styles.filesWrapper}>
-            <AddFile title="Dosya Ekle" type="file" onPress={() => this.documentAdd()} />
-            <AddFile title="Fotoğraf Çek" type="gallery" onPress={() => this.openCamera()} />
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.wrapper}>
+          <StatusBar barStyle="dark-content" />
+          <TouchableOpacity style={styles.btnBack} onPress={() => this.props.navigation.navigate('Choose')}>
+            <BackIcon fill="black" style={styles.btnBackIcon} />
+          </TouchableOpacity>
+          <Text style={styles.loginText}>Ziyaret Formu</Text>
+          <KeyboardAwareScrollView
+            showsVerticalScrollIndicator={false} contentContainerStyle={styles.keyboard} extraHeight={40}>
             {
-              audio ? <AddFile title="Durdur" type="audio" onPress={() => this.audioStop()} /> : <AddFile title="Ses Kaydı Al" type="audio" onPress={() => this.audioStart()} />
-            }
-          </View>
-          {
-            document
-              ?
-              <View style={styles.clearDocument}>
-                <FileIcon fill="black" style={styles.clearDocumentIcon} />
-                <Text style={styles.clearDocumentText}>{documentName.substring(0, 30) + '...'}</Text>
-                <TouchableOpacity style={styles.closedBtn} onPress={() => this.clearDocument()}>
-                  <ClosedIcon style={styles.closed} />
-                </TouchableOpacity>
-              </View>
-              :
-              null
-          }
-          <View style={styles.imgWrapper}>
-            {
-              image
-                ?
-                <View style={styles.snapImage}>
-                  <TouchableOpacity style={styles.closedBtn} onPress={() => this.clearImage()}>
-                    <ClosedIcon style={styles.closed} />
-                  </TouchableOpacity>
-                  <Image source={{ uri: image }} style={styles.snapImageImg} />
-                </View>
-                : null
+              this.renderDealers(isDealers, dealersErrorMessage, dealers)
             }
             {
-              video
+              openForm1 ? this.renderForm1() : null
+            }
+            {
+              openForm2 ? this.renderForm2() : null
+            }
+            {
+              openForm3 ? this.renderForm3() : null
+            }
+            <View style={styles.filesWrapper}>
+              <AddFile title="Dosya Ekle" type="file" onPress={() => this.documentAdd()} />
+              <AddFile title="Fotoğraf Çek" type="gallery" onPress={() => this.openCamera()} />
+              {
+                audio ? <AddFile title="Durdur" type="audio" onPress={() => this.audioStop()} /> : <AddFile title="Ses Kaydı Al" type="audio" onPress={() => this.audioStart()} />
+              }
+            </View>
+            {
+              document
                 ?
-                <View style={styles.snapVideo}>
-                  <TouchableOpacity style={styles.closedBtn} onPress={() => this.clearVideo()}>
+                <View style={styles.clearDocument}>
+                  <FileIcon fill="black" style={styles.clearDocumentIcon} />
+                  <Text style={styles.clearDocumentText}>{documentName.substring(0, 30) + '...'}</Text>
+                  <TouchableOpacity style={styles.closedBtn} onPress={() => this.clearDocument()}>
                     <ClosedIcon style={styles.closed} />
                   </TouchableOpacity>
-                  <Video
-                    paused
-                    source={{ uri: video }} ref={(ref) => { this.player = ref }}
-                    onBuffer={this.onBuffer} onError={this.videoError}
-                    resizeMode="cover"
-                    style={styles.snapVideoVid} />
                 </View>
                 :
                 null
             }
+            <View style={styles.imgWrapper}>
+              {
+                image
+                  ?
+                  <View style={styles.snapImage}>
+                    <TouchableOpacity style={styles.closedBtn} onPress={() => this.clearImage()}>
+                      <ClosedIcon style={styles.closed} />
+                    </TouchableOpacity>
+                    <Image source={{ uri: image }} style={styles.snapImageImg} />
+                  </View>
+                  : null
+              }
+              {
+                video
+                  ?
+                  <View style={styles.snapVideo}>
+                    <TouchableOpacity style={styles.closedBtn} onPress={() => this.clearVideo()}>
+                      <ClosedIcon style={styles.closed} />
+                    </TouchableOpacity>
+                    <Video
+                      paused
+                      source={{ uri: video }} ref={(ref) => { this.player = ref }}
+                      onBuffer={this.onBuffer} onError={this.videoError}
+                      resizeMode="cover"
+                      style={styles.snapVideoVid} />
+                  </View>
+                  :
+                  null
+              }
+              {
+                audioData
+                  ?
+                  <View style={styles.snapImage}>
+                    <TouchableOpacity style={styles.closedBtn} onPress={() => this.clearVoice()}>
+                      <ClosedIcon style={styles.closed} />
+                    </TouchableOpacity>
+                    <AudioIcon fill="black" style={styles.snapImageImg} />
+                    <Text style={styles.audioText}>ses-kaydi.wav</Text>
+                  </View>
+                  :
+                  null
+              }
+            </View>
             {
-              audioData
-                ?
-                <View style={styles.snapImage}>
-                  <TouchableOpacity style={styles.closedBtn} onPress={() => this.clearVoice()}>
-                    <ClosedIcon style={styles.closed} />
-                  </TouchableOpacity>
-                  <AudioIcon fill="black" style={styles.snapImageImg} />
-                  <Text style={styles.audioText}>ses-kaydi.wav</Text>
-                </View>
-                :
-                null
+              this.renderItems(isPost, isPostErrorMessage, post)
             }
-          </View>
+            <Button bg={theme.colorBlack} color={theme.colorWhite} title="Formu Gönder" onPress={this.postDatas.bind(this)} />
+          </KeyboardAwareScrollView>
           {
-            this.renderItems(isPost, isPostErrorMessage, post)
+            this.cameraView()
           }
-          <Button bg={theme.colorBlack} color={theme.colorWhite} title="Formu Gönder" onPress={this.postDatas.bind(this)} />
-        </KeyboardAwareScrollView>
-        {
-          this.cameraView()
-        }
-      </View>
+        </View>
+      </SafeAreaView>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, Image, ActivityIndicator } from 'react-native';
+import { View, TouchableOpacity, Text, Image, ActivityIndicator, SafeAreaView } from 'react-native';
 import styles from './styles';
 import { connect } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -40,7 +40,7 @@ class Choose extends Component {
     }
     if (userErrorMessage) {
       for (let [key, value] of Object.entries(userErrorMessage.data)) {
-        return (<Text style={[styles.successText, styles.successTextErr]}>{key} : {value}</Text>)
+        return (<Text style={styles.successTextErr}>{key} : {value}</Text>)
       }
     }
   }
@@ -49,24 +49,26 @@ class Choose extends Component {
     const { navigate } = this.props.navigation;
     const { isUser, userErrorMessage, user } = this.props.getUserToProps;
     return (
-      <View style={styles.wrapper}>
-        {
-          this.renderGetUser(isUser, userErrorMessage, user)
-        }
-        <Image style={styles.logo} source={TurkcellLogo} />
-        <View style={styles.wrapperIn}>
-          <TouchableOpacity style={[styles.button, styles.buttonTop]} onPress={() => navigate('Form')}>
-            <Text style={styles.buttonTitle}>Ziyaret Formu</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.buttonBottom]} onPress={() => navigate('Notes')}>
-            <Text style={[styles.buttonTitle, styles.buttonTitleBlue]}>Notlarım</Text>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.wrapper}>
+          {
+            this.renderGetUser(isUser, userErrorMessage, user)
+          }
+          <Image style={styles.logo} source={TurkcellLogo} />
+          <View style={styles.wrapperIn}>
+            <TouchableOpacity style={[styles.button, styles.buttonTop]} onPress={() => navigate('Form')}>
+              <Text style={styles.buttonTitle}>Ziyaret Formu</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.button, styles.buttonBottom]} onPress={() => navigate('Notes')}>
+              <Text style={[styles.buttonTitle, styles.buttonTitleBlue]}>Notlarım</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity style={styles.btnLogout} onPress={() => this.removeItemValue('token')}>
+            <LogoutIcon fill="red" style={styles.btnLogoutIcon} />
+            <Text style={styles.btnLogoutText}>Çıkış Yap</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.btnLogout} onPress={() => this.removeItemValue('token')}>
-          <LogoutIcon fill="red" style={styles.btnLogoutIcon} />
-          <Text style={styles.btnLogoutText}>Çıkış Yap</Text>
-        </TouchableOpacity>
-      </View>
+      </SafeAreaView>
     )
   }
 }

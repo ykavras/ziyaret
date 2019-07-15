@@ -77,4 +77,10 @@ export default StyleSheet.create({
     textAlign: 'center',
     paddingVertical: 10
   },
+  successTextErr: {
+    paddingBottom: 10,
+    textAlign: 'center',
+    fontFamily: theme.fontMedium,
+    color: theme.colorYellow
+  },
 });
