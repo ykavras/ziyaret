@@ -5,7 +5,7 @@ import {
 } from "../actions/types";
 
 const INITIAL_STATE = {
-  isDealers: false,
+  isDealers: true,
   dealersErrorMessage: null,
   dealers: null,
 };

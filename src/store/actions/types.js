@@ -72,13 +72,6 @@ export const dealer = 'dealer';
 export const offered_product = 'offered_product';
 
 
-
-
-
-
-
-
-
 //SERVICES
 export const SERVICES_REQUEST = 'SERVICES_REQUEST';
 export const SERVICES_SUCCESS = 'SERVICES_SUCCESS';
@@ -88,3 +81,8 @@ export const SERVICES_FAILURE = 'SERVICES_FAILURE';
 export const DEALERS_REQUEST = 'DEALERS_REQUEST';
 export const DEALERS_SUCCESS = 'DEALERS_SUCCESS';
 export const DEALERS_FAILURE = 'DEALERS_FAILURE';
+
+//USER
+export const USER_GET_REQUEST = 'USER_GET_REQUEST';
+export const USER_GET_SUCCESS = 'USER_GET_SUCCESS';
+export const USER_GET_FAILURE = 'USER_GET_FAILURE';

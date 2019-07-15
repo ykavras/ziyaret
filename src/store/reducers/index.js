@@ -4,6 +4,7 @@ import loginReducer from './loginReducer';
 import servicesReducer from './servicesReducer';
 import dealersReducer from './dealersReducer';
 import notesReducer from './notesReducer';
+import userReducer from './userReducer';
 
 
 export default combineReducers({
@@ -11,5 +12,6 @@ export default combineReducers({
   loginReducer,
   servicesReducer,
   dealersReducer,
-  notesReducer
+  notesReducer,
+  userReducer
 });

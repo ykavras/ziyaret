@@ -63,4 +63,18 @@ export default StyleSheet.create({
     height: 80,
     resizeMode: 'contain',
   },
+  userInfo: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    backgroundColor: theme.colorWhite,
+  },
+  userText: {
+    fontFamily: theme.fontSemiBold,
+    color: theme.colorBlue,
+    fontSize: 18,
+    textAlign: 'center',
+    paddingVertical: 10
+  },
 });

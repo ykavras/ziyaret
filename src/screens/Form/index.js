@@ -150,7 +150,8 @@ class Form extends Component {
 
   componentDidMount() {
     const options = {
-      audioSource: 6
+      audioSource: 6,
+      wavFile: 'ses-kaydi.wav'
     };
 
     AudioRecord.init(options);
@@ -378,7 +379,7 @@ class Form extends Component {
   }
 
   renderDealers = (isDealers, dealersErrorMessage, dealers) => {
-    if (isDealers) return (<ActivityIndicator color="white" />)
+    if (isDealers) return (<ActivityIndicator color="black" />)
     if (dealersErrorMessage) {
       for (let [key, value] of Object.entries(dealersErrorMessage.data)) {
         return (<Text style={[styles.successText, styles.successTextErr]}>{key} : {value}</Text>)
@@ -893,6 +894,7 @@ class Form extends Component {
                     <ClosedIcon style={styles.closed} />
                   </TouchableOpacity>
                   <AudioIcon fill="black" style={styles.snapImageImg} />
+                  <Text style={styles.audioText}>ses-kaydi.wav</Text>
                 </View>
                 :
                 null

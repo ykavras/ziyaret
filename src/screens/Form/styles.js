@@ -205,4 +205,11 @@ export default StyleSheet.create({
     height: 30,
     resizeMode: 'contain'
   },
+  audioText: {
+    fontSize: 14,
+    fontFamily: theme.fontMedium,
+    color: theme.colorBlack,
+    textAlign: 'center',
+    paddingBottom: 20,
+  },
 });
