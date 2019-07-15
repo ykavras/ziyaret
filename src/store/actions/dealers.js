@@ -1,7 +1,10 @@
 import {
   DEALERS_REQUEST,
   DEALERS_SUCCESS,
-  DEALERS_FAILURE
+  DEALERS_FAILURE,
+  SITES_GET_REQUEST,
+  SITES_GET_SUCCESS,
+  SITES_GET_FAILURE
 } from "./types";
 import api from '../../lib/api';
 
@@ -23,3 +26,17 @@ export const getDealers = () => {
     }
   }
 };
+
+export const getSites = (id) => {
+  return async dispatch => {
+    dispatch(fetchingRequest(SITES_GET_REQUEST));
+    try {
+      const response = await api.get('sites/', { dealer_id: id });
+      const payload = await response.data;
+      dispatch(fetchingSuccess(SITES_GET_SUCCESS, payload));
+    } catch (error) {
+      dispatch(fetchingFailure(SITES_GET_FAILURE, error.response));
+    }
+  }
+};
+

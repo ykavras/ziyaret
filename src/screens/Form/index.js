@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import {
-  View, StatusBar, Text, Image, ActivityIndicator, TouchableOpacity, SafeAreaView
+  View, StatusBar, Text, Image, ActivityIndicator, TouchableOpacity, SafeAreaView, ListView, FlatList, ScrollView
 } from 'react-native';
 import styles from './styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -53,7 +53,9 @@ import {
   offeredProduct
 } from "../../store/actions/visits";
 import { getServices } from '../../store/actions/services';
-import { getDealers } from '../../store/actions/dealers';
+import { getDealers, getSites } from '../../store/actions/dealers';
+
+let filteringData = [];
 
 class Form extends Component {
   constructor(props) {
@@ -79,6 +81,9 @@ class Form extends Component {
       whichInterView: '',
       whichIsDecider: '',
       whichCities: '',
+      searchedFilter: [],
+      query: '',
+      queryWrapper: false,
       presentTypeState: [
         { label: 'Referans', value: 'ref' },
         { label: 'Stand', value: 'stand' },
@@ -179,6 +184,7 @@ class Form extends Component {
     }
     this.props.getServices();
     this.props.getDealers();
+
   }
 
   onCompanyName = (text) => { this.props.companyName(text) }
@@ -285,7 +291,6 @@ class Form extends Component {
     }
   }
 
-
   clearImage = () => {
     this.setState({ image: '' })
     this.onPhotoChanged(null)
@@ -378,6 +383,18 @@ class Form extends Component {
     });
   }
 
+  searchedFilter = (text) => {
+    if (text === '') {
+      return this.setState({ searchedFilter: [], queryWrapper: false })
+    } else {
+      var searchedFilter = filteringData.filter(function (item) {
+        return item.name.toLowerCase().indexOf(text.toLowerCase()) > -1;
+      });
+      this.setState({ searchedFilter: searchedFilter });
+      this.setState({ queryWrapper: true })
+    }
+  };
+
   renderDealers = (isDealers, dealersErrorMessage, dealers) => {
     if (isDealers) return (<ActivityIndicator color="black" />)
     if (dealersErrorMessage) {
@@ -391,10 +408,14 @@ class Form extends Component {
           label="Hangi Bayi ?"
           selectText="Lütfen ilgili bayiyi seçiniz"
           array={dealers.map(a => ({ label: a.name, value: a.id }))}
-          onValueChange={value => { this.renderForms(value); this.onDealerChanged(value); }} />
+          onValueChange={value => { this.renderForms(value); this.onDealerChanged(value); this.postSites(value) }} />
       )
     }
   };
+
+  postSites = (key) => {
+    return this.props.getSites(key)
+  }
 
   renderForms = (key) => {
     switch (key) {
@@ -451,7 +472,7 @@ class Form extends Component {
     )
   };
 
-  //FORM 1
+  //FORM 2
   renderForm2 = () => {
     const { isServices, servicesErrorMessage, services } = this.props.getServicesToProps;
     const { presentTypeState, interviewResult } = this.state;
@@ -509,7 +530,7 @@ class Form extends Component {
   }
 
   renderWhichPresent = () => {
-    const { whichPresent, standAreaList } = this.state;
+    const { whichPresent, standAreaList, query, queryWrapper } = this.state;
     switch (whichPresent) {
       case 'ref':
         return (
@@ -531,25 +552,72 @@ class Form extends Component {
             <Input type="black" label="Standın Süresi" placeholder="Standın süresini giriniz" onChangeText={this.onStandTime.bind(this)} />
           </Fragment>
         )
-        break;
       case 'D2D':
         return (
           <Fragment>
-            <Input type="black" label="Site Adı" placeholder="Site adını giriniz" onChangeText={this.onSiteName.bind(this)} />
+            <View style={styles.siteWrapper}>
+              <Input type="black" label="Site Adı" placeholder="Site adını giriniz" value={query}
+                onChangeText={value => {
+                  this.setState({ query: value })
+                  this.searchedFilter(value)
+                  this.onSiteName(value)
+                }}
+              />
+              {
+                queryWrapper
+                  ?
+                  <FlatList data={filteringData} style={styles.siteListing}
+                    renderItem={({ item }) => {
+                      return (
+                        <TouchableOpacity key={item.id} style={styles.siteItem} onPress={() => {
+                          this.setState({ query: item.name, queryWrapper: false })
+                          this.onSiteName(item.name)
+                        }}>
+                          <Text style={styles.siteItemText}>{item.name}</Text>
+                        </TouchableOpacity>
+                      )
+                    }}
+                  />
+                  : null
+              }
+            </View>
             <Input type="black" label="Blok Adı" placeholder="Blok adını giriniz" onChangeText={this.onBlockName.bind(this)} />
             <Input type="black" label="Daire Numarası" placeholder="Daire numararını giriniz" onChangeText={this.onFlatNo.bind(this)} />
           </Fragment>
         );
-        break;
       case 'hunter':
         return (
           <Fragment>
-            <Input type="black" label="Site Adı" placeholder="Site adını giriniz" onChangeText={this.onSiteName.bind(this)} />
+            <View style={styles.siteWrapper}>
+              <Input type="black" label="Site Adı" placeholder="Site adını giriniz" value={query}
+                onChangeText={value => {
+                  this.setState({ query: value })
+                  this.searchedFilter(value)
+                  this.onSiteName(value)
+                }}
+              />
+              {
+                queryWrapper
+                  ?
+                  <FlatList data={filteringData} style={styles.siteListing}
+                    renderItem={({ item }) => {
+                      return (
+                        <TouchableOpacity key={item.id} style={styles.siteItem} onPress={() => {
+                          this.setState({ query: item.name, queryWrapper: false })
+                          this.onSiteName(item.name)
+                        }}>
+                          <Text style={styles.siteItemText}>{item.name}</Text>
+                        </TouchableOpacity>
+                      )
+                    }}
+                  />
+                  : null
+              }
+            </View>
             <Input type="black" label="Blok Adı" placeholder="Blok adını giriniz" onChangeText={this.onBlockName.bind(this)} />
             <Input type="black" label="Daire Numarası" placeholder="Daire numararını giriniz" onChangeText={this.onFlatNo.bind(this)} />
           </Fragment>
         );
-        break;
       default:
         break;
     }
@@ -802,6 +870,16 @@ class Form extends Component {
     }
   }
 
+  sitesRendered = (isSites, sitessErrorMessage, sites) => {
+    if (isSites) return (<ActivityIndicator color="black" />)
+    if (sitessErrorMessage) {
+      for (let [key, value] of Object.entries(sitessErrorMessage.data)) {
+        return <Text style={[styles.successText, styles.successTextErr]}>{key} : {value}</Text>
+      }
+    }
+    if (sites) filteringData = sites;
+  }
+
   render() {
     const {
       image,
@@ -816,6 +894,8 @@ class Form extends Component {
     } = this.state;
     const { isPost, isPostErrorMessage, post } = this.props.postVisitsToProps;
     const { isDealers, dealersErrorMessage, dealers } = this.props.getDealersToProps;
+    const { isSites, sitessErrorMessage, sites } = this.props.getSitesToProps;
+    this.sitesRendered(isSites, sitessErrorMessage, sites)
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.wrapper}>
@@ -923,6 +1003,8 @@ Form.propTypes = {
   getServicesToProps: PropTypes.object.isRequired,
   getDealers: PropTypes.func.isRequired,
   getDealersToProps: PropTypes.object.isRequired,
+  getSites: PropTypes.func.isRequired,
+  getSitesToProps: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => {
@@ -930,6 +1012,7 @@ const mapStateToProps = state => {
     postVisitsToProps: state.visitsReducer,
     getServicesToProps: state.servicesReducer,
     getDealersToProps: state.dealersReducer,
+    getSitesToProps: state.dealersReducer,
   }
 };
 
@@ -938,6 +1021,7 @@ export default connect(mapStateToProps, {
   visitsDefault,
   getServices,
   getDealers,
+  getSites,
   companyName,
   customerFirstName,
   customerLastName,

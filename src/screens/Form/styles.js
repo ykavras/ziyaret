@@ -212,4 +212,24 @@ export default StyleSheet.create({
     textAlign: 'center',
     paddingBottom: 20,
   },
+  siteWrapper: {
+    marginBottom: 6,
+  },
+  siteListing: {
+    backgroundColor: theme.colorBlue,
+    paddingTop: 6,
+    height: 100,
+  },
+  siteItem: {
+    marginBottom: 6
+  },
+  siteItemText: {
+    fontFamily: theme.fontRegular,
+    paddingHorizontal: 6,
+    color: theme.colorWhite
+  },
+  resultsSite: {
+    backgroundColor: theme.colorBlue,
+    padding: 5,
+  },
 });

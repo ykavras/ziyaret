@@ -34,7 +34,7 @@ class Choose extends Component {
       const userInfo = user[0];
       return (
         <View style={styles.userInfo}>
-          <Text style={styles.userText}>EXT: {userInfo.first_name + ' ' + userInfo.last_name}</Text>
+          <Text style={styles.userText}>{userInfo.username} - {userInfo.first_name} {userInfo.last_name}</Text>
         </View>
       )
     }
