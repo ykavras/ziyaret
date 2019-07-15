@@ -4,12 +4,24 @@ import theme from '../../lib/theme';
 export default StyleSheet.create({
   wrapper: {
     flex: 1,
-    flexDirection: 'column'
+    backgroundColor: theme.colorBlue,
+    paddingTop: 100,
+  },
+  wrapperIn: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
   },
   button: {
-    flex: 1,
+    width: '49%',
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 2,
+    borderRadius: 6,
+    borderColor: theme.colorWhite,
+    paddingVertical: 60,
   },
   buttonTop: {
     backgroundColor: theme.colorBlue,
@@ -19,8 +31,9 @@ export default StyleSheet.create({
   },
   buttonTitle: {
     fontFamily: theme.fontBlack,
-    fontSize: 50,
+    fontSize: 20,
     color: theme.colorWhite,
+    textAlign: 'center'
   },
   buttonTitleBlue: {
     color: theme.colorBlue,
@@ -44,5 +57,10 @@ export default StyleSheet.create({
     color: 'red',
     fontFamily: theme.fontMedium,
     paddingLeft: 10,
+  },
+  logo: {
+    width: 'auto',
+    height: 80,
+    resizeMode: 'contain',
   },
 });

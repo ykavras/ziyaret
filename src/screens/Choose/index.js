@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, Image } from 'react-native';
 import styles from './styles';
 import { connect } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import { logout } from '../../store/actions/login';
 import LogoutIcon from '../../assets/icons/Logout';
+import TurkcellLogo from '../../assets/img/turkcell-logo.png';
 
 class Choose extends Component {
 
@@ -22,12 +23,15 @@ class Choose extends Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.wrapper}>
-        <TouchableOpacity style={[styles.button, styles.buttonTop]} onPress={() => navigate('Form')}>
-          <Text style={styles.buttonTitle}>Ziyaret Formu</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.buttonBottom]} onPress={() => navigate('Notes')}>
-          <Text style={[styles.buttonTitle, styles.buttonTitleBlue]}>Notlarım</Text>
-        </TouchableOpacity>
+        <Image style={styles.logo} source={TurkcellLogo} />
+        <View style={styles.wrapperIn}>
+          <TouchableOpacity style={[styles.button, styles.buttonTop]} onPress={() => navigate('Form')}>
+            <Text style={styles.buttonTitle}>Ziyaret Formu</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.button, styles.buttonBottom]} onPress={() => navigate('Notes')}>
+            <Text style={[styles.buttonTitle, styles.buttonTitleBlue]}>Notlarım</Text>
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity style={styles.btnLogout} onPress={() => this.removeItemValue('token')}>
           <LogoutIcon fill="red" style={styles.btnLogoutIcon} />
           <Text style={styles.btnLogoutText}>Çıkış Yap</Text>
