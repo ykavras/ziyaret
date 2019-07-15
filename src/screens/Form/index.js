@@ -530,7 +530,7 @@ class Form extends Component {
   }
 
   renderWhichPresent = () => {
-    const { whichPresent, standAreaList, query, queryWrapper } = this.state;
+    const { whichPresent, standAreaList, query } = this.state;
     switch (whichPresent) {
       case 'ref':
         return (
@@ -564,21 +564,7 @@ class Form extends Component {
                 }}
               />
               {
-                queryWrapper
-                  ?
-                  <FlatList data={filteringData} style={styles.siteListing}
-                    renderItem={({ item }) => {
-                      return (
-                        <TouchableOpacity key={item.id} style={styles.siteItem} onPress={() => {
-                          this.setState({ query: item.name, queryWrapper: false })
-                          this.onSiteName(item.name)
-                        }}>
-                          <Text style={styles.siteItemText}>{item.name}</Text>
-                        </TouchableOpacity>
-                      )
-                    }}
-                  />
-                  : null
+                this.returnQueryWrapper()
               }
             </View>
             <Input type="black" label="Blok Adı" placeholder="Blok adını giriniz" onChangeText={this.onBlockName.bind(this)} />
@@ -597,21 +583,7 @@ class Form extends Component {
                 }}
               />
               {
-                queryWrapper
-                  ?
-                  <FlatList data={filteringData} style={styles.siteListing}
-                    renderItem={({ item }) => {
-                      return (
-                        <TouchableOpacity key={item.id} style={styles.siteItem} onPress={() => {
-                          this.setState({ query: item.name, queryWrapper: false })
-                          this.onSiteName(item.name)
-                        }}>
-                          <Text style={styles.siteItemText}>{item.name}</Text>
-                        </TouchableOpacity>
-                      )
-                    }}
-                  />
-                  : null
+                this.returnQueryWrapper()
               }
             </View>
             <Input type="black" label="Blok Adı" placeholder="Blok adını giriniz" onChangeText={this.onBlockName.bind(this)} />
@@ -622,6 +594,26 @@ class Form extends Component {
         break;
     }
   };
+
+  returnQueryWrapper = () => {
+    const { queryWrapper } = this.state;
+    if (queryWrapper) {
+      return (
+        <FlatList data={filteringData} style={styles.siteListing}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity key={item.id} style={styles.siteItem} onPress={() => {
+                this.setState({ query: item.name, queryWrapper: false })
+                this.onSiteName(item.name)
+              }}>
+                <Text style={styles.siteItemText}>{item.name}</Text>
+              </TouchableOpacity>
+            )
+          }}
+        />
+      )
+    }
+  }
 
   renderWhichInterView = () => {
     const { whichInterView, date, time, otherCompany } = this.state;
