@@ -7,15 +7,21 @@ export default StyleSheet.create({
     borderRadius: 6,
     width: 70,
     height: 70,
-    borderRadius: 30,
+    borderRadius: 35,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 10,
   },
-  captureTitle: {
+  back: {
+    width: 50,
+    height: 30,
     padding: 6,
-    fontFamily: theme.fontMedium,
-    color: 'black',
-    fontSize: 16,
-    textAlign: 'center'
+    backgroundColor: theme.colorWhite,
+    borderRadius: 10,
+  },
+  icon: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   }
 });

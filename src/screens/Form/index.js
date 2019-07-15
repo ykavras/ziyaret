@@ -13,6 +13,7 @@ import AudioIcon from '../../assets/icons/Microphone';
 import ClosedIcon from '../../assets/icons/Closed';
 import FileIcon from '../../assets/icons/AddFile';
 import BackIcon from '../../assets/icons/Back';
+import theme from '../../lib/theme';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -73,105 +74,71 @@ class Form extends Component {
       mapRegion: null,
       openForm1: false,
       openForm2: false,
+      openForm3: false,
       whichPresent: '',
       whichInterView: '',
       whichIsDecider: '',
       whichCities: '',
       presentTypeState: [
-        {
-          label: 'Referans',
-          value: 'ref',
-        },
-        {
-          label: 'Stand',
-          value: 'stand',
-        },
-        {
-          label: 'D2D',
-          value: 'D2D',
-        },
-        {
-          label: 'Hunter',
-          value: 'hunter',
-        }
+        { label: 'Referans', value: 'ref' },
+        { label: 'Stand', value: 'stand' },
+        { label: 'D2D', value: 'D2D' },
       ],
       interviewResult: [
-        {
-          label: 'Satış Tamam',
-          value: 'ST',
-        },
-        {
-          label: 'Tekrar Ziyaret Edilecek',
-          value: 'TZ',
-        },
-        {
-          label: 'Olumsuz',
-          value: 'olm',
-        },
-        {
-          label: 'Kapı Açılmadı',
-          value: 'KA',
-        },
-        {
-          label: 'Başka ISS Abonesi',
-          value: 'BI',
-        },
-        {
-          label: 'Fiyat Yüksek',
-          value: 'FY',
-        }
+        { label: 'Satış Tamam', value: 'ST' },
+        { label: 'Tekrar Ziyaret Edilecek', value: 'TZ' },
+        { label: 'Olumsuz', value: 'olm' },
+        { label: 'Kapı Açılmadı', value: 'KA' },
+        { label: 'Başka ISS Abonesi', value: 'BI' },
+        { label: 'Fiyat Yüksek', value: 'FY', }
       ],
       otherCompany: [
-        {
-          label: 'Vodafone',
-          value: 'vadafone',
-        },
-        {
-          label: 'Türk Telekom',
-          value: 'turktelekom',
-        },
-        {
-          label: 'Metro',
-          value: 'metro',
-        },
-        {
-          label: 'Diğer',
-          value: 'other',
-        },
+        { label: 'Vodafone', value: 'vadafone' },
+        { label: 'Türk Telekom', value: 'turktelekom' },
+        { label: 'Metro', value: 'metro' },
+        { label: 'Diğer', value: 'other' },
       ],
       isDecider: [
-        {
-          label: 'Evet',
-          value: true
-        },
-        {
-          label: 'Hayır',
-          value: false
-        }
+        { label: 'Evet', value: true },
+        { label: 'Hayır', value: false }
       ],
       cities: [
-        {
-          label: 'İstanbul',
-          value: 'İstanbul',
-        },
-        {
-          label: 'Bölge Dışı',
-          value: 'Bölge Dışı',
-        }
+        { label: 'İstanbul', value: 'İstanbul' },
+        { label: 'Bölge Dışı', value: 'Bölge Dışı', }
       ],
       district: [
-        {
-          label: 'Bayrampaşa',
-          value: 'Bayrampaşa',
-        },
-        {
-          label: 'Sultangazi',
-          value: 'Sultangazi',
-        },
-        {
-          label: 'Bölge Dışı',
-          value: 'Bölge Dışı',
-        }
+        { label: 'Bayrampaşa', value: 'Bayrampaşa' },
+        { label: 'Sultangazi', value: 'Sultangazi' },
+        { label: 'Bölge Dışı', value: 'Bölge Dışı' }
+      ],
+      standAreaList: [
+        { label: 'Başakşehir', value: 'Başakşehir' },
+        { label: 'Bahçeşehir', value: 'Bahçeşehir' },
+        { label: 'Kayaşehir', value: 'Kayaşehir' },
+        { label: 'Esenyurt', value: 'Esenyurt' },
+        { label: 'Ispartakule', value: 'Ispartakule' },
+        { label: 'Halkalı', value: 'Halkalı' },
+        { label: 'Hadımköy', value: 'Hadımköy', }
+      ],
+      sectorList: [
+        { label: 'AKARYAKIT', value: 'AKARYAKIT' },
+        { label: 'BİLGİ TEKNOLOJİLERİ', value: 'BİLGİ TEKNOLOJİLERİ' },
+        { label: 'DİĞER', value: 'DİĞER' },
+        { label: 'EĞİTİM', value: 'EĞİTİM' },
+        { label: 'ENDÜSTRİ VE TİCARET', value: 'ENDÜSTRİ VE TİCARET' },
+        { label: 'ENERJİ VE İNŞAAT', value: 'ENERJİ VE İNŞAAT' },
+        { label: 'FİNANS SİGORTA VE BANKACILIK', value: 'FİNANS SİGORTA VE BANKACILIK' },
+        { label: 'HOLDİNG', value: 'HOLDİNG' },
+        { label: 'KAMU VE DEVLET', value: 'KAMU VE DEVLET' },
+        { label: 'MEDYA VE REKLAM', value: 'MEDYA VE REKLAM' },
+        { label: 'OTOMOTİV', value: 'OTOMOTİV' },
+        { label: 'PROFESYONEL HİZMETLER', value: 'PROFESYONEL HİZMETLER' },
+        { label: 'SAĞLIK', value: 'SAĞLIK' },
+        { label: 'SENDİKA DERNEK BÜYÜKELÇİLİK', value: 'SENDİKA DERNEK BÜYÜKELÇİLİK' },
+        { label: 'TAŞIMA ULAŞIM VE DAĞITIM', value: 'TAŞIMA ULAŞIM VE DAĞITIM' },
+        { label: 'TEKSTİL', value: 'TEKSTİL' },
+        { label: 'TURİZM', value: 'TURİZM' },
+        { label: 'TÜKETİM MALZEMELERİ', value: 'TÜKETİM MALZEMELERİ' },
       ]
     }
   }
@@ -372,16 +339,18 @@ class Form extends Component {
             {({ camera, status, recordAudioPermissionStatus }) => {
               if (status !== 'READY') return <PendingView />;
               return (
-                <View style={styles.captureWrapper}>
-                  <CameraButton label="KAPAT" onPress={() => this.closeCamera()} />
-                  <CameraButton label="ÇEK" onPress={() => this.takePicture(camera)} />
-                  {
-                    //recording ?
-                    //  <CameraButton label="BİTİR" onPress={() => this.stopRecording(camera)} />
-                    //  :
-                    //  <CameraButton label="KAYIT" onPress={() => this.startRecording(camera)} />
-                  }
-                </View>
+                <Fragment>
+                  <CameraButton style={styles.cameraBack} type="back" label="KAPAT" onPress={() => this.closeCamera()} />
+                  <View style={styles.captureWrapper}>
+                    <CameraButton type="camera" label="ÇEK" onPress={() => this.takePicture(camera)} />
+                    {
+                      //recording ?
+                      //  <CameraButton label="BİTİR" onPress={() => this.stopRecording(camera)} />
+                      //  :
+                      //  <CameraButton label="KAYIT" onPress={() => this.startRecording(camera)} />
+                    }
+                  </View>
+                </Fragment>
               );
             }}
           </RNCamera>
@@ -416,7 +385,7 @@ class Form extends Component {
           label="Hangi Bayi ?"
           selectText="Lütfen ilgili bayiyi seçiniz"
           array={dealers.map(a => ({ label: a.name, value: a.id }))}
-          onValueChange={value => { this.renderForms(value); this.onDealerChanged(value) }} />
+          onValueChange={value => { this.renderForms(value); this.onDealerChanged(value); }} />
       )
     }
   };
@@ -424,16 +393,16 @@ class Form extends Component {
   renderForms = (key) => {
     switch (key) {
       case 1:
-        this.setState({ openForm1: true, openForm2: false })
+        this.setState({ openForm1: true, openForm2: false, openForm3: false })
         break;
       case 2:
-        this.setState({ openForm1: true, openForm2: false })
+        this.setState({ openForm2: true, openForm1: false, openForm3: false })
         break;
       case 3:
-        this.setState({ openForm2: true, openForm1: false })
+        this.setState({ openForm3: true, openForm1: false, openForm2: false })
         break;
       default:
-        this.setState({ openForm1: false, openForm2: false })
+        this.setState({ openForm1: false, openForm2: false, openForm3: false })
         break;
     }
   };
@@ -444,9 +413,47 @@ class Form extends Component {
     const { presentTypeState, interviewResult } = this.state;
     return (
       <Fragment>
-        <Input label="Kişi Adı" placeholder="Kişi adını giriniz" onChangeText={this.onCustomerFirstName.bind(this)} />
-        <Input label="Kişi Soyadı" placeholder="Kişi soyadınız giriniz" onChangeText={this.onCustomerLastName.bind(this)} />
-        <Input label="Kişi Cep Telefonu" placeholder="Kişi cep telefonunu giriniz" keyboardType="numeric" onChangeText={this.onCustomerMobilePhone.bind(this)} />
+        <Input type="black" label="Kişi Adı" placeholder="Kişi adını giriniz" onChangeText={this.onCustomerFirstName.bind(this)} />
+        <Input type="black" label="Kişi Soyadı" placeholder="Kişi soyadınız giriniz" onChangeText={this.onCustomerLastName.bind(this)} />
+        <Input type="black" label="Kişi Cep Telefonu" placeholder="Kişi cep telefonunu giriniz" keyboardType="numeric" onChangeText={this.onCustomerMobilePhone.bind(this)} />
+        {
+          this.renderWhichProduct(isServices, servicesErrorMessage, services)
+        }
+        <Select
+          label="Sunum Şekli"
+          selectText="Sunum şeklini seçiniz"
+          array={presentTypeState}
+          onValueChange={value => {
+            this.onPresentType(value)
+            this.setState({ whichPresent: value })
+          }} />
+        {
+          this.renderWhichPresent()
+        }
+        <Select
+          label="Görüşme Sonucu"
+          selectText="İlgili sonucu seçiniz"
+          array={interviewResult}
+          onValueChange={value => {
+            this.onInterviewResult(value)
+            this.setState({ whichInterView: value })
+          }} />
+        {
+          this.renderWhichInterView()
+        }
+      </Fragment>
+    )
+  };
+
+  //FORM 1
+  renderForm2 = () => {
+    const { isServices, servicesErrorMessage, services } = this.props.getServicesToProps;
+    const { presentTypeState, interviewResult } = this.state;
+    return (
+      <Fragment>
+        <Input type="black" label="Kişi Adı" placeholder="Kişi adını giriniz" onChangeText={this.onCustomerFirstName.bind(this)} />
+        <Input type="black" label="Kişi Soyadı" placeholder="Kişi soyadınız giriniz" onChangeText={this.onCustomerLastName.bind(this)} />
+        <Input type="black" label="Kişi Cep Telefonu" placeholder="Kişi cep telefonunu giriniz" keyboardType="numeric" onChangeText={this.onCustomerMobilePhone.bind(this)} />
         {
           this.renderWhichProduct(isServices, servicesErrorMessage, services)
         }
@@ -496,40 +503,44 @@ class Form extends Component {
   }
 
   renderWhichPresent = () => {
-    const { whichPresent } = this.state;
+    const { whichPresent, standAreaList } = this.state;
     switch (whichPresent) {
       case 'ref':
         return (
           <Fragment>
-            <Input label="Referans Adı" placeholder="Referans adını giriniz" onChangeText={this.onRefererFirstName.bind(this)} />
-            <Input label="Referans Soyadı" placeholder="Referans soyadını giriniz" onChangeText={this.onRefererLastName.bind(this)} />
-            <Input label="Referans Cep Telefonu" placeholder="Referans cep telefonunu giriniz" keyboardType="numeric" onChangeText={this.onRefererMobilePhone.bind(this)} />
+            <Input type="black" label="Referans Adı" placeholder="Referans adını giriniz" onChangeText={this.onRefererFirstName.bind(this)} />
+            <Input type="black" label="Referans Soyadı" placeholder="Referans soyadını giriniz" onChangeText={this.onRefererLastName.bind(this)} />
+            <Input type="black" label="Referans Cep Telefonu" placeholder="Referans cep telefonunu giriniz" keyboardType="numeric" onChangeText={this.onRefererMobilePhone.bind(this)} />
           </Fragment>
         )
         break;
       case 'stand':
         return (
           <Fragment>
-            <Input label="Standın Kurulduğu Bölge" placeholder="Standın kurulduğu bölgeyi giriniz" onChangeText={this.onStandArea.bind(this)} />
-            <Input label="Standın Süresi" placeholder="Standın süresini giriniz" onChangeText={this.onStandTime.bind(this)} />
+            <Select
+              label="Standın Kurulduğu Bölge"
+              selectText="Standın kurulduğu bölgeyi seçiniz"
+              array={standAreaList}
+              onValueChange={value => { this.onStandArea(value) }} />
+            <Input type="black" label="Standın Süresi" placeholder="Standın süresini giriniz" onChangeText={this.onStandTime.bind(this)} />
           </Fragment>
         )
         break;
       case 'D2D':
         return (
           <Fragment>
-            <Input label="Site Adı" placeholder="Site adını giriniz" onChangeText={this.onSiteName.bind(this)} />
-            <Input label="Blok Adı" placeholder="Blok adını giriniz" onChangeText={this.onBlockName.bind(this)} />
-            <Input label="Daire Numarası" placeholder="Daire numararını giriniz" onChangeText={this.onFlatNo.bind(this)} />
+            <Input type="black" label="Site Adı" placeholder="Site adını giriniz" onChangeText={this.onSiteName.bind(this)} />
+            <Input type="black" label="Blok Adı" placeholder="Blok adını giriniz" onChangeText={this.onBlockName.bind(this)} />
+            <Input type="black" label="Daire Numarası" placeholder="Daire numararını giriniz" onChangeText={this.onFlatNo.bind(this)} />
           </Fragment>
         );
         break;
       case 'hunter':
         return (
           <Fragment>
-            <Input label="Site Adı" placeholder="Site adını giriniz" onChangeText={this.onSiteName.bind(this)} />
-            <Input label="Blok Adı" placeholder="Blok adını giriniz" onChangeText={this.onBlockName.bind(this)} />
-            <Input label="Daire Numarası" placeholder="Daire numararını giriniz" onChangeText={this.onFlatNo.bind(this)} />
+            <Input type="black" label="Site Adı" placeholder="Site adını giriniz" onChangeText={this.onSiteName.bind(this)} />
+            <Input type="black" label="Blok Adı" placeholder="Blok adını giriniz" onChangeText={this.onBlockName.bind(this)} />
+            <Input type="black" label="Daire Numarası" placeholder="Daire numararını giriniz" onChangeText={this.onFlatNo.bind(this)} />
           </Fragment>
         );
         break;
@@ -542,7 +553,7 @@ class Form extends Component {
     const { whichInterView, date, time, otherCompany } = this.state;
     switch (whichInterView) {
       case 'ST':
-        return (<Input label="Görüşme Sonucu Tamam" placeholder="Görüşme tamam metnini giriniz" onChangeText={this.onInterviewResultDetail.bind(this)} />);
+        return (<Input type="black" label="Görüşme Sonucu Tamam" placeholder="Görüşme tamam metnini giriniz" onChangeText={this.onInterviewResultDetail.bind(this)} />);
         break;
       case 'TZ':
         return (
@@ -552,7 +563,7 @@ class Form extends Component {
         );
         break;
       case 'olm':
-        return (<Input label="Görüşme Sonucu Olumsuz" placeholder="Görüşme olumsuz metnini giriniz" onChangeText={this.onInterviewResultDetail.bind(this)} />);
+        return (<Input type="black" label="Görüşme Sonucu Olumsuz" placeholder="Görüşme olumsuz metnini giriniz" onChangeText={this.onInterviewResultDetail.bind(this)} />);
       case 'KA':
         break;
       case 'BI':
@@ -565,26 +576,26 @@ class Form extends Component {
         );
         break;
       case 'FY':
-        return (<Input label="Fiyat Yüksek" placeholder="Mevcut Fatura Tutarını Giriniz" onChangeText={this.onInterviewResultDetail.bind(this)} />);
+        return (<Input type="black" label="Fiyat Yüksek" placeholder="Mevcut Fatura Tutarını Giriniz" onChangeText={this.onInterviewResultDetail.bind(this)} />);
       default:
         break;
     }
   };
 
   //FORM 2
-  renderForm2 = () => {
-    const { isDecider, cities, interviewResult } = this.state;
+  renderForm3 = () => {
+    const { isDecider, cities, interviewResult, sectorList } = this.state;
     return (
       <Fragment>
-        <Input label="Firma Ünvanı" placeholder="Firma ünvanını giriniz"
+        <Input type="black" label="Firma Ünvanı" placeholder="Firma ünvanını giriniz"
           onChangeText={this.onCompanyName.bind(this)} />
-        <Input label="Görüşülen Kişinin Adı" placeholder="Görüşülen kişinin adını giriniz"
+        <Input type="black" label="Görüşülen Kişinin Adı" placeholder="Görüşülen kişinin adını giriniz"
           onChangeText={this.onCustomerFirstName.bind(this)} />
-        <Input label="Görüşülen Kişinin Soyadı" placeholder="Görüşülen kişinin soyadını giriniz"
+        <Input type="black" label="Görüşülen Kişinin Soyadı" placeholder="Görüşülen kişinin soyadını giriniz"
           onChangeText={this.onCustomerLastName.bind(this)} />
-        <Input label="Görüşülen Kişinin Cep Telefonu" placeholder="Görüşülen kişinin cep telefonunu giriniz" keyboardType="numeric"
+        <Input type="black" label="Görüşülen Kişinin Cep Telefonu" placeholder="Görüşülen kişinin cep telefonunu giriniz" keyboardType="numeric"
           onChangeText={this.onCustomerMobilePhone.bind(this)} />
-        <Input label="Görüşülen Kişinin Sabit Telefonu" placeholder="Görüşülen kişinin sabit telefonunu giriniz" keyboardType="numeric"
+        <Input type="black" label="Görüşülen Kişinin Sabit Telefonu" placeholder="Görüşülen kişinin sabit telefonunu giriniz" keyboardType="numeric"
           onChangeText={this.onCustomerPhone.bind(this)} />
         <Select
           label="Karar Verici mi ?"
@@ -595,7 +606,12 @@ class Form extends Component {
         {
           this.renderWhichIsDeciders()
         }
-        <Input label="Sektör" placeholder="Sektörünüzü yazınız" onChangeText={this.onSectorChanged.bind(this)} />
+        <Select
+          label="Sektör"
+          selectText="Sektörünüzü seçiniz"
+          array={sectorList}
+          onValueChange={value => { this.onSectorChanged(value); }}
+        />
         <Select
           label="İl"
           selectText="Lütfen ili seçiniz"
@@ -630,11 +646,11 @@ class Form extends Component {
     if (whichIsDecider === false) {
       return (
         <Fragment>
-          <Input label="Karar Verici Adı" placeholder="Karar verici adını giriniz"
+          <Input type="black" label="Karar Verici Adı" placeholder="Karar verici adını giriniz"
             onChangeText={this.onDeciderFirstName.bind(this)} />
-          <Input label="Karar Verici Soyadı" placeholder="Karar verici soyadını giriniz"
+          <Input type="black" label="Karar Verici Soyadı" placeholder="Karar verici soyadını giriniz"
             onChangeText={this.onDeciderLastName.bind(this)} />
-          <Input label="Karar Verici Cep Telefonu" placeholder="Karar verici cep telefonunu giriniz" keyboardType="numeric"
+          <Input type="black" label="Karar Verici Cep Telefonu" placeholder="Karar verici cep telefonunu giriniz" keyboardType="numeric"
             onChangeText={this.onDeciderMobilePhone.bind(this)} />
         </Fragment>
       )
@@ -654,7 +670,7 @@ class Form extends Component {
     }
     if (whichCities === 'Bölge Dışı') {
       return (
-        <Input label="İlçe" value="Bölge Dışı" />
+        <Input type="black" label="İlçe" value="Bölge Dışı" />
       )
     }
   };
@@ -764,11 +780,11 @@ class Form extends Component {
       <View style={styles.wrapper}>
         <StatusBar barStyle="light-content" />
         <TouchableOpacity style={styles.btnBack} onPress={() => this.props.navigation.navigate('Choose')}>
-          <BackIcon fill="blue" style={styles.btnBackIcon} />
+          <BackIcon fill="black" style={styles.btnBackIcon} />
         </TouchableOpacity>
+        <Text style={styles.loginText}>Ziyaret Formu</Text>
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false} contentContainerStyle={styles.keyboard} extraHeight={40}>
-          <Text style={styles.loginText}>Ziyaret Formu</Text>
           {
             this.renderDealers(isDealers, dealersErrorMessage, dealers)
           }
@@ -782,14 +798,14 @@ class Form extends Component {
             <AddFile title="Dosya Ekle" type="file" onPress={() => this.documentAdd()} />
             <AddFile title="Fotoğraf Çek" type="gallery" onPress={() => this.openCamera()} />
             {
-              audio ? <AddFile title="Stop" type="audio" onPress={() => this.audioStop()} /> : <AddFile title="Ses Kaydı Al" type="audio" onPress={() => this.audioStart()} />
+              audio ? <AddFile title="Durdur" type="audio" onPress={() => this.audioStop()} /> : <AddFile title="Ses Kaydı Al" type="audio" onPress={() => this.audioStart()} />
             }
           </View>
           {
             document
               ?
               <View style={styles.clearDocument}>
-                <FileIcon style={styles.clearDocumentIcon} />
+                <FileIcon fill="black" style={styles.clearDocumentIcon} />
                 <Text style={styles.clearDocumentText}>{documentName.substring(0, 30) + '...'}</Text>
                 <TouchableOpacity style={styles.closedBtn} onPress={() => this.clearDocument()}>
                   <ClosedIcon style={styles.closed} />
@@ -834,7 +850,7 @@ class Form extends Component {
                   <TouchableOpacity style={styles.closedBtn} onPress={() => this.clearVoice()}>
                     <ClosedIcon style={styles.closed} />
                   </TouchableOpacity>
-                  <AudioIcon style={styles.snapImageImg} />
+                  <AudioIcon fill="black" style={styles.snapImageImg} />
                 </View>
                 :
                 null
@@ -843,7 +859,7 @@ class Form extends Component {
           {
             this.renderItems(isPost, isPostErrorMessage, post)
           }
-          <Button title="Formu Gönder" onPress={this.postDatas.bind(this)} />
+          <Button bg={theme.colorBlack} color={theme.colorWhite} title="Formu Gönder" onPress={this.postDatas.bind(this)} />
         </KeyboardAwareScrollView>
         {
           this.cameraView()

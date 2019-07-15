@@ -6,9 +6,9 @@ import GalleryIcon from '../../assets/icons/Gallery';
 import AudioIcon from '../../assets/icons/Microphone';
 
 const types = {
-  file: <AddFileIcon style={styles.addFileIcon} />,
-  gallery: <GalleryIcon style={styles.addFileIcon} />,
-  audio: <AudioIcon style={styles.addFileIcon} />,
+  file: <AddFileIcon fill="black" style={styles.addFileIcon} />,
+  gallery: <GalleryIcon fill="black" style={styles.addFileIcon} />,
+  audio: <AudioIcon fill="black" style={styles.addFileIcon} />,
 }
 
 export function AddFile(props) {

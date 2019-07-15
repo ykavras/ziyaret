@@ -15,7 +15,7 @@ export default StyleSheet.create({
   },
   addFileText: {
     fontFamily: theme.fontMedium,
-    color: theme.colorWhite,
+    color: theme.colorBlack,
     fontSize: 12,
   },
 })

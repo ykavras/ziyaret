@@ -9,14 +9,14 @@ const pickerStyle = {
     paddingVertical: 16,
     paddingHorizontal: 10,
     fontFamily: theme.fontMedium,
-    color: theme.colorWhite,
+    color: theme.colorBlack,
     fontSize: 12,
   },
   inputAndroid: {
     paddingVertical: 16,
     paddingHorizontal: 10,
     fontFamily: theme.fontMedium,
-    color: theme.colorWhite,
+    color: theme.colorBlack,
     fontSize: 12,
   }
 };
@@ -42,7 +42,7 @@ export function Select(props) {
           value: value ? value : undefined,
           color: theme.colorBlue,
         }}
-        placeholderTextColor="rgba(255,255,255,0.4)"
+        placeholderTextColor="rgba(0,0,0,0.4)"
         items={array}
         onValueChange={onValueChange}
         style={pickerStyle}

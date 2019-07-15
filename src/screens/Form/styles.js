@@ -11,7 +11,7 @@ const {
 export default StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: theme.colorBlue,
+    backgroundColor: theme.colorWhite,
   },
   keyboard: {
     justifyContent: 'center',
@@ -23,7 +23,7 @@ export default StyleSheet.create({
     paddingVertical: 10,
     fontSize: 14,
     fontFamily: theme.fontRegular,
-    color: theme.colorWhite
+    color: theme.colorBlue
   },
   successTextErr: {
     color: theme.colorYellow,
@@ -36,9 +36,10 @@ export default StyleSheet.create({
   },
   loginText: {
     fontFamily: theme.fontSemiBold,
-    fontSize: 22,
-    color: theme.colorWhite,
+    fontSize: 26,
+    color: theme.colorBlack,
     marginBottom: 10,
+    paddingHorizontal: 15,
   },
   links: {
     flexDirection: 'row',
@@ -53,19 +54,19 @@ export default StyleSheet.create({
     fontFamily: theme.fontRegular,
     fontSize: 12,
     lineHeight: 14,
-    color: theme.colorWhite,
+    color: theme.colorBlue,
   },
   button: {
     marginTop: 10
   },
   tabs: {
     borderWidth: 1,
-    borderColor: theme.colorWhite,
+    borderColor: theme.colorBlue,
     borderRadius: 6,
     paddingVertical: 16,
     paddingHorizontal: 10,
     fontFamily: theme.fontMedium,
-    color: theme.colorWhite,
+    color: theme.colorBlue,
     fontSize: 12,
     marginVertical: 15,
     paddingBottom: 8,
@@ -76,7 +77,7 @@ export default StyleSheet.create({
     left: 10,
     fontSize: 12,
     fontFamily: theme.fontMedium,
-    color: theme.colorWhite,
+    color: theme.colorBlue,
     padding: 4,
     backgroundColor: theme.colorBlue,
   },
@@ -91,6 +92,11 @@ export default StyleSheet.create({
     height,
     backgroundColor: 'black',
     zIndex: 2
+  },
+  cameraBack: {
+    position: 'absolute',
+    left: 10,
+    top: 10,
   },
   preview: {
     flex: 1,
@@ -117,7 +123,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   waitingTitle: {
-    color: theme.colorWhite,
+    color: theme.colorBlue,
     fontSize: 16,
     fontFamily: theme.fontMedium,
     textAlign: 'center'
@@ -175,7 +181,7 @@ export default StyleSheet.create({
   },
   clearDocumentText: {
     fontSize: 16,
-    color: theme.colorWhite,
+    color: theme.colorBlue,
     fontFamily: theme.fontMedium,
     paddingLeft: 10,
   },
@@ -183,7 +189,10 @@ export default StyleSheet.create({
     width: 60,
     height: 60,
     borderBottomRightRadius: 30,
-    backgroundColor: theme.colorWhite,
+    borderWidth: 2,
+    borderColor: theme.colorBlack,
+    borderLeftWidth: 0,
+    borderTopWidth: 0,
     marginBottom: 30,
     justifyContent: 'center',
     alignItems: 'center',
