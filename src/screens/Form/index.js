@@ -98,6 +98,11 @@ class Form extends Component {
         { label: 'Metro', value: 'metro' },
         { label: 'Diğer', value: 'other' },
       ],
+      otherCompany2: [
+        { label: 'Vodafone', value: 'vadafone' },
+        { label: 'Türk Telekom', value: 'turktelekom' },
+        { label: 'Diğer', value: 'other' },
+      ],
       isDecider: [
         { label: 'Evet', value: true },
         { label: 'Hayır', value: false }
@@ -582,6 +587,39 @@ class Form extends Component {
     }
   };
 
+  renderWhichInterView2 = () => {
+    const { whichInterView, date, time, otherCompany2 } = this.state;
+    switch (whichInterView) {
+      case 'ST':
+        return (<Input type="black" label="Görüşme Sonucu Tamam" placeholder="Görüşme tamam metnini giriniz" onChangeText={this.onInterviewResultDetail.bind(this)} />);
+        break;
+      case 'TZ':
+        return (
+          <DataPicker label="Tekrar Ziyaret Edilecek" date={date} time={time}
+            onDateChangeDate={(item) => { this.setState({ date: item }); this.onRevisitTime() }}
+            onDateChangeTime={(item) => { this.setState({ time: item }); this.onRevisitTime() }} />
+        );
+        break;
+      case 'olm':
+        return (<Input type="black" label="Görüşme Sonucu Olumsuz" placeholder="Görüşme olumsuz metnini giriniz" onChangeText={this.onInterviewResultDetail.bind(this)} />);
+      case 'KA':
+        break;
+      case 'BI':
+        return (
+          <Select
+            label="Başka ISS Abonesi"
+            selectText="Lütfen ilgili aboneyi seçiniz"
+            array={otherCompany2}
+            onValueChange={value => { this.onOtherCompany(value) }} />
+        );
+        break;
+      case 'FY':
+        return (<Input type="black" label="Fiyat Yüksek" placeholder="Mevcut Fatura Tutarını Giriniz" onChangeText={this.onInterviewResultDetail.bind(this)} />);
+      default:
+        break;
+    }
+  };
+
   //FORM 2
   renderForm3 = () => {
     const { isDecider, cities, interviewResult, sectorList } = this.state;
@@ -635,7 +673,7 @@ class Form extends Component {
             this.setState({ whichInterView: value })
           }} />
         {
-          this.renderWhichInterView()
+          this.renderWhichInterView2()
         }
       </Fragment >
     )
@@ -750,7 +788,7 @@ class Form extends Component {
 
   renderItems = (isPost, isPostErrorMessage, post) => {
     if (isPost) {
-      return (<ActivityIndicator style={styles.loading} color="white" />)
+      return (<ActivityIndicator style={styles.loading} color="black" />)
     }
     if (post) {
       this.props.visitsDefault();
@@ -773,6 +811,7 @@ class Form extends Component {
       audioData,
       openForm1,
       openForm2,
+      openForm3
     } = this.state;
     const { isPost, isPostErrorMessage, post } = this.props.postVisitsToProps;
     const { isDealers, dealersErrorMessage, dealers } = this.props.getDealersToProps;
@@ -793,6 +832,9 @@ class Form extends Component {
           }
           {
             openForm2 ? this.renderForm2() : null
+          }
+          {
+            openForm3 ? this.renderForm3() : null
           }
           <View style={styles.filesWrapper}>
             <AddFile title="Dosya Ekle" type="file" onPress={() => this.documentAdd()} />

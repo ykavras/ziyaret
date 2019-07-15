@@ -13,6 +13,9 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colorWhite,
   },
+  loading: {
+    marginBottom: 20,
+  },
   keyboard: {
     justifyContent: 'center',
     paddingHorizontal: 15,
@@ -26,7 +29,7 @@ export default StyleSheet.create({
     color: theme.colorBlue
   },
   successTextErr: {
-    color: theme.colorYellow,
+    color: theme.colorBlack,
   },
   logo: {
     width: 'auto',
