@@ -768,7 +768,7 @@ class Form extends Component {
         </TouchableOpacity>
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false} contentContainerStyle={styles.keyboard} extraHeight={40}>
-          <Text style={styles.loginText}>İlgili Bayiyi Seçiniz.</Text>
+          <Text style={styles.loginText}>Ziyaret Formu</Text>
           {
             this.renderDealers(isDealers, dealersErrorMessage, dealers)
           }
