@@ -390,7 +390,7 @@ class Form extends Component {
       var searchedFilter = filteringData.filter(function (item) {
         return item.name.toLowerCase().indexOf(text.toLowerCase()) > -1;
       });
-      this.setState({ searchedFilter: searchedFilter });
+      this.setState({ searchedFilter });
       this.setState({ queryWrapper: true })
     }
   };
@@ -596,10 +596,10 @@ class Form extends Component {
   };
 
   returnQueryWrapper = () => {
-    const { queryWrapper } = this.state;
+    const { queryWrapper, searchedFilter } = this.state;
     if (queryWrapper) {
       return (
-        <FlatList data={filteringData} style={styles.siteListing}
+        <FlatList data={searchedFilter} style={styles.siteListing}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity key={item.id} style={styles.siteItem} onPress={() => {
