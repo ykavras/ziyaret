@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import {
-  View, StatusBar, Text, Image, ActivityIndicator, TouchableOpacity, SafeAreaView, ListView, FlatList, ScrollView
+  View, StatusBar, Text, Image, ActivityIndicator, TouchableOpacity, SafeAreaView, FlatList
 } from 'react-native';
 import styles from './styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -599,8 +599,8 @@ class Form extends Component {
     const { queryWrapper, searchedFilter } = this.state;
     if (queryWrapper) {
       return (
-        <Fragment style={styles.siteListingWrapper}>
-          <FlatList data={searchedFilter} style={styles.siteListing}
+        <Fragment>
+          <FlatList data={searchedFilter} style={styles.siteListing} 
             renderItem={({ item }) => {
               return (
                 <TouchableOpacity key={item.id} style={styles.siteItem} onPress={() => {

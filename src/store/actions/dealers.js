@@ -31,7 +31,7 @@ export const getSites = (id) => {
   return async dispatch => {
     dispatch(fetchingRequest(SITES_GET_REQUEST));
     try {
-      const response = await api.get('sites/', { dealer_id: id });
+      const response = await api.get('sites/?dealer_id=' + id);
       const payload = await response.data;
       dispatch(fetchingSuccess(SITES_GET_SUCCESS, payload));
     } catch (error) {
