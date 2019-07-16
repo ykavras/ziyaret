@@ -599,18 +599,20 @@ class Form extends Component {
     const { queryWrapper, searchedFilter } = this.state;
     if (queryWrapper) {
       return (
-        <FlatList data={searchedFilter} style={styles.siteListing}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity key={item.id} style={styles.siteItem} onPress={() => {
-                this.setState({ query: item.name, queryWrapper: false })
-                this.onSiteName(item.name)
-              }}>
-                <Text style={styles.siteItemText}>{item.name}</Text>
-              </TouchableOpacity>
-            )
-          }}
-        />
+        <Fragment style={styles.siteListingWrapper}>
+          <FlatList data={searchedFilter} style={styles.siteListing}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity key={item.id} style={styles.siteItem} onPress={() => {
+                  this.setState({ query: item.name, queryWrapper: false })
+                  this.onSiteName(item.name)
+                }}>
+                  <Text style={styles.siteItemText}>{item.name}</Text>
+                </TouchableOpacity>
+              )
+            }}
+          />
+        </Fragment>
       )
     }
   }
@@ -802,7 +804,7 @@ class Form extends Component {
         interview_result_detail,
         revisit_time,
         other_company,
-        file, 
+        file,
         photo,
         voice,
         long,
@@ -836,7 +838,7 @@ class Form extends Component {
         interview_result_detail,
         revisit_time,
         other_company,
-        file, 
+        file,
         photo,
         voice,
         long,

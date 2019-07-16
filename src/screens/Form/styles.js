@@ -216,9 +216,8 @@ export default StyleSheet.create({
     marginBottom: 6,
   },
   siteListing: {
-    backgroundColor: theme.colorBlue,
+    backgroundColor: theme.colorBlack,
     paddingTop: 6,
-    height: 100,
   },
   siteItem: {
     marginBottom: 6
@@ -226,7 +225,8 @@ export default StyleSheet.create({
   siteItemText: {
     fontFamily: theme.fontRegular,
     paddingHorizontal: 6,
-    color: theme.colorWhite
+    color: theme.colorWhite,
+    fontSize: 16,
   },
   resultsSite: {
     backgroundColor: theme.colorBlue,
