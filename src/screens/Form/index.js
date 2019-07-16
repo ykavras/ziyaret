@@ -293,7 +293,7 @@ class Form extends Component {
 
   clearImage = () => {
     this.setState({ image: '' })
-    this.onPhotoChanged(null)
+    this.onPhotoChanged('')
   }
 
   clearVoice = () => {
@@ -802,7 +802,8 @@ class Form extends Component {
         interview_result_detail,
         revisit_time,
         other_company,
-        file, photo,
+        file, 
+        photo,
         voice,
         long,
         lat,
@@ -835,7 +836,8 @@ class Form extends Component {
         interview_result_detail,
         revisit_time,
         other_company,
-        file, photo,
+        file, 
+        photo,
         voice,
         long,
         lat,
