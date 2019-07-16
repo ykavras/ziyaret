@@ -418,6 +418,7 @@ class Form extends Component {
   }
 
   renderForms = (key) => {
+    this.setState({ whichPresent: '', whichInterView: '', whichIsDecider: '' })
     switch (key) {
       case 1:
         this.setState({ openForm1: true, openForm2: false, openForm3: false })
@@ -600,7 +601,7 @@ class Form extends Component {
     if (queryWrapper) {
       return (
         <Fragment>
-          <FlatList data={searchedFilter} style={styles.siteListing} 
+          <FlatList data={searchedFilter} style={styles.siteListing}
             renderItem={({ item }) => {
               return (
                 <TouchableOpacity key={item.id} style={styles.siteItem} onPress={() => {
