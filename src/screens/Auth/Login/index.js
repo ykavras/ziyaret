@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Text, StatusBar, TouchableOpacity, Image, ActivityIndicator
+  View, Text, StatusBar, TouchableOpacity, Image, ActivityIndicator, PermissionsAndroid, Platform, BackHandler, DeviceEventEmitter
 } from 'react-native';
 import homeStyles from '../styles';
 import styles from './styles';
@@ -11,9 +11,27 @@ import { connect } from 'react-redux';
 import { login, emailChanged, passwordChanged } from "../../../store/actions/login";
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
+import LocationServicesDialogBox from "react-native-android-location-services-dialog-box";
+
+LocationServicesDialogBox.checkLocationServicesIsEnabled({
+  message: "<h2 style='color: #0af13e'>Use Location ?</h2>Bu uygulama cihazınızın ayarlarını değiştirmek istiyor:<br/><br/>Konum için GPS, Wifi ve hücre ağını kullanın",
+  ok: "EVET",
+  cancel: "HAYIR",
+  enableHighAccuracy: true, // true => GPS AND NETWORK PROVIDER, false => GPS OR NETWORK PROVIDER
+  showDialog: true, // false => Opens the Location access page directly
+  openLocationServices: true, // false => Directly catch method is called if location services are turned off
+  preventOutSideTouch: false, // true => To prevent the location services window from closing when it is clicked outside
+  preventBackClick: false, // true => To prevent the location services popup from closing when it is clicked back button
+  providerListener: false // true ==> Trigger locationProviderStatusChange listener when the location state changes
+}).then(function (success) {
+  //console.log(success); // success => {alreadyEnabled: false, enabled: true, status: "enabled"}
+}).catch((error) => {
+  //console.log(error.message); // error.message => "disabled"
+});
 
 class Login extends Component {
-  componentDidMount = async () => {
+  
+  componentDidMount() {
     //AsyncStorage.clear();
     AsyncStorage.getItem('token').then((value) => {
       if (value !== null) {
@@ -22,7 +40,25 @@ class Login extends Component {
         return (navigate('Choose'))
       }
     });
+    this.requestPermission()
   }
+
+  requestPermission = async () => {
+    try {
+      if (Platform.OS === "android") {
+        const userResponse = await PermissionsAndroid.requestMultiple([
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        ]);
+        return userResponse;
+      }
+    } catch (err) {
+      Warning(err);
+    }
+    return null;
+  }
+
 
   onEmailChanged = (text) => {
     this.props.emailChanged(text);

@@ -16,6 +16,8 @@ import BackIcon from '../../assets/icons/Back';
 import theme from '../../lib/theme';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import RNFetchBlob from 'react-native-fetch-blob'
+
 import {
   postVisits,
   visitsDefault,
@@ -153,6 +155,7 @@ class Form extends Component {
     }
   }
 
+
   componentDidMount() {
     const options = {
       audioSource: 6,
@@ -184,7 +187,6 @@ class Form extends Component {
     }
     this.props.getServices();
     this.props.getDealers();
-
   }
 
   onCompanyName = (text) => { this.props.companyName(text) }
@@ -245,7 +247,7 @@ class Form extends Component {
     // Pick a single file
     try {
       const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.images],
+        type: [DocumentPicker.types.allFiles],
       });
       console.log(
         res.uri,
@@ -254,7 +256,7 @@ class Form extends Component {
         res.size,
       );
       this.setState({ document: true, documentName: res.name })
-      this.onFileChanged(res.uri)
+      this.convertToBase64(res.uri)
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         // User cancelled the picker, exit any dialogs or menus and move on
@@ -262,6 +264,13 @@ class Form extends Component {
         throw err;
       }
     }
+  }
+
+  convertToBase64 = (path) => {
+    RNFetchBlob.fs.readFile(path, 'base64')
+      .then((files) => {
+        this.onFileChanged(files);
+      })
   }
 
   clearDocument = () => {
