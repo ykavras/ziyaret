@@ -152,8 +152,8 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-android-location-services-dialog-box')
     implementation project(':react-native-fetch-blob')
+    implementation project(':react-native-android-location-services-dialog-box')
     implementation project(':@react-native-community_async-storage')
     implementation project(':react-native-audio-record')
     implementation project(':react-native-video')
