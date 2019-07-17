@@ -21,11 +21,11 @@ const dateSetting = {
   placeholderText: {
     fontSize: 12,
     fontFamily: theme.fontMedium,
-    color: theme.colorWhite,
+    color: theme.colorBlack,
   },
   dateText: {
     fontSize: 12,
-    color: theme.colorWhite,
+    color: theme.colorBlack,
     fontFamily: theme.fontMedium,
   },
 };

@@ -5,7 +5,7 @@ export default StyleSheet.create({
   inputWrapper: {
     borderWidth: 1,
     borderRadius: 6,
-    borderColor: theme.colorWhite,
+    borderColor: theme.colorBlack,
     marginVertical: 15
   },
   inputLabel: {
@@ -14,9 +14,9 @@ export default StyleSheet.create({
     left: 10,
     fontSize: 12,
     fontFamily: theme.fontMedium,
-    color: theme.colorWhite,
+    color: theme.colorBlack,
     padding: 4,
-    backgroundColor: theme.colorBlue,
+    backgroundColor: theme.colorWhite,
   },
   dateWrapper: {
     flexDirection: 'row',
