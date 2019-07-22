@@ -12,6 +12,7 @@ import AudioIcon from '../../assets/icons/Microphone';
 import ClosedIcon from '../../assets/icons/Closed';
 import FileIcon from '../../assets/icons/AddFile';
 import BackIcon from '../../assets/icons/Back';
+import LocationIcon from '../../assets/icons/Location';
 import theme from '../../lib/theme';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
@@ -87,6 +88,8 @@ class Form extends Component {
 			searchedFilter: [],
 			query: '',
 			queryWrapper: false,
+			getLocationLoader: false,
+			getLocationLoaderText: '',
 			presentTypeState: [
 				{label: 'Referans', value: 'ref'},
 				{label: 'Stand', value: 'stand'},
@@ -157,29 +160,26 @@ class Form extends Component {
 	}
 
 	componentDidMount() {
-		if (navigator.geolocation) {
-			var location_timeout = setTimeout("geolocFail()", 10000);
-
-			const {latChanged, longChanged} = this.props;
-
-			navigator.geolocation.getCurrentPosition(function (position) {
-				clearTimeout(location_timeout);
-
-				var lat = position.coords.latitude;
-				var lng = position.coords.longitude;
-
-				latChanged(lat);
-				longChanged(lng);
-			}, function (error) {
-				clearTimeout(location_timeout);
-				geolocFail();
-			});
-		} else {
-			// Fallback for no geolocation
-			geolocFail();
-		}
 		this.props.getServices();
 		this.props.getDealers();
+		this.getCustomLocation();
+	}
+
+	getCustomLocation = () => {
+		this.setState({getLocationLoader: true, getLocationLoaderText: ''});
+		const {latChanged, longChanged} = this.props;
+		navigator.geolocation.getCurrentPosition(
+			(position) => {
+				this.setState({
+					getLocationLoader: false,
+					getLocationLoaderText: position.coords.latitude + ' ' + position.coords.longitude
+				});
+				latChanged(position.coords.latitude);
+				longChanged(position.coords.longitude);
+			},
+			(error) => this.setState({error: error.message}),
+			{enableHighAccuracy: false, timeout: 200000, maximumAge: 1000},
+		);
 	}
 
 	onCompanyName = (text) => {
@@ -1016,12 +1016,14 @@ class Form extends Component {
 			audioData,
 			openForm1,
 			openForm2,
-			openForm3
+			openForm3,
+			getLocationLoader,
+			getLocationLoaderText,
 		} = this.state;
 		const {isPost, isPostErrorMessage, post} = this.props.postVisitsToProps;
 		const {isDealers, dealersErrorMessage, dealers} = this.props.getDealersToProps;
 		const {isSites, sitessErrorMessage, sites} = this.props.getSitesToProps;
-		this.sitesRendered(isSites, sitessErrorMessage, sites)
+		this.sitesRendered(isSites, sitessErrorMessage, sites);
 		return (
 			<SafeAreaView style={{flex: 1}}>
 				<View style={styles.wrapper}>
@@ -1118,6 +1120,21 @@ class Form extends Component {
 					</KeyboardAwareScrollView>
 					{
 						this.cameraView()
+					}
+					<View style={styles.getLocation}>
+						<TouchableOpacity style={styles.getLocationBtn} onPress={() => this.getCustomLocation()}>
+							{
+								getLocationLoader ?
+									<ActivityIndicator color="white"/> :
+									<LocationIcon fill="white" style={styles.getLocationIcon}/>
+							}
+						</TouchableOpacity>
+					</View>
+					{
+						getLocationLoaderText ?
+							<View style={styles.addedLocationBox}>
+								<Text style={styles.addedLocation}>Yeni Konumunuz eklendi ( {getLocationLoaderText} )</Text>
+							</View> : null
 					}
 				</View>
 			</SafeAreaView>
