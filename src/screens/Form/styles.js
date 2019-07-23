@@ -273,4 +273,14 @@ export default StyleSheet.create({
 		fontSize: 14,
 		color: theme.colorWhite,
 	},
+	counterWrapper: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between'
+	},
+	counterNumb: {
+		fontSize: 20,
+		fontFamily: theme.fontSemiBold,
+		color: theme.colorBlack
+	},
 });

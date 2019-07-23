@@ -90,6 +90,8 @@ class Form extends Component {
 			queryWrapper: false,
 			getLocationLoader: false,
 			getLocationLoaderText: '',
+			counter: 0,
+			counterBox: false,
 			presentTypeState: [
 				{label: 'Referans', value: 'ref'},
 				{label: 'Stand', value: 'stand'},
@@ -280,9 +282,11 @@ class Form extends Component {
 	onFileChanged = (text) => {
 		this.props.fileChanged(text)
 	}
+
 	onPhotoChanged = (text) => {
 		this.props.photoChanged(text)
 	}
+
 	onVoiceChanged = (text) => {
 		this.props.voiceChanged(text)
 	}
@@ -299,7 +303,7 @@ class Form extends Component {
 		// Pick a single file
 		try {
 			const res = await DocumentPicker.pick({
-				type: [DocumentPicker.types.allFiles],
+				type: [DocumentPicker.types.pdf],
 			});
 			console.log(
 				res.uri,
@@ -432,7 +436,10 @@ class Form extends Component {
 	}
 
 	audioStart = () => {
-		this.setState({audio: true, audioData: false})
+		this.setState({audio: true, audioData: false});
+		setInterval(() => {
+			this.setState({counter: this.state.counter += 1})
+		}, 1000);
 		SoundRecorder.start(SoundRecorder.PATH_CACHE + '/ses-kaydi.mp4')
 			.then(function () {
 				console.log('started recording');
@@ -440,6 +447,7 @@ class Form extends Component {
 	};
 
 	audioStop = async () => {
+		this.setState({counter: 0})
 		await SoundRecorder.stop()
 			.then(function (result) {
 				AUDIO_DATA = result.path
@@ -1019,6 +1027,7 @@ class Form extends Component {
 			openForm3,
 			getLocationLoader,
 			getLocationLoaderText,
+			counter
 		} = this.state;
 		const {isPost, isPostErrorMessage, post} = this.props.postVisitsToProps;
 		const {isDealers, dealersErrorMessage, dealers} = this.props.getDealersToProps;
@@ -1050,7 +1059,11 @@ class Form extends Component {
 							<AddFile title="Dosya Ekle" type="file" onPress={() => this.documentAdd()}/>
 							<AddFile title="Fotoğraf Çek" type="gallery" onPress={() => this.openCamera()}/>
 							{
-								audio ? <AddFile title="Durdur" type="audio" onPress={() => this.audioStop()}/> :
+								audio ?
+									<View style={styles.counterWrapper}>
+										<AddFile title="Durdur" type="audio" onPress={() => this.audioStop()}/>
+										<Text style={styles.counterNumb}>{counter}</Text>
+									</View> :
 									<AddFile title="Ses Kaydı Al" type="audio" onPress={() => this.audioStart()}/>
 							}
 						</View>
