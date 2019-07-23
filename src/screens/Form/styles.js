@@ -29,7 +29,7 @@ export default StyleSheet.create({
 		color: theme.colorBlue
 	},
 	successTextErr: {
-		color: theme.colorBlack,
+		color: 'red',
 	},
 	logo: {
 		width: 'auto',
@@ -251,7 +251,7 @@ export default StyleSheet.create({
 	getLocationBtn: {
 		width: '100%',
 		height: '100%',
-		padding: 10,
+		padding: 10
 	},
 	getLocationIcon: {
 		width: '100%',

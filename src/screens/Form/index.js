@@ -167,7 +167,7 @@ class Form extends Component {
 		this.getCustomLocation();
 		const myTimer = setInterval(() => {
 			this.setState({counter: this.state.counter += 1})
-		},1000);
+		}, 1000);
 	}
 
 	getCustomLocation = () => {
@@ -185,7 +185,7 @@ class Form extends Component {
 			(error) => this.setState({error: error.message}),
 			{enableHighAccuracy: false, timeout: 200000, maximumAge: 1000},
 		);
-	}
+	};
 
 	onCompanyName = (text) => {
 		this.props.companyName(text)
@@ -334,7 +334,7 @@ class Form extends Component {
 
 	clearDocument = () => {
 		this.setState({document: false, documentName: ''})
-		this.onFileChanged(null)
+		this.onFileChanged('')
 	}
 
 	takePicture = async (camera) => {
@@ -365,9 +365,9 @@ class Form extends Component {
 	}
 
 	clearVoice = () => {
-		this.setState({audioData: false})
-		this.onVoiceChanged(null)
-	}
+		this.setState({audioData: false});
+		this.onVoiceChanged('')
+	};
 
 	clearVideo = () => {
 		this.setState({video: ''})
@@ -382,7 +382,7 @@ class Form extends Component {
 		this.setState({recording: true});
 		const {uri, codec = "mp4"} = await camera.recordAsync();
 		this.setState({video: uri})
-	}
+	};
 
 	cameraView = () => {
 		const {camera, recording} = this.state;
@@ -438,8 +438,8 @@ class Form extends Component {
 	}
 
 	audioStart = () => {
-		this.setState({audio: true, audioData: false, counter: 0});
 		this.myTimer;
+		this.setState({audio: true, audioData: false, counter: 0});
 		SoundRecorder.start(SoundRecorder.PATH_CACHE + '/ses-kaydi.mp4')
 			.then(function () {
 				console.log('started recording');
@@ -447,8 +447,8 @@ class Form extends Component {
 	};
 
 	audioStop = async () => {
-		this.setState({counter: 0});
 		clearInterval(this.myTimer);
+		this.setState({counter: 0});
 		await SoundRecorder.stop()
 			.then(function (result) {
 				AUDIO_DATA = result.path
@@ -1135,21 +1135,23 @@ class Form extends Component {
 					{
 						this.cameraView()
 					}
-					<View style={styles.getLocation}>
-						<TouchableOpacity style={styles.getLocationBtn} onPress={() => this.getCustomLocation()}>
-							{
-								getLocationLoader ?
-									<ActivityIndicator color="white"/> :
-									<LocationIcon fill="white" style={styles.getLocationIcon}/>
-							}
-						</TouchableOpacity>
+					<View style={{display: 'none'}}>
+						<View style={styles.getLocation}>
+							<TouchableOpacity style={styles.getLocationBtn} onPress={() => this.getCustomLocation()}>
+								{
+									getLocationLoader ?
+										<ActivityIndicator color="white"/> :
+										<LocationIcon fill="white" style={styles.getLocationIcon}/>
+								}
+							</TouchableOpacity>
+						</View>
+						{
+							getLocationLoaderText ?
+								<View style={styles.addedLocationBox}>
+									<Text style={styles.addedLocation}>Yeni Konumunuz eklendi ( {getLocationLoaderText} )</Text>
+								</View> : null
+						}
 					</View>
-					{
-						getLocationLoaderText ?
-							<View style={styles.addedLocationBox}>
-								<Text style={styles.addedLocation}>Yeni Konumunuz eklendi ( {getLocationLoaderText} )</Text>
-							</View> : null
-					}
 				</View>
 			</SafeAreaView>
 		);

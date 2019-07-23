@@ -31,8 +31,8 @@ const INITIAL_STATE = {
   site_name: '', block_name: '', flat_no: '',
   interview_result: '', interview_result_detail: '',
   revisit_time: null, other_company: '',
-  file: null, photo: '', voice: null,
-  long: '', lat: '',
+  file: '', photo: '', voice: '',
+  long: null, lat: null,
   dealer: null,
   offered_product: null
 };
@@ -60,8 +60,8 @@ export default function (state = INITIAL_STATE, action) {
         site_name: '', block_name: '', flat_no: '',
         interview_result: '', interview_result_detail: '',
         revisit_time: null, other_company: '',
-        file: null, photo: '', voice: null,
-        long: '', lat: '',
+        file: '', photo: '', voice: '',
+        long: null, lat: null,
         dealer: null,
         offered_product: null
       };
