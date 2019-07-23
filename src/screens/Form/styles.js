@@ -94,7 +94,8 @@ export default StyleSheet.create({
 		width,
 		height,
 		backgroundColor: 'black',
-		zIndex: 2
+		zIndex: 4,
+		elevation: 4,
 	},
 	cameraBack: {
 		position: 'absolute',

@@ -165,6 +165,9 @@ class Form extends Component {
 		this.props.getServices();
 		this.props.getDealers();
 		this.getCustomLocation();
+		const myTimer = setInterval(() => {
+			this.setState({counter: this.state.counter += 1})
+		},1000);
 	}
 
 	getCustomLocation = () => {
@@ -348,7 +351,7 @@ class Form extends Component {
 	}
 
 	closeCamera = (image) => {
-		console.log(image)
+		//console.log(image)
 		if (image) {
 			this.setState({image, camera: false})
 		} else {
@@ -388,7 +391,6 @@ class Form extends Component {
 				<Text style={styles.waitingTitle}>Yükleniyor...</Text>
 			</View>
 		);
-
 
 		if (camera) {
 			return (
@@ -436,10 +438,8 @@ class Form extends Component {
 	}
 
 	audioStart = () => {
-		this.setState({audio: true, audioData: false});
-		setInterval(() => {
-			this.setState({counter: this.state.counter += 1})
-		}, 1000);
+		this.setState({audio: true, audioData: false, counter: 0});
+		this.myTimer;
 		SoundRecorder.start(SoundRecorder.PATH_CACHE + '/ses-kaydi.mp4')
 			.then(function () {
 				console.log('started recording');
@@ -447,7 +447,8 @@ class Form extends Component {
 	};
 
 	audioStop = async () => {
-		this.setState({counter: 0})
+		this.setState({counter: 0});
+		clearInterval(this.myTimer);
 		await SoundRecorder.stop()
 			.then(function (result) {
 				AUDIO_DATA = result.path
@@ -456,12 +457,12 @@ class Form extends Component {
 	};
 
 	audioPost() {
-		console.log(AUDIO_DATA);
+		//console.log(AUDIO_DATA);
 		RNFetchBlob.fs.readFile(AUDIO_DATA, 'base64')
 			.then((files) => {
 				this.setState({audio: false, audioData: true});
 				this.onVoiceChanged(files);
-				console.log(files)
+				//console.log(files)
 			})
 	}
 
